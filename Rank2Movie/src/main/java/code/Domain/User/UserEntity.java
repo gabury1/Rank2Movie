@@ -1,10 +1,9 @@
 package code.Domain.User;
 
+import code.Domain.UserLike.UserLikeEntity;
 import lombok.*;
-import org.hibernate.annotations.Generated;
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity @Builder
 @Table(name="user")
@@ -14,18 +13,18 @@ public class UserEntity
     @Id
     @Column(name = "user_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long userNo; //
+    Long userNo; // 유저 번호
 
     @Column(name = "user_name", length = 12, unique = true)
-    String userName;
+    String userName; // 유저 이름
     @Column(name = "user_id", length = 28, unique = true)
-    String userId;
+    String userId; // 유저 아이디
     @Column(name = "user_password", length = 28)
-    String userPassword;
+    String userPassword; // 유저 패스워드
     @Column(name = "user_detail", length = 500)
-    String userDetail;
+    String userDetail; // 유저 설명
 
-
-
+    @OneToMany(fetch=FetchType.LAZY)
+    List<UserLikeEntity> reputation; // 유저 평점
 
 }
