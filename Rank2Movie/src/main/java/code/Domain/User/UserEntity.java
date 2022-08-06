@@ -6,16 +6,15 @@ import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 
-@Entity
+@Entity @Builder
 @Table(name="user")
-@Builder
 @Data @AllArgsConstructor
 public class UserEntity
 {
     @Id
     @Column(name = "user_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long userNo;
+    long userNo; //
 
     @Column(name = "user_name", length = 12, unique = true)
     String userName;
@@ -25,5 +24,8 @@ public class UserEntity
     String userPassword;
     @Column(name = "user_detail", length = 500)
     String userDetail;
+
+
+
 
 }
