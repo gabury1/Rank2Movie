@@ -1,5 +1,6 @@
-package code.Domain.UserLike;
+package code.Domain.User;
 
+import code.Domain.User.UserLikeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

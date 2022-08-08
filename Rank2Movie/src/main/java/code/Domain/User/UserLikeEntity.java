@@ -1,4 +1,4 @@
-package code.Domain.UserLike;
+package code.Domain.User;
 
 import code.Domain.User.UserEntity;
 import lombok.AllArgsConstructor;
