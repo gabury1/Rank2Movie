@@ -4,7 +4,6 @@ import code.Domain.User.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,7 +13,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data @Builder @AllArgsConstructor
-public class LoginDto implements UserDetails
+public class UserDto implements UserDetails
 {
     private Long no;
     private String id;
@@ -23,7 +22,7 @@ public class LoginDto implements UserDetails
 
     private final Set<GrantedAuthority> authorities;    // 부여된 인증들의 권한
 
-    public LoginDto(UserEntity user, Collection<? extends GrantedAuthority> authorityList)
+    public UserDto(UserEntity user, Collection<? extends GrantedAuthority> authorityList)
     {
         no = user.getUserNo();
         id = user.getUserId();

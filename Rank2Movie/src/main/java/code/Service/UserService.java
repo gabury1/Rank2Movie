@@ -1,14 +1,19 @@
 package code.Service;
 
-import code.DTO.LoginDto;
+import code.DTO.UserDto;
 import code.DTO.SignupDto;
-import code.Domain.User.Role;
 import code.Domain.User.UserEntity;
 import code.Domain.User.UserRepository;
 import code.Domain.User.UserLikeRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,49 +32,84 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserLikeRepository userLikeRepository;
 
+    // 유저 생성
     @Transactional
     public String createUser(SignupDto user) {
         try {
-            userRepository.save( user.toEntity() );
+            userRepository.save(user.toEntity());
         } catch (RuntimeException e) {
 
-            throw new RuntimeException();
-            //return "닉네임이 중복되었습니다.";
+            // 오류 발생 시, 닉네임 중복 문제
+            return "닉네임이 중복되었습니다.";
         }
 
         return "success";
     }
 
+    //ID 체크에 사용되는 매서드
     public String idCheck(String id) {
-        Optional<UserEntity> user = userRepository.findById(id);
-        if (user.isPresent()) return "이미 존재하는 ID입니다.";
+        UserEntity user = userRepository.findById(id);
+        if (user != null) return "이미 존재하는 ID입니다.";
 
         return "success";
     }
 
+    // 스프링 시큐리티에서 UserDto를 받아갈때 쓰는 메서드
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        Optional<UserEntity> Optional = userRepository.findById(userId);
+        UserEntity user = userRepository.findById(userId); // 일치하는게 없으면 그냥 null이 들어가도 상관 없다.
 
-        UserEntity user = Optional.orElse(null);
-
-        return new LoginDto(user, Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())));
+        return new UserDto(user, Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())));
     }
 
-    public String logincheck(String id, String pw)
-    {
-        if(id == "") return "ID를 입력해주세요.";
-        if(pw == "") return "비밀번호를 입력해주세요.";
+    // 로그인 확인용 매서드
+    public String logincheck(String id, String pw) {
+        if (id.equals("")) return "ID를 입력해주세요.";
+        if (pw.equals("")) return "비밀번호를 입력해주세요.";
 
-        Optional<UserEntity> optional = userRepository.findById(id);
-        if(!optional.isPresent()) return "일치하는 ID가 존재하지 않습니다.";
+        UserEntity user = userRepository.findById(id);
+        if (user == null) return "일치하는 ID가 존재하지 않습니다.";
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if(!encoder.matches(pw, optional.get().getUserPassword()))
+        if (!encoder.matches(pw, user.getUserPassword()))
             return "비밀번호가 다릅니다.";
 
         return "success";
+    }
+
+    // 유저 상세보기 정보를 보내주는 매서드
+    public String userDetail(Long userNo) {
+        JSONObject object = new JSONObject();
+        UserEntity user = userRepository.findByUserNo(userNo);
+        if (user == null) return object.toString(); // 없으면 그냥 반환
+
+        // JSON에 데이터 삽입 + 추가적으로 유저 평판도 넣어줘야 함.
+        object.put("userName", user.getUserName());
+        object.put("userId", user.getUserId());
+        object.put("userPassword", user.getUserPassword());
+        object.put("userDetail", user.getUserDetail());
+
+        // 현재 유저의 번호와 요청 받은 번호가 같다면 true, 아니면 false
+        UserDto dto = loginUser();
+        if (dto == null || dto.getNo() != userNo) object.put("owner", "false");
+        else object.put("owner", "true");
+
+        return object.toString();
+    }
+
+    public UserDto loginUser() {
+        SecurityContextHolder securityContextHolder = new SecurityContextHolder();
+
+        // 1. 인증 객체 호출
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        // 2. 인정 정보 객체 호출
+        Object principal = authentication.getPrincipal();
+
+        // 익명 유저라면 문자열이 반환되므로
+        if (principal.equals("anonymousUser")) return null;
+        else return (UserDto) principal; // 그 외의 경우에는 내가 넣은 UserDto가 그대로 나온다.
     }
 
 }
