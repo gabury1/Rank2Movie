@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -55,4 +56,20 @@ public class UserService implements UserDetailsService {
 
         return new LoginDto(user, Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())));
     }
+
+    public String logincheck(String id, String pw)
+    {
+        if(id == "") return "ID를 입력해주세요.";
+        if(pw == "") return "비밀번호를 입력해주세요.";
+
+        Optional<UserEntity> optional = userRepository.findById(id);
+        if(!optional.isPresent()) return "일치하는 ID가 존재하지 않습니다.";
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if(!encoder.matches(pw, optional.get().getUserPassword()))
+            return "비밀번호가 다릅니다.";
+
+        return "success";
+    }
+
 }

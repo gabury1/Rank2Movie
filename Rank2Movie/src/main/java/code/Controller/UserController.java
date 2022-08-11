@@ -56,4 +56,12 @@ public class UserController {
         return userService.idCheck(id);
     }
 
+    @PostMapping("/logincheck")
+    @ResponseBody
+    public String loginCheck(@Param("id") String id, @Param("pw") String pw)
+    {
+
+        return userService.logincheck(id, pw);
+    }
+
 }
