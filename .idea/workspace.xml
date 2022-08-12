@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efdabb99-28a7-4b15-bc4f-78a41a5b6f31" name="Changes" comment="" />
+    <list default="true" id="efdabb99-28a7-4b15-bc4f-78a41a5b6f31" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/atteu/Coding/Java/Rank2Movie",
+    "last_opened_file_path": "C:/Users/atteu/Coding/Java/Rank2Movie/Rank2Movie",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
@@ -107,6 +109,19 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Rank2Movie" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Rank2Movie" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -149,6 +164,8 @@
       <workItem from="1660134517004" duration="3805000" />
       <workItem from="1660174697789" duration="11971000" />
       <workItem from="1660269871307" duration="1372000" />
+      <workItem from="1660314936917" duration="34000" />
+      <workItem from="1660314980399" duration="83000" />
     </task>
     <servers />
   </component>
