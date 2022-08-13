@@ -27,8 +27,8 @@ public class UserEntity
     @Enumerated( EnumType.STRING)
     Role role;
 
-    @OneToMany(fetch=FetchType.LAZY)
-    List<UserLikeEntity> reputation; // 유저 평점
+    //@OneToMany(fetch=FetchType.LAZY)
+    //List<UserReputationEntity> reputation; // 유저 평점
 
     public String getRoleKey()
     {
