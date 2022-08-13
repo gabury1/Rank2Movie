@@ -5,6 +5,8 @@ import code.DTO.user.UserDto;
 import code.DTO.user.SignupDto;
 import code.Domain.User.UserEntity;
 import code.Domain.User.UserRepository;
+import code.Domain.User.UserReputationEntity;
+import code.Domain.User.UserReputationRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +28,8 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
-
-    // 유저 생성
-    @Transactional
-    public String createUser(SignupDto user) {
-        try {
-            userRepository.save(user.toEntity());
-        } catch (RuntimeException e) {
-
-            // 오류 발생 시, 닉네임 중복 문제
-            return "닉네임이 중복되었습니다.";
-        }
-
-        return "success";
-    }
+    @Autowired
+    UserReputationRepository userReputationRepository;
 
     //ID 체크에 사용되는 매서드
     public Boolean availableId(String id) {
@@ -96,6 +86,19 @@ public class UserService implements UserDetailsService {
 
         return object.toString();
     }
+    // Create, 유저 생성
+    @Transactional
+    public String createUser(SignupDto user) {
+        try {
+            userRepository.save(user.toEntity());
+        } catch (RuntimeException e) {
+
+            // 오류 발생 시, 닉네임 중복 문제
+            return "닉네임이 중복되었습니다.";
+        }
+
+        return "success";
+    }
 
     // Update, 유저 정보 수정
     public String update(UpdateDto user) {
@@ -117,7 +120,7 @@ public class UserService implements UserDetailsService {
         return "success";
     }
 
-    //Delete, 유저 탈퇴 처리
+    // Delete, 유저 탈퇴 처리
     public String delete(Long no, String pw)
     {
         UserEntity user = userRepository.findByUserNo(no);
@@ -141,7 +144,7 @@ public class UserService implements UserDetailsService {
         else return Optional.of((UserDto) principal);
     }
 
-
+    public
 
 }
 

@@ -18,6 +18,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    ////////////////////
+    // 매핑 파트
+    ////////////////////
     @RequestMapping("/signup")
     public String signup() {
         return "/user/signup";
@@ -33,6 +36,9 @@ public class UserController {
         return "/user/detail";
     }
 
+    //////////////////
+    // API
+    /////////////////
     // 회원가입 유저 생성
     @PostMapping("/")
     @ResponseBody
@@ -96,10 +102,22 @@ public class UserController {
         return userService.update(data);
     }
 
+    //Delete 삭제
     @DeleteMapping("/")
     @ResponseBody
     public String deleteUser(@Param("no") Long no, @Param("pw") String pw)
     {
         return userService.delete(no, pw);
     }
+
+    @PostMapping("/userreputation")
+    @ResponseBody
+    public String reputate(@Param("userNo")int no, @Param("reputation")int reputation)
+    {
+
+
+        return "success";
+    }
+
+
 }

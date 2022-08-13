@@ -26,6 +26,6 @@ public class UserReputationEntity
     UserEntity receiver;
 
     @JoinColumn(name = "reputation")
-    int reputation;
+    int reputation; // 좋아요 : 1, 의견철회 : 0, 싫어요 : -1
 
 }
