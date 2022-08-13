@@ -1,4 +1,4 @@
-package code.DTO;
+package code.DTO.user;
 
 import code.Domain.User.UserEntity;
 import lombok.*;

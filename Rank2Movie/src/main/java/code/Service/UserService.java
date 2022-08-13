@@ -1,8 +1,8 @@
 package code.Service;
 
-import code.DTO.UpdateDto;
-import code.DTO.UserDto;
-import code.DTO.SignupDto;
+import code.DTO.user.UpdateDto;
+import code.DTO.user.UserDto;
+import code.DTO.user.SignupDto;
 import code.Domain.User.UserEntity;
 import code.Domain.User.UserRepository;
 import lombok.RequiredArgsConstructor;
