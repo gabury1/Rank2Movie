@@ -18,7 +18,10 @@ function signup()
         url : "/user/",
         data : {"id" : id, "pw" : pw, "repw" : repw, "name" : name},
         method : "POST",
-        success : data => alert(data),
+        success : data => {
+            if(data == "success") location.href = "/";
+            else alert(data);
+        },
         error : e => alert(e.responseText)
     })
 }

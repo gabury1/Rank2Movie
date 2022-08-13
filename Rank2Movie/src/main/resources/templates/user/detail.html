@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous">
+    </script>
+
 </head>
 <body>
 
@@ -17,21 +21,23 @@
 </div>
 <br><br><br>
 <label id="owner"></label><br>
-<label>NAME : </label> <input id="name" type="text" disabled><br>
-<label>ID : </label> <input id="id" type="text" disabled><br>
-<label>PW : </label> <input id="pw" type="text" disabled><br>
-<label>INTRODUCE : </label><br>
+NAME : <input type="text" id="name" disabled><br>
+ID :  <input type="text" id="id"  disabled><br>
+<div id="pwBox">PW :  <input type="password" id="pw"  ><br></div>
+INTRODUCE : <br>
 <textarea id="detail" disabled>
 
 </textarea>
 
 <div id="dangerBox">
-    <button>수정</button>
-    <button>삭제</button>
+    <button id="update" onclick="update()">수정</button>
+    <button id="delete" onclick="remove()">탈퇴하기</button>
+    <button id="cancel" onclick="cancel()">취소</button>
 </div>
 
 <script src="/js/user/detail.js"></script>
 <script>
+    $("#cancel").hide();
     getDetail();
 </script>
 

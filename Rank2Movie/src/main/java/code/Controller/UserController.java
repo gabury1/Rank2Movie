@@ -1,6 +1,7 @@
 package code.Controller;
 
 import code.DTO.SignupDto;
+import code.DTO.UpdateDto;
 import code.Domain.User.UserEntity;
 import code.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,8 @@ public class UserController {
         else if (id.length() < 7 || 28 < id.length()) return "아이디는 7자에서 28자여야 합니다.";
 
         // 성공 시 success, 실패 시 실패 메시지 보냄.
-        return userService.idCheck(id);
+        if(userService.availableId(id)) return "success";
+        else return "이미 존재하는 아이디입니다.";
     }
 
     // 로그인 유효성 검사
@@ -69,7 +71,7 @@ public class UserController {
         return userService.logincheck(id, pw);
     }
 
-    // 유저 상세 정보 반환
+    // Read, 유저 상세 정보 반환
     @GetMapping("/")
     @ResponseBody
     public void getuserdetail(@Param("userNo") Long userNo, HttpServletResponse response) {
@@ -83,4 +85,24 @@ public class UserController {
 
     }
 
+    //Update, 유저 정보 수정
+    @PutMapping("/")
+    @ResponseBody
+    public String updateUserDetail(@Valid UpdateDto data, BindingResult bindingResult)
+    {
+        // 유효성 검사를 해줘야 함.
+        if(bindingResult.hasErrors())
+        {
+            return bindingResult.getAllErrors().get(0).getDefaultMessage();
+        }
+        // 성공 시, "success" 반환, 실패 시 오류 메시지 반환
+        return userService.update(data);
+    }
+
+    @DeleteMapping("/")
+    @ResponseBody
+    public String deleteUser(@Param("no") Long no, @Param("pw") String pw)
+    {
+        return userService.delete(no, pw);
+    }
 }

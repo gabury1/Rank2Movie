@@ -1,24 +1,26 @@
 package code.DTO;
 
 import code.Domain.User.UserEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Data @Builder @AllArgsConstructor
+@AllArgsConstructor @RequiredArgsConstructor
+@ToString @Getter @Setter @EqualsAndHashCode @Builder
 public class UserDto implements UserDetails
 {
     private Long no;
     private String id;
     private String pw;
     private String name;
+
+    private String detail;
 
     private final Set<GrantedAuthority> authorities;    // 부여된 인증들의 권한
 
@@ -28,6 +30,7 @@ public class UserDto implements UserDetails
         id = user.getUserId();
         pw = user.getUserPassword();
         name = user.getUserName();
+        detail = user.getUserDetail();
         authorities = (Set)Collections.unmodifiableSet( new LinkedHashSet<>( authorityList ));
     }
 
