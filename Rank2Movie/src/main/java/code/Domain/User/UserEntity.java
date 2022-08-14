@@ -27,8 +27,13 @@ public class UserEntity
     @Enumerated( EnumType.STRING)
     Role role;
 
-    //@OneToMany(fetch=FetchType.LAZY)
-    //List<UserReputationEntity> reputation; // 유저 평점
+    @JoinColumn(name="receiver_no")
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    List<UserReputationEntity> received;
+
+    @JoinColumn(name="sender_no")
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    List<UserReputationEntity> sended;
 
     public String getRoleKey()
     {

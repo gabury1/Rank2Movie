@@ -40,6 +40,11 @@ function idCheck()
             {
                 $("#id").attr("disabled", true);
                 checked = true;
+                alert("사용가능한 ID입니다!");
+            }
+            else
+            {
+                alert("사용할 수 없는 ID입니다.");
             }
         },
         error : e => alert(e.responseText)

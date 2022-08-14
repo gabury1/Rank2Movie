@@ -22,7 +22,7 @@ public class UserDto implements UserDetails
 
     private String detail;
 
-    private final Set<GrantedAuthority> authorities;    // 부여된 인증들의 권한
+    private Set<GrantedAuthority> authorities;    // 부여된 인증들의 권한
 
     public UserDto(UserEntity user, Collection<? extends GrantedAuthority> authorityList)
     {

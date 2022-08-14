@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Convert;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -110,13 +111,24 @@ public class UserController {
         return userService.delete(no, pw);
     }
 
-    @PostMapping("/userreputation")
+    @PostMapping("/repute")
     @ResponseBody
-    public String reputate(@Param("userNo")int no, @Param("reputation")int reputation)
+    public String repute(@Param("userNo") Long userNo, @Param("reputation") int reputation)
     {
 
+        return userService.repute(userNo, reputation);
+    }
+    @GetMapping("/getreputation")
+    public void getReputation(@Param("userNo") Long userNo, HttpServletResponse response)
+    {
+        try {
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().print(userService.getReputation(userNo));
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
-        return "success";
     }
 
 

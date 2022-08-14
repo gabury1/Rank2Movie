@@ -13,11 +13,11 @@
 <body>
 
 <div id="reputationBox">
-    <label>like</label>
-    <button>20</button>
+    <label>positive</label>
+    <button id="userPositive" style="background : white;" onclick="repute(getNo(), 1);">20</button>
     <br>
-    <label>dislike YOU</label>
-    <button>20</button>
+    <label>negative</label>
+    <button id="userNegative" style="background : white;" onclick="repute(getNo(), -1);">20</button>
 </div>
 <br><br><br>
 <label id="owner"></label><br>
@@ -36,9 +36,11 @@ INTRODUCE : <br>
 </div>
 
 <script src="/js/user/detail.js"></script>
+<script src="/js/user/reputation.js"></script>
 <script>
     $("#cancel").hide();
     getDetail();
+    getUserReputation(getNo());
 </script>
 
 </body>
