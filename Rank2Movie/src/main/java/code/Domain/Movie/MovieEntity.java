@@ -8,7 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="movie")
+@Table(name="movieTable")
 @Data
 @Getter
 @Setter
@@ -33,19 +33,11 @@ public class MovieEntity {
     private String prdtStatNm;
 //    제작국가
     private String repNationNm;
+
 //    영화상세정보
-    @OneToOne
-    @JoinColumn(name = "movieDetail")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "movieDetailEntity_id")
     private MovieDetailEntity movieDetailEntity;
 
 }
-//    상영시간
-//    private String showTm;
-//    심의등급
-//    private String watchGradeNm;
-//    누적 매출액
-//    private String salesAcc;
-//    당일 관객수
-//    private String audiCnt;
-//    관객수 증감
-//    private String audiInten;
+

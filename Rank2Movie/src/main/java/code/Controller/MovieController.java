@@ -21,7 +21,7 @@ public class MovieController {
 
     @GetMapping("/movie/test")
     public String hello(){
-        boa.getMovieList(3);
+        boa.getMovieDetail("20010277");
         return "/movie/test";
     }
 

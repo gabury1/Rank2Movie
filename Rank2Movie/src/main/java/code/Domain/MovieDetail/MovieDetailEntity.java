@@ -9,17 +9,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="movieDetail")
+@Table(name="movieDetailTable")
 @Data
 @Getter
 @Setter
 public class MovieDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String movieDetailNm;
-    //영화
-    @OneToOne(mappedBy = "movieDetailEntity")
-    private MovieEntity movieEntity;
+    private Integer movieDetailId;
     //    심의등급
     private String watchGradeNm;
     //    상영시간

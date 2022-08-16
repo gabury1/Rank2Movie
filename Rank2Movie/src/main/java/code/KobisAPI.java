@@ -88,30 +88,35 @@ public class KobisAPI {
     public String getMovieDetail(String movieCode) {
         JSONObject movieDetail = new JSONObject();
         MovieEntity movieEntity = movieRepository.findByMovieCd(movieCode);
-        MovieDetailEntity movieDetailEntity = new MovieDetailEntity();
+
+        MovieDetailEntity movieDetailEntity = movieEntity.getMovieDetailEntity();
+        
+        //기존에 영화 상세정보가 없을 경우 새로 할당
+        if(movieDetailEntity == null){
+        movieDetailEntity = new MovieDetailEntity();
         movieEntity.setMovieDetailEntity(movieDetailEntity);
-        //여기서부터 작업하면 됨. movieEntity에 movieDetailEntity를 할당할 방법 고안
-        System.out.println("movie는 " + movieEntity);
+        }
 
         try {
+
+//            파싱 준비과정
             JSONParser jsonParser = new JSONParser();
             String dailyMovies = kobis.getMovieInfo(true, movieCode);
             Object obj = jsonParser.parse(dailyMovies);
             JSONObject jsonObject = (JSONObject) obj;
-            System.out.println("jsonObject는 "+jsonObject);
             JSONObject movieDetailResult = (JSONObject) jsonObject.get("movieInfoResult");
             movieDetail = (JSONObject) movieDetailResult.get("movieInfo");
-            System.out.println("movieDetail는 "+movieDetail);
+
+
+//            파싱
             movieDetailEntity.setShowTm(movieDetail.get("showTm").toString());
-            System.out.println("showTm은 "+movieDetail.get("showTm").toString());
             JSONArray audit = (JSONArray) movieDetail.get("audits");
             JSONObject tmp = (JSONObject) audit.get(0);
-            System.out.println(tmp);
             movieDetailEntity.setWatchGradeNm(tmp.get("watchGradeNm").toString());
-            System.out.println("movie는 " + movieEntity);
-            System.out.println("movieDetail는 "+movieDetail);
-            movieRepository.save(movieEntity);
+
+//            DB에 저장
             movieDetailRepository.save(movieDetailEntity);
+            movieRepository.save(movieEntity);
         } catch (Exception e) {
             System.out.println(e);
         }
