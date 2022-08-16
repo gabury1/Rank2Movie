@@ -2,6 +2,8 @@ package code;
 
 import code.Domain.Movie.MovieEntity;
 import code.Domain.Movie.MovieRepository;
+import code.Domain.MovieDetail.MovieDetailEntity;
+import code.Domain.MovieDetail.MovieDetailRepository;
 import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 public class KobisAPI {
 
     private final MovieRepository movieRepository;
+    private final MovieDetailRepository movieDetailRepository;
 
     //API 키 변수로 선언
     final String KEY = "b6bab379f60865cc96df750bc299b0db";
@@ -84,19 +87,31 @@ public class KobisAPI {
     //개별 영화 상세 데이터 가져와 DB에 저장
     public String getMovieDetail(String movieCode) {
         JSONObject movieDetail = new JSONObject();
-        MovieEntity movie = new MovieEntity();
-        movie = movieRepository.findByMovieCd(movieCode);
+        MovieEntity movieEntity = movieRepository.findByMovieCd(movieCode);
+        MovieDetailEntity movieDetailEntity = new MovieDetailEntity();
+        movieEntity.setMovieDetailEntity(movieDetailEntity);
+        //여기서부터 작업하면 됨. movieEntity에 movieDetailEntity를 할당할 방법 고안
+        System.out.println("movie는 " + movieEntity);
 
         try {
             JSONParser jsonParser = new JSONParser();
             String dailyMovies = kobis.getMovieInfo(true, movieCode);
             Object obj = jsonParser.parse(dailyMovies);
             JSONObject jsonObject = (JSONObject) obj;
+            System.out.println("jsonObject는 "+jsonObject);
             JSONObject movieDetailResult = (JSONObject) jsonObject.get("movieInfoResult");
             movieDetail = (JSONObject) movieDetailResult.get("movieInfo");
-            movie.setShowTm(movieDetail.get("showTm").toString());
-            movie.setWatchGradeNm(movieDetail.get("watchGradeNm").toString());
-            System.out.println(movieDetail);
+            System.out.println("movieDetail는 "+movieDetail);
+            movieDetailEntity.setShowTm(movieDetail.get("showTm").toString());
+            System.out.println("showTm은 "+movieDetail.get("showTm").toString());
+            JSONArray audit = (JSONArray) movieDetail.get("audits");
+            JSONObject tmp = (JSONObject) audit.get(0);
+            System.out.println(tmp);
+            movieDetailEntity.setWatchGradeNm(tmp.get("watchGradeNm").toString());
+            System.out.println("movie는 " + movieEntity);
+            System.out.println("movieDetail는 "+movieDetail);
+            movieRepository.save(movieEntity);
+            movieDetailRepository.save(movieDetailEntity);
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -1,13 +1,11 @@
 package code.Domain.Movie;
 
 
+import code.Domain.MovieDetail.MovieDetailEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="movie")
@@ -35,10 +33,10 @@ public class MovieEntity {
     private String prdtStatNm;
 //    제작국가
     private String repNationNm;
-//    심의등급
-    private String watchGradeNm;
-//    상영시간
-    private String showTm;
+//    영화상세정보
+    @OneToOne
+    @JoinColumn(name = "movieDetail")
+    private MovieDetailEntity movieDetailEntity;
 
 }
 //    상영시간

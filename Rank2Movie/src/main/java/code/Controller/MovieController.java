@@ -21,8 +21,7 @@ public class MovieController {
 
     @GetMapping("/movie/test")
     public String hello(){
-        //영화 상세 정보 가져오기 테스트 중
-        boa.getMovieDetail("20226652");
+        boa.getMovieList(3);
         return "/movie/test";
     }
 
@@ -32,9 +31,7 @@ public class MovieController {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
             response.getWriter().println(
-//                    boa.getMovieList(3));
-//                    boa.getMovieDetail("20226652")
-                    );
+                    boa.getMovieDetail("20010277"));
         } catch (Exception e) {
             e.printStackTrace();
         }
