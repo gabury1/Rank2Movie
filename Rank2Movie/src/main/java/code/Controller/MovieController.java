@@ -21,7 +21,9 @@ public class MovieController {
 
     @GetMapping("/movie/test")
     public String hello(){
-        boa.getMovieDetail("20010277");
+        boa.getMovieList(10);
+        boa.getMovieDetail("20211792");
+        boa.getDailyMovie();
         return "/movie/test";
     }
 
@@ -30,8 +32,7 @@ public class MovieController {
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().println(
-                    boa.getMovieDetail("20010277"));
+            response.getWriter().println();
         } catch (Exception e) {
             e.printStackTrace();
         }

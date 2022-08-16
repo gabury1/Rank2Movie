@@ -4,6 +4,8 @@ import code.Domain.Movie.MovieEntity;
 import code.Domain.Movie.MovieRepository;
 import code.Domain.MovieDetail.MovieDetailEntity;
 import code.Domain.MovieDetail.MovieDetailRepository;
+import code.Domain.movieRank.MovieRankEntity;
+import code.Domain.movieRank.MovieRankRepository;
 import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ public class KobisAPI {
 
     private final MovieRepository movieRepository;
     private final MovieDetailRepository movieDetailRepository;
+    private final MovieRankRepository movieRankRepository;
 
     //API 키 변수로 선언
     final String KEY = "b6bab379f60865cc96df750bc299b0db";
@@ -43,7 +46,7 @@ public class KobisAPI {
             while (pageCount <= page) {
                 //영화 목록 한 페이지 전체 가져오기기
                 String[] tmp = new String[1];
-                movieAPIList = kobis.getMovieList(true, Integer.toString(pageCount), "100", "", "", "", "", "", "", "", tmp);
+                movieAPIList = kobis.getMovieList(true, Integer.toString(pageCount), "100", "헌트", "", "", "", "", "", "", tmp);
                 Object obj = jsonParser.parse(movieAPIList);
                 JSONObject jsonObject = (JSONObject) obj;
                 JSONObject movieListResult = (JSONObject) jsonObject.get("movieListResult");
@@ -107,7 +110,6 @@ public class KobisAPI {
             JSONObject movieDetailResult = (JSONObject) jsonObject.get("movieInfoResult");
             movieDetail = (JSONObject) movieDetailResult.get("movieInfo");
 
-
 //            파싱
             movieDetailEntity.setShowTm(movieDetail.get("showTm").toString());
             JSONArray audit = (JSONArray) movieDetail.get("audits");
@@ -143,23 +145,27 @@ public class KobisAPI {
             JSONArray parsed_dailyMovie = (JSONArray) dailyMovieResult.get("dailyBoxOfficeList");
             for (int i = 0; i < parsed_dailyMovie.size(); i++) {
                 //해당 페이지 속 각각의 영화의 데이터를 movie에 대입
-                JSONObject movie = (JSONObject) parsed_dailyMovie.get(i);
-                        //DB등록은 추후 사용이 결정되면 구현
-//                    try {
-//                        MovieEntity dailyMovie = new MovieEntity();
-//                        dailyMovie.setMovieNm(movie.get("movieNm").toString());
-//                        dailyMovie.setMovieCd(movie.get("movieCd").toString());
-//                        dailyMovie.setMovieNmEn(movie.get("movieNmEn").toString());
-//                        dailyMovie.setOpenDt(movie.get("openDt").toString());
-//                        dailyMovie.setCompanyNm(movie.get("companys").toString());
-//                        dailyMovie.setDirectors(movie.get("directors").toString());
-//                        dailyMovie.setGenreAlt(movie.get("genreAlt").toString());
-//                        dailyMovie.setPrdtStatNm(movie.get("prdtStatNm").toString());
-//                        dailyMovie.setRepNationNm(movie.get("repNationNm").toString());
-//                        movieRepository.save(dailyMovie);
-//                    } catch (NullPointerException e) {
-//                        System.out.println(e);
-//                    }
+                JSONObject parsed_movie = (JSONObject) parsed_dailyMovie.get(i);
+                System.out.println(parsed_movie);
+//                        DB등록은 추후 사용이 결정되면 구현
+                    try {
+
+                        MovieEntity movieEntity = movieRepository.findByMovieCd(parsed_movie.get("movieCd").toString());
+                        MovieRankEntity movieRankEntity = movieEntity.getMovieRankEntity();
+                        System.out.println(movieRankEntity);
+                        //기존에 영화 상세정보가 없을 경우 새로 할당
+                        if(movieRankEntity == null){
+                            movieRankEntity = new MovieRankEntity();
+                            movieEntity.setMovieRankEntity(movieRankEntity);
+                        }
+
+                        movieRankEntity.setMovieRank(parsed_movie.get("rank").toString());
+                        movieRankEntity.setMovieCd(movieEntity.getMovieCd());
+                        movieRankRepository.save(movieRankEntity);
+                        movieRepository.save(movieEntity);
+                    } catch (NullPointerException e) {
+                        System.out.println(e);
+                    }
                 }
 
 

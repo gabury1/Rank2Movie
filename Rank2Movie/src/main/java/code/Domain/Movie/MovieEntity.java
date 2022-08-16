@@ -2,6 +2,7 @@ package code.Domain.Movie;
 
 
 import code.Domain.MovieDetail.MovieDetailEntity;
+import code.Domain.movieRank.MovieRankEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -38,6 +39,11 @@ public class MovieEntity {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "movieDetailEntity_id")
     private MovieDetailEntity movieDetailEntity;
+
+//    영화순위
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "movieRankEntity_id")
+    private MovieRankEntity movieRankEntity;
 
 }
 
