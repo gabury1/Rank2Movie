@@ -7,6 +7,7 @@ import code.Domain.User.UserEntity;
 import code.Domain.User.UserRepository;
 import code.Domain.User.UserReputationEntity;
 import code.Domain.User.UserReputationRepository;
+import jdk.javadoc.internal.doclets.toolkit.util.DocFileIOException;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,11 +79,11 @@ public class UserService implements UserDetailsService {
 
         // 현재 유저의 번호와 요청 받은 번호가 같다면 true, 아니면 false
         // 옵셔널이라 이렇게 했는데.. 흠,,, 더 좋은 방법이 떠오르면 고쳐보겠다.
+        // 해결했다. Optional.map()을 쓰면 훨씬 깔끔하게 코딩할 수 있다!
         Optional<UserDto> dto = nowUser();
-        if (dto.isPresent()) {
-            if (dto.get().getNo() == userNo) object.put("owner", "true");
-            else object.put("owner", "false");
-        } else object.put("owner", "false");
+        boolean owner = dto.map(u -> u.getNo()==userNo).orElse(false);
+        if(owner) object.put("owner", "true");
+        else object.put("owner", "false");
 
         return object.toString();
     }
@@ -90,10 +91,10 @@ public class UserService implements UserDetailsService {
     // Create, 유저 생성
     @Transactional
     public String createUser(SignupDto user) {
+
         try {
             userRepository.save(user.toEntity());
-        } catch (RuntimeException e) {
-
+        } catch (IllegalAccessError e) {
             // 오류 발생 시, 닉네임 중복 문제
             return "닉네임이 중복되었습니다.";
         }
@@ -113,7 +114,7 @@ public class UserService implements UserDetailsService {
             user.updateEntity(entity);
             userRepository.save(entity);
 
-        } catch (Exception e) {
+        } catch (IllegalAccessError e) {
             return "사용되고 있는 ID나 닉네임일 수 있습니다.";
         }
 
@@ -126,6 +127,7 @@ public class UserService implements UserDetailsService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (!encoder.matches(pw, user.getUserPassword())) return "패스워드가 틀렸습니다!";
 
+        // 종속성이 있는 평가들을 모두 삭제해준다.
         userReputationRepository.deleteAll(user.getReceived());
         userReputationRepository.deleteAll(user.getSended());
         userRepository.delete(user);
@@ -134,8 +136,6 @@ public class UserService implements UserDetailsService {
 
     // 현재 로그인된 유저의 정보를 UserDto로 반환, 로그인 상태가 아니라면 null 반환.
     public Optional<UserDto> nowUser() {
-        SecurityContextHolder securityContextHolder = new SecurityContextHolder();
-
         // 1. 인증 객체 호출
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
@@ -154,7 +154,7 @@ public class UserService implements UserDetailsService {
         try {
             UserDto sender = nowUser().orElseThrow(() -> new Exception("평가를 하려면 로그인을 해주세요."));
 
-            if(sender.getNo() == no) throw new Exception("본인을 좋아할 수는 없습니다.");
+            if (sender.getNo() == no) throw new Exception("본인의 평가를 할 수는 없습니다.");
 
             // 받아온 피평가자 번호와 평가자 번호로 평가를 찾아보고, 없다면 새로운 평가를 생성하라.
             UserReputationEntity entity = userReputationRepository.findByReceiverAndSender(no, sender.getNo())
@@ -199,11 +199,11 @@ public class UserService implements UserDetailsService {
         object.put("total", positive - negative);   // 총합
 
         // 현재 로그인한 유저의 평가를 받아온다.
-        Long nowUserNo = nowUser().orElseGet(() -> UserDto.builder().no((long) -1).build()).getNo(); // 현재 로그인 중인 유저의 번호를 받아오는데, 없으면 말도 안되는 번호인 -1을 받아온다.
+        Long nowUserNo = nowUser().map(UserDto::getNo).orElse(-1L); // 현재 로그인 중인 유저의 번호를 받아오는데, 없으면 말도 안되는 번호인 -1을 받아온다.
         int nowReputation = list.stream()
                 .filter(e -> Objects.equals(e.getSender().getUserNo(), nowUserNo)).findAny()
-                .orElseGet(() -> UserReputationEntity.builder().reputation(0).build())
-                .getReputation(); // 리스트에서 로그인된 유저의 평가를 찾아오는데, 없거나/로그인도어있지 않으면 무반응(0)을 반환.
+                .map(UserReputationEntity::getReputation)
+                .orElse(0); // 리스트에서 로그인된 유저의 평가를 찾아오는데, 없거나/로그인도어있지 않으면 무반응(0)을 반환.
 
         object.put("yours", nowReputation); // 현재 로그인된 유저의 평가
 
