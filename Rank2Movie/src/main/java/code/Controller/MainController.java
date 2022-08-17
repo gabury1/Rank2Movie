@@ -1,9 +1,14 @@
 package code.Controller;
 
+import code.DTO.mail.MailDto;
 import code.DTO.user.SignupDto;
+import code.Service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -11,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class MainController
 {
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping("/")
     public String home()
     {
@@ -18,19 +26,17 @@ public class MainController
         return "/home";
     }
 
-    @RequestMapping("/test/{str}")
+    @PostMapping("/mail")
     @ResponseBody
-    public String test(@PathVariable("str") String str)
+    public String mailSend(@Param("address") String address)
     {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        MailDto dto = new MailDto();
 
-        return new SignupDto().builder()
-                .id("gabury1")
-                .pw("em201414")
-                .repw("em201414")
-                .name("euns")
-                .build().toEntity().toString();
+        dto.setAddress(address);
+        dto.setTitle("내가 아니어도 누군가");
+        dto.setMessage("사랑해, 줄 사람 많을거야.");
 
+        return emailService.mailSend(dto);
     }
 
 }
