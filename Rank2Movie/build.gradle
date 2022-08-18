@@ -41,8 +41,9 @@ dependencies {
 	//JSON library to handling json file
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
-	// Java Email sender
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail' // Java Email sender
+	implementation 'commons-validator:commons-validator:1.4.1' // Email validator
 
 }
 

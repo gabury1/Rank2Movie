@@ -33,10 +33,10 @@ public class MainController
         MailDto dto = new MailDto();
 
         dto.setAddress(address);
-        dto.setTitle("내가 아니어도 누군가");
-        dto.setMessage("사랑해, 줄 사람 많을거야.");
-
-        return emailService.mailSend(dto);
+        dto.setTitle("내가 아니어도 누군가~");
+        dto.setMessage("사랑해, 줄 사람 많을거야~");
+        emailService.mailSend(dto);
+        return "success";
     }
 
 }

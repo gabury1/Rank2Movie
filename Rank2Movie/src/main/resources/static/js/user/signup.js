@@ -52,3 +52,15 @@ function idCheck()
     })
 
 }
+
+function emailAuth()
+{
+   var email = $("#email").val();
+    $.ajax({
+        url : "/user/signupAuth",
+        data :  {"email" : email},
+        method : "POST",
+        success : message => {alert(message)},
+        error : e => $("body").html(e.responseText)
+    })
+}

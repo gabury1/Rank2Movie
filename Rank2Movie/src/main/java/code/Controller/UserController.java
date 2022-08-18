@@ -2,7 +2,9 @@ package code.Controller;
 
 import code.DTO.user.SignupDto;
 import code.DTO.user.UpdateDto;
+import code.Service.EmailService;
 import code.Service.UserService;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,14 @@ import javax.persistence.Convert;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    EmailService emailService;
 
     ////////////////////
     // 매핑 파트
@@ -65,6 +70,17 @@ public class UserController {
         // 성공 시 success, 실패 시 실패 메시지 보냄.
         if(userService.availableId(id)) return "success";
         else return "이미 존재하는 아이디입니다.";
+    }
+
+    // 이메일 인증
+    @PostMapping("/signupAuth")
+    @ResponseBody
+    public String emailAuth(@Param("email") String email)
+    {
+        EmailValidator validator = EmailValidator.getInstance();
+        if(!validator.isValid(email)) return "유효한 이메일을 입력해주세요.";
+
+        return emailService.authRequest(email);
     }
 
     // 로그인 유효성 검사
