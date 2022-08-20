@@ -5,6 +5,7 @@ import code.Domain.MovieDetail.MovieDetailEntity;
 import code.Domain.movieRank.MovieRankEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -34,6 +35,9 @@ public class MovieEntity {
     private String prdtStatNm;
 //    제작국가
     private String repNationNm;
+//    조회수
+    @ColumnDefault("0")
+    private Integer views;
 
 //    영화상세정보
     @OneToOne(cascade = CascadeType.PERSIST)

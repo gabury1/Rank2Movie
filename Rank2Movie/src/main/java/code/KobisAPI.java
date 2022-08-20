@@ -46,7 +46,7 @@ public class KobisAPI {
             while (pageCount <= page) {
                 //영화 목록 한 페이지 전체 가져오기기
                 String[] tmp = new String[1];
-                movieAPIList = kobis.getMovieList(true, Integer.toString(pageCount), "100", "헌트", "", "", "", "", "", "", tmp);
+                movieAPIList = kobis.getMovieList(true, Integer.toString(pageCount), "100", "", "", "", "", "", "", "", tmp);
                 Object obj = jsonParser.parse(movieAPIList);
                 JSONObject jsonObject = (JSONObject) obj;
                 JSONObject movieListResult = (JSONObject) jsonObject.get("movieListResult");
@@ -85,8 +85,6 @@ public class KobisAPI {
         return movieList.toString();
     }
 
-
-
     //개별 영화 상세 데이터 가져와 DB에 저장
     public String getMovieDetail(String movieCode) {
         JSONObject movieDetail = new JSONObject();
@@ -124,7 +122,6 @@ public class KobisAPI {
         }
         return movieDetail.toString();
     }
-
 
     //일별 박스오피스 데이터 가져오기
     public void getDailyMovie() {

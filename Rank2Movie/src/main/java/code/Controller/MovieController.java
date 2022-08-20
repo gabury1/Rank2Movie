@@ -3,6 +3,7 @@ package code.Controller;
 
 import code.KobisAPI;
 import code.NaverAPI;
+import code.Service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,27 +15,31 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class MovieController {
 
-//    @Autowired
-//    private MovieService movieService;
-    private final KobisAPI boa;
+    private final MovieService movieService;
+    private final KobisAPI kobis;
     private final NaverAPI nav;
 
-    @GetMapping("/movie/test")
-    public String hello(){
-        boa.getMovieList(10);
-        boa.getMovieDetail("20211792");
-        boa.getDailyMovie();
+    @RequestMapping(value = "/movie/list", produces = "application/text; charset=UTF-8")
+    public String hello(HttpServletResponse response){
+        movieService.showList(response);
         return "/movie/test";
     }
 
+    @RequestMapping(value = "/movie/19920077", produces = "application/text; charset=UTF-8")
+    public String movie(HttpServletResponse response){
+        movieService.showMovie(response, "19920077");
+        return "/movie/test";
+    }
+
+    @RequestMapping(value = "/movie/detail/2022B170", produces = "application/text; charset=UTF-8")
+    public String getMovieDetail(){
+        kobis.getMovieDetail("2022B170");
+        return "movie/test";
+    }
+
     @RequestMapping(value = "/KobisTest", produces = "application/text; charset=UTF-8")
-    public void TestKobisAPI(HttpServletResponse response){
-        try {
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json");
-            response.getWriter().println();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getMovieList(){
+        kobis.getMovieList(10);
+        return "movie/test";
     }
 }

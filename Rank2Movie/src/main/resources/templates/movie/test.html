@@ -9,14 +9,14 @@
 
         <span class="movieList"></span>
 
-    <script type="text/javascript">
-        fetch("/KobisTest")
-            .then((response) => response.json())
-            .then(function (data) {
-                console.log(data);
-                //JSON을 문자열로
-                document.querySelector(".movieList").innerText = JSON.stringify(data);
-            });
-    </script>
+<!--        <script type="text/javascript">-->
+<!--            fetch("/movie/20187861")-->
+<!--                .then((response) => response.json())-->
+<!--                .then(function (data) {-->
+<!--                    console.log(data);-->
+<!--                    //JSON을 문자열로-->
+<!--                    document.querySelector(".movieList").innerText = JSON.stringify(data);-->
+<!--                });-->
+<!--        </script>-->
 </body>
 </html>
