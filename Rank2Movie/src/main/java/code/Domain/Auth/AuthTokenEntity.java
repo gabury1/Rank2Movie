@@ -1,8 +1,6 @@
-package code.Domain.Mail;
+package code.Domain.Auth;
 
 import lombok.*;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -42,8 +40,22 @@ public class AuthTokenEntity
 
     public void updateTime()
     {
+        expired = false;
         expirationDate = LocalDateTime.now().plusMinutes(expiryDate);
     }
 
+    public boolean checkExpired()
+    {
+        if(LocalDateTime.now().isAfter(getExpirationDate()))
+        {
+            expired = true;
+            return true;
+        }
+        else
+        {
+            expired = false;
+            return false;
+        }
+    }
 
 }

@@ -1,17 +1,17 @@
 package code.Service;
 
 import code.DTO.mail.MailDto;
-import code.Domain.Mail.AuthTokenEntity;
-import code.Domain.Mail.AuthTokenRepository;
+import code.Domain.Auth.AuthTokenEntity;
+import code.Domain.Auth.AuthTokenRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service @RequiredArgsConstructor @AllArgsConstructor
@@ -29,6 +29,8 @@ public class EmailService
     {
         Optional<AuthTokenEntity> optional = authTokenRepository.findByEmail(email);
 
+        // 생성과 갱신이 같은 요청에서 생기기 때문에
+        // DB에 있다면 갱신, 없다면 생성한다.
         AuthTokenEntity entity = optional.orElseGet(()->new AuthTokenEntity(email));
         entity.updateTime(); // 갱신은 시간을 추가해줘야함.
 
@@ -36,7 +38,7 @@ public class EmailService
 
         MailDto mail = MailDto.builder()
                 .title("환영합니다! " + email + "님!")
-                .message("지옥불을 받아라! " + email + "! \n" + domainName + "/user/email-auth?token=" + entity.getId())
+                .message("반갑습니다 " + email + "! \n" + domainName + "/auth/email-auth?token=" + entity.getId())
                 .address(email).build();
 
         try{
@@ -47,14 +49,55 @@ public class EmailService
             return m.getMessage();
         }
 
-        return entity.toString();
+        return "success";
+    }
+    // 토큰을 인증해주는 단계
+    public boolean tokenAuth(String tokenId) throws Exception
+    {
+        AuthTokenEntity entity = authTokenRepository.findById(tokenId).orElseThrow(() -> new Exception("토큰을 찾을 수 없습니다."));
+        // 만료된 토큰인지 확인
+        if(entity.checkExpired())
+        {
+            authTokenRepository.save(entity);
+            throw new Exception("만료된 토큰입니다.");
+        }
+
+        entity.setAuthentic(true);
+        authTokenRepository.save(entity);
+
+        return true;
     }
 
+    public String tokenCheck(String email)
+    {
+        try
+        {
+            AuthTokenEntity entity = authTokenRepository.findByEmail(email).orElseThrow(() -> new Exception("인증 토큰을 찾을 수 없습니다."));
+            if(entity.checkExpired())
+            {
+                authTokenRepository.save(entity);
+                throw new Exception("만료된 토큰입니다. 재인증 부탁드립니다.");
+            }
+            if(entity.getAuthentic())
+            {
+                return "success";
+            }
+            else
+            {
+                return "인증을 확인하지 못했습니다.";
+            }
+
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+
+    }
 
     public void mailSend(MailDto mailDto) throws MailException {
 
         // 잘못된 이메일이라면 오류가 난다.
-
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailDto.getAddress());
         message.setFrom(FROM_ADDRESS);

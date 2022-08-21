@@ -1,5 +1,21 @@
 var checked = false;
 
+function authCheck()
+{
+    var email = $("#email").val();
+    $.ajax({
+        url : "/auth/auth-check",
+        data : {"email" : email},
+        method : "GET",
+        success : data => {
+            if(data == "success") signup();
+            else alert(data);
+        },
+        error : e => alert(e.responseText)
+    });
+}
+
+
 // 회원가입
 function signup()
 {
@@ -57,10 +73,13 @@ function emailAuth()
 {
    var email = $("#email").val();
     $.ajax({
-        url : "/user/signupAuth",
+        url : "/auth/token-request",
         data :  {"email" : email},
         method : "POST",
-        success : message => {alert(message)},
+        success : message => {
+            if(message == "success") alert("이메일이 발송되었습니다! 인증 메일을 확인해주세요.");
+            else alert(message);
+        },
         error : e => $("body").html(e.responseText)
     })
 }

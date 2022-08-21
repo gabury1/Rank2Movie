@@ -21,8 +21,6 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     UserService userService;
-    @Autowired
-    EmailService emailService;
 
     ////////////////////
     // 매핑 파트
@@ -68,19 +66,8 @@ public class UserController {
         else if (id.length() < 7 || 28 < id.length()) return "아이디는 7자에서 28자여야 합니다.";
 
         // 성공 시 success, 실패 시 실패 메시지 보냄.
-        if(userService.availableId(id)) return "success";
+        if (userService.availableId(id)) return "success";
         else return "이미 존재하는 아이디입니다.";
-    }
-
-    // 이메일 인증
-    @PostMapping("/signupAuth")
-    @ResponseBody
-    public String emailAuth(@Param("email") String email)
-    {
-        EmailValidator validator = EmailValidator.getInstance();
-        if(!validator.isValid(email)) return "유효한 이메일을 입력해주세요.";
-
-        return emailService.authRequest(email);
     }
 
     // 로그인 유효성 검사
@@ -108,11 +95,9 @@ public class UserController {
     //Update, 유저 정보 수정
     @PutMapping("/")
     @ResponseBody
-    public String updateUserDetail(@Valid UpdateDto data, BindingResult bindingResult)
-    {
+    public String updateUserDetail(@Valid UpdateDto data, BindingResult bindingResult) {
         // 유효성 검사를 해줘야 함.
-        if(bindingResult.hasErrors())
-        {
+        if (bindingResult.hasErrors()) {
             return bindingResult.getAllErrors().get(0).getDefaultMessage();
         }
         // 성공 시, "success" 반환, 실패 시 오류 메시지 반환
@@ -122,26 +107,24 @@ public class UserController {
     //Delete 삭제
     @DeleteMapping("/")
     @ResponseBody
-    public String deleteUser(@Param("no") Long no, @Param("pw") String pw)
-    {
+    public String deleteUser(@Param("no") Long no, @Param("pw") String pw) {
         return userService.delete(no, pw);
     }
 
     @PostMapping("/repute")
     @ResponseBody
-    public String repute(@Param("userNo") Long userNo, @Param("reputation") int reputation)
-    {
+    public String repute(@Param("userNo") Long userNo, @Param("reputation") int reputation) {
 
         return userService.repute(userNo, reputation);
     }
+
     @GetMapping("/getreputation")
-    public void getReputation(@Param("userNo") Long userNo, HttpServletResponse response)
-    {
+    public void getReputation(@Param("userNo") Long userNo, HttpServletResponse response) {
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
             response.getWriter().print(userService.getReputation(userNo));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
