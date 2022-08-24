@@ -24,10 +24,8 @@ public class KobisAPI {
     private final MovieRepository movieRepository;
     private final MovieDetailRepository movieDetailRepository;
     private final MovieRankRepository movieRankRepository;
-
     //API 키 변수로 선언
     final String KEY = "b6bab379f60865cc96df750bc299b0db";
-
     //API 객체 생성
     KobisOpenAPIRestService kobis = new KobisOpenAPIRestService(KEY);
 
@@ -36,7 +34,6 @@ public class KobisAPI {
     public String getMovieList(int page){
 
         int pageCount =1;
-        int entityCount = 0;
         String movieAPIList = "";
         JSONObject movieList = new JSONObject();
         JSONParser jsonParser = new JSONParser();
@@ -68,38 +65,26 @@ public class KobisAPI {
                             dailyMovie.setRepNationNm(movie.get("repNationNm").toString());
                             movieList.put(dailyMovie.getMovieCd() , dailyMovie.getMovieNm());
                             movieRepository.save(dailyMovie);
-                            entityCount++;
                         } catch (NullPointerException e) {
                             System.out.println(e);
                         }
                     }
-                System.out.println("now parsing " + pageCount + "page");
                 pageCount++;
-                System.out.println(movieList);
                 }
         }catch(Exception e) {
             System.out.println(e);
         }
-        //몇 개의 페이지를 읽었는지 JSON에 기록
-        movieList.put("count" , (Integer.toString(pageCount - 1) + "개의페이지에서 " + entityCount + "개의영화를읽어왔습니다.\n"));
         return movieList.toString();
     }
+
+
 
     //개별 영화 상세 데이터 가져와 DB에 저장
     public String getMovieDetail(String movieCode) {
         JSONObject movieDetail = new JSONObject();
         MovieEntity movieEntity = movieRepository.findByMovieCd(movieCode);
-
         MovieDetailEntity movieDetailEntity = movieEntity.getMovieDetailEntity();
-        
-        //기존에 영화 상세정보가 없을 경우 새로 할당
-        if(movieDetailEntity == null){
-        movieDetailEntity = new MovieDetailEntity();
-        movieEntity.setMovieDetailEntity(movieDetailEntity);
-        }
-
         try {
-
 //            파싱 준비과정
             JSONParser jsonParser = new JSONParser();
             String dailyMovies = kobis.getMovieInfo(true, movieCode);
@@ -107,13 +92,11 @@ public class KobisAPI {
             JSONObject jsonObject = (JSONObject) obj;
             JSONObject movieDetailResult = (JSONObject) jsonObject.get("movieInfoResult");
             movieDetail = (JSONObject) movieDetailResult.get("movieInfo");
-
 //            파싱
             movieDetailEntity.setShowTm(movieDetail.get("showTm").toString());
             JSONArray audit = (JSONArray) movieDetail.get("audits");
             JSONObject tmp = (JSONObject) audit.get(0);
             movieDetailEntity.setWatchGradeNm(tmp.get("watchGradeNm").toString());
-
 //            DB에 저장
             movieDetailRepository.save(movieDetailEntity);
             movieRepository.save(movieEntity);
@@ -123,11 +106,11 @@ public class KobisAPI {
         return movieDetail.toString();
     }
 
+
+
     //일별 박스오피스 데이터 가져오기
     public void getDailyMovie() {
-
         try {
-
             JSONParser jsonParser = new JSONParser();
 
             //전날 데이터 가져오기 (당일은 불가)
@@ -138,34 +121,24 @@ public class KobisAPI {
             Object obj = jsonParser.parse(dailyMovies);
             JSONObject jsonObject = (JSONObject) obj;
             JSONObject dailyMovieResult = (JSONObject) jsonObject.get("boxOfficeResult");
-
             JSONArray parsed_dailyMovie = (JSONArray) dailyMovieResult.get("dailyBoxOfficeList");
+
             for (int i = 0; i < parsed_dailyMovie.size(); i++) {
                 //해당 페이지 속 각각의 영화의 데이터를 movie에 대입
                 JSONObject parsed_movie = (JSONObject) parsed_dailyMovie.get(i);
-                System.out.println(parsed_movie);
-//                        DB등록은 추후 사용이 결정되면 구현
-                    try {
+                try {
+//                    해당 영화 DB에서 가져오기
+                    MovieEntity movieEntity = movieRepository.findByMovieCd(parsed_movie.get("movieCd").toString());
+                    MovieRankEntity movieRankEntity = movieEntity.getMovieRankEntity();
 
-                        MovieEntity movieEntity = movieRepository.findByMovieCd(parsed_movie.get("movieCd").toString());
-                        MovieRankEntity movieRankEntity = movieEntity.getMovieRankEntity();
-                        System.out.println(movieRankEntity);
-                        //기존에 영화 상세정보가 없을 경우 새로 할당
-                        if(movieRankEntity == null){
-                            movieRankEntity = new MovieRankEntity();
-                            movieEntity.setMovieRankEntity(movieRankEntity);
-                        }
-
-                        movieRankEntity.setMovieRank(parsed_movie.get("rank").toString());
-                        movieRankEntity.setMovieCd(movieEntity.getMovieCd());
-                        movieRankRepository.save(movieRankEntity);
-                        movieRepository.save(movieEntity);
-                    } catch (NullPointerException e) {
-                        System.out.println(e);
-                    }
+                    movieRankEntity.setMovieRank(parsed_movie.get("rank").toString());
+                    movieRankEntity.setMovieCd(movieEntity.getMovieCd());
+                    movieRankRepository.save(movieRankEntity);
+                    movieRepository.save(movieEntity);
+                } catch (NullPointerException e) {
+                    System.out.println(e);
                 }
-
-
+            }
         } catch (Exception e) {
             System.out.println(e);
         }

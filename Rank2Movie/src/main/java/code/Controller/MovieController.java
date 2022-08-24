@@ -19,12 +19,6 @@ public class MovieController {
     private final KobisAPI kobis;
     private final NaverAPI nav;
 
-    @RequestMapping(value = "/movie/list", produces = "application/text; charset=UTF-8")
-    public String hello(HttpServletResponse response){
-        movieService.showList(response);
-        return "/movie/test";
-    }
-
     @RequestMapping(value = "/movie/19920077", produces = "application/text; charset=UTF-8")
     public String movie(HttpServletResponse response){
         movieService.showMovie(response, "19920077");
@@ -40,6 +34,12 @@ public class MovieController {
     @RequestMapping(value = "/KobisTest", produces = "application/text; charset=UTF-8")
     public String getMovieList(){
         kobis.getMovieList(10);
+        return "movie/test";
+    }
+
+    @RequestMapping(value = "/showMovie", produces = "application/text; charset=UTF-8")
+    public String showMovie(HttpServletResponse response){
+        movieService.showList(response);
         return "movie/test";
     }
 }

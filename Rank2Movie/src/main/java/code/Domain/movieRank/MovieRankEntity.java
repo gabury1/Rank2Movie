@@ -13,6 +13,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class MovieRankEntity {
+
+    public MovieRankEntity(){
+        this.movieRank = "순위 없음";
+        this.movieCd = "정보 없음";
+    }
+
 //    영화 순위 ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,6 +6,7 @@ import code.Domain.movieRank.MovieRankEntity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -14,7 +15,13 @@ import javax.persistence.*;
 @Data
 @Getter
 @Setter
+@Component
 public class MovieEntity {
+
+    public MovieEntity(){
+        this.setMovieRankEntity(new MovieRankEntity());
+        this.setMovieDetailEntity(new MovieDetailEntity());
+    }
 
 //    영화 고유번호
     @Id
@@ -36,9 +43,11 @@ public class MovieEntity {
 //    제작국가
     private String repNationNm;
 //    조회수
-    @ColumnDefault("0")
-    private Integer views;
-
+//    private Integer views = 0;
+    private Integer views = (int) Math.floor(Math.random() * 1000000);
+//    평점
+//    private Double rating = 0.0;
+    private Double rating = Double.parseDouble(String.format("%.1f",Math.random() * 5));
 //    영화상세정보
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "movieDetailEntity_id")

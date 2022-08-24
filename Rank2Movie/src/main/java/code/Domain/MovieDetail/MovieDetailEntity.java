@@ -14,6 +14,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class MovieDetailEntity {
+
+    public MovieDetailEntity(){
+        this.showTm = "정보 없음";
+        this.watchGradeNm = "정보 없음";
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movieDetailId;
