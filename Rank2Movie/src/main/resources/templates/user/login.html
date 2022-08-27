@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-</head>
-<body>
+<html layout:decorate="~{/user/user_layout}">
+<div layout:fragment="content" >
+    <link rel="stylesheet" type="text/css" href="/css/user/login.css">
 
-    <form id="loginForm" action="/user/loginprocess" method="post">
-        <label>아이디 : </label> <input name="id" id="id" type="text"><br>
-        <label>패스워드 : </label> <input name="password" id="password" type="password"><br>
+    <div class="main">
+        <div style="min-height: 10vh;">
+        </div>
+        <h1>Rank2Movie</h1>
+        <div style="min-height: 30vh;">
+        </div>
+        <form id="loginForm" class="loginBox" action="/user/loginprocess" method="post">
+            <input name="id" id="id" type="text" class="item" placeholder="아이디">
+            <input name="password" id="password" type="password" class="item" placeholder="비밀번호">
+            <button onclick="login()" class="item loginBtn">확인</button>
+        </form>
 
-    </form>
-    <button onclick="login()">확인</button>
+    </div>
     <script src="/js/user/login.js"></script>
-
-</body>
+</div>
 </html>
