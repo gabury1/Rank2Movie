@@ -39,4 +39,10 @@ public class MainController
         return "success";
     }
 
+    @RequestMapping("/ranking")
+    public String ranking()
+    {
+        return "ranking";
+    }
+
 }

@@ -13,3 +13,9 @@ html,body{
     display: flex;
 
 }
+
+.logo{
+    text-decoration: none;
+    color: #f89b00;
+    font-family: Gothic;
+}

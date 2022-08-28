@@ -1,0 +1,25 @@
+body{
+    background-color: #ececee;
+}
+
+.main{
+    margin: auto;
+    background-color: #ffffff;
+    width: min-content;
+}
+
+.rankingBox{
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    grid-template-rows: repeat(4, 350px);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+}
+
+.item{
+    background-color: yellow;
+    border: 1px solid green;
+    width: 200px;
+    height: 350px;
+}
+
