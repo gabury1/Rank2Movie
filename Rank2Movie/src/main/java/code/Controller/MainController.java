@@ -45,10 +45,4 @@ public class MainController
         return "ranking";
     }
 
-    @RequestMapping("/chat")
-    public String  chat()
-    {
-        return "/letter/chat";
-    }
-
 }

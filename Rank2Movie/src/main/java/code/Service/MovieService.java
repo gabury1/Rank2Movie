@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ public class MovieService {
 
 
     }
-
 
 
     public void showMovie(HttpServletResponse response, String movieCd){

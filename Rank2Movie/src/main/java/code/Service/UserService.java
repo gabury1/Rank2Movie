@@ -7,7 +7,6 @@ import code.Domain.User.UserEntity;
 import code.Domain.User.UserRepository;
 import code.Domain.User.UserReputationEntity;
 import code.Domain.User.UserReputationRepository;
-import jdk.javadoc.internal.doclets.toolkit.util.DocFileIOException;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
