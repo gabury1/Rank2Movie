@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- 합쳐지고 최소화된 최신 CSS -->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <div class="main" style="background-color: #ececee; width: 100%">
+        <link rel="stylesheet" href="/css/main/ranking.css">
+        <div style="min-height: 50px;"></div>
+        <div style="width: min-content; margin: 0 auto;">
+            
+        <div>
+        <h2 ><b>예매순위</b></h2>
+        </div>
 
-    <link rel="stylesheet" href="/ranking.css">
-
-</head>
-<body>
-    <header>
-        <nav class="">
-            일단은 내비바 어케 될지 몰라서 구멍만 뚫어놨음
-            <div style="width:100%; height:15vh;"></div>
-        </nav>
-
-    </header>
-    <div class="main">
-        <div style="min-height: 10%;"></div>
-        <h2><b>예매순위</b></h2>
         <div class="rankingBox grid">
             <div class="item">
                 <label class="ranking_num">1</label>
@@ -243,7 +233,7 @@
 
         </div>
 
+        </div>
     </div>
-
-</body>
+</div>
 </html>

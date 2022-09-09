@@ -23,26 +23,27 @@ public class MainController
     public String home()
     {
 
-        return "/index";
-    }
-
-    @PostMapping("/mail")
-    @ResponseBody
-    public String mailSend(@Param("address") String address)
-    {
-        MailDto dto = new MailDto();
-
-        dto.setAddress(address);
-        dto.setTitle("내가 아니어도 누군가~");
-        dto.setMessage("사랑해, 줄 사람 많을거야~");
-        emailService.mailSend(dto);
-        return "success";
+        return "/main/index";
     }
 
     @RequestMapping("/ranking")
     public String ranking()
     {
-        return "ranking";
+        return "/main/ranking";
+    }
+
+    @RequestMapping("/board")
+    public String board()
+    {
+
+        return "/main/board";
+    }
+
+    @RequestMapping("/chat")
+    public String chat()
+    {
+
+        return "/letter/chat";
     }
 
 }

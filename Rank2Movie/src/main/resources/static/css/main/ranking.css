@@ -1,14 +1,12 @@
-body{
-    background-color: #ececee;
-}
 
 .main{
-    margin: auto;
     width: min-content;
 }
 
 .rankingBox{
     display: grid;
+    width: min-content;
+    margin: 0 auto;
     grid-template-columns: repeat(5, 200px);
     grid-template-rows: repeat(4, 400px);
     grid-column-gap: 30px;

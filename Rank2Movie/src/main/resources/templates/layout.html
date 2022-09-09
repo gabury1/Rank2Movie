@@ -4,10 +4,14 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+          integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+          crossorigin="anonymous"></script>
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
   <!-- sbb CSS -->
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/main/style.css}">
   <title>Rank2Movie</title>
 </head>
 <body>
@@ -19,9 +23,12 @@
     <a class="logo" href="/">Rank2Movie</a>
     <ul>
       <li class="userCtrWrapper">
-        <a class="userCtr" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-        <a class="userCtr" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
-        <a class="userCtr" th:href="@{/user/signup}">회원가입</a>
+
+        <a class="userCtr" sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
+        <a class="userCtr" sec:authorize="isAuthenticated()" sec:authentication="name"></a>
+
+        <a class="userCtr" sec:authorize="isAnonymous()"  href="/user/signup">회원가입</a>
+        <a class="userCtr" sec:authorize="isAnonymous()" href="/user/login">로그인</a>
       </li>
     </ul>
   </div>
@@ -29,9 +36,9 @@
   <div class="menuBtnWrapper">
     <div class="menuBtnBox">
       <a class="menuBtn" href="/">홈</a>
-      <a class="menuBtn" href="/">랭킹</a>
-      <a class="menuBtn" href="/">게시판</a>
-      <a class="menuBtn" href="/">채팅</a>
+      <a class="menuBtn" href="/ranking">랭킹</a>
+      <a class="menuBtn" href="/board">게시판</a>
+      <a class="menuBtn" href="/chat">채팅</a>
     </div>
   </div>
 
@@ -41,7 +48,7 @@
 <th:block layout:fragment="content"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
 <!-- Bootstrap JS -->
-<script th:src="@{/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <!-- 자바스크립트 Start -->
 <th:block layout:fragment="script"></th:block>
 <!-- 자바스크립트 End -->
