@@ -53,6 +53,7 @@ public class ChattingHandler extends TextWebSocketHandler
                 s.sendMessage(new TextMessage(content));
             }
             catch(Exception e){}
+            
         }
         );
 
