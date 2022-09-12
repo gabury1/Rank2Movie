@@ -15,6 +15,7 @@ public class WebSocketConfig implements WebSocketConfigurer
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(chatHandler(), "/chat")
+                .addHandler(LetterManager(), "/letter")
                 .setAllowedOrigins("http://localhost:8080")
                 .withSockJS();
     }
@@ -25,4 +26,10 @@ public class WebSocketConfig implements WebSocketConfigurer
         return new ChattingHandler();
     }
 
+    @Bean
+    public WebSocketHandler LetterManager ()
+    {
+
+        return new LetterHandler();
+    }
 }

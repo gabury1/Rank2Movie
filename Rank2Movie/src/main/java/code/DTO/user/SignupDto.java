@@ -42,7 +42,7 @@ public class SignupDto
 
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-            return new UserEntity().builder()
+            return  UserEntity.builder()
                     .userId(id)
                     .userPassword(passwordEncoder.encode(pw))
                     .userName(name)

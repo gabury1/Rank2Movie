@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-        <!-- JQuery -->
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-            integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
-        <!-- SockJS -->
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
-            integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
 
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
         <style>
             .removeSB::-webkit-scrollbar {
                 display: none;
@@ -23,24 +8,48 @@
             }
         </style>
 
-    </head>
-    <body>
-
-        <div
-            id="chatBox"
-            style="width: 400px; height: 500px; border-style: solid; border-width: 1px;">
+        <div style="display: flex; ">
             <div
-                id="chat"
-                class="removeSB"
-                style="height: 95%; overflow: scroll; background-color: aliceblue; scrollbar-width: 0;"></div>
-            <input
-                id="txt_send"
-                onkeydown="keyDownEvent(event)"
-                type="text"
-                style="width: 80%;">
-            <button sec:authorize="isAuthenticated()" onclick="sendMessage()">보내기</button>
+                id="chatBox"
+                style="width: 400px; height: 500px; border-style: solid; border-width: 1px;">
+                전체 채팅
+                <div
+                    id="chat"
+                    class="removeSB"
+                    style="height: 95%; overflow: scroll; background-color: aliceblue; scrollbar-width: 0;"></div>
+                <input
+                    id="txt_send"
+                    onkeydown="keyDownEvent(event)"
+                    type="text"
+                    style="width: 80%;">
+                <button sec:authorize="isAuthenticated()" onclick="sendMessage()">보내기</button>
+            </div>
+
+            <div id="letterBox">
+                <label id="lblUserCnt">현재 연결된 유저 : </label><br>
+                <label for="sendTitle">편지 제목</label><input id="sendTitle" type="text"><br>
+                <!-- 일단은 이런식으로 처리하나, 후에 영화 리스트를 ajax로 받아와서 처리할 것. -->
+                <label for="sendMovie">보낼 영화</label><input id="sendMoive" type="text"><br>
+                <label for="sendContent">내용</label><br>
+                <textarea id="sendContent">
+
+                    
+
+                </textarea><br>
+                <label for="sendHowMany">몇명에게?</label><br> <input id="sendHowMany" type="text">
+                <button onclick="letterSend()">보내기</button>
+            </div>
+
         </div>
 
+        <!-- SockJS -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+            integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
+        <script src="/js/letter/letter.js"></script>
         <script>
             let socket = new SockJS("/chat");
             socket.onopen = () => console.log("Info : connection opened");
@@ -72,6 +81,5 @@
                 $("#txt_send").val("");
             }
         </script>
-
-    </body>
+</div>
 </html>
