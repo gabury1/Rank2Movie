@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -86,7 +87,7 @@ public class LetterHandler extends TextWebSocketHandler
             }
 
             // 쌓은 편지 수를 저장하는 맵
-            if(!letterMap.containsKey("userName"))
+            if(!letterMap.containsKey(userName))
             {
                 letterMap.put(userName, new LinkedList<>());
             }
@@ -138,8 +139,6 @@ public class LetterHandler extends TextWebSocketHandler
     
         }
 
-
-
         //////////////////////
         // scheduled
         //////////////////////
@@ -147,7 +146,52 @@ public class LetterHandler extends TextWebSocketHandler
         @Scheduled(fixedDelay=1000)
         public void sendRoom()
         {
+            int userCnt = nowCnt();
+
+            // 각 유저에게 정보를 보내준다.
+            // 현재 접속된 유저의 수
+            // 유저가 속한 방들, 유저가 받은 편지들, 편지의 수
+            for(String s : storageByUserName.keySet())
+            {
+                List<RoomDto> rooms = roomMap.get(s);
+                List<RoomDto> letters = letterMap.get(s);
+                List<WebSocketSession> connections = storageByUserName.get(s);
+
+                // 여기서부터 편지를 JSONArray에 담아줄거임.
+                JSONArray letterArray = new JSONArray();
+                for(RoomDto l : letters)
+                {
+                    letterArray.put(l.toJSON());
+                }
+
+                // 여기서부터 방을 JSONArray에 담아줄거임.
+                JSONArray roomArray = new JSONArray();
+                for(RoomDto r : rooms)
+                {
+                    roomArray.put(r.toJSON());
+                }
+
+                // JSON에 정보들 담아주기
+                JSONObject object = new JSONObject();
+                object.put("purpose", "status");
+                object.put("userCnt", userCnt);
+                object.put("letterCnt", letterArray.length());
+                object.put("roomCnt", rooms.size());
+
+                object.put("letters", letterArray);
+                object.put("rooms", roomArray);
+
+                // 해당 유저의 연결들에 JSON을 송신
+                connections.forEach(c ->{
+                    try{
+                        c.sendMessage(new TextMessage(object.toJSONString()));
+                    }catch(Exception e){}
+                    
+                });
+                
+            }
             
+
         }
     
         //////////////////////
@@ -156,13 +200,13 @@ public class LetterHandler extends TextWebSocketHandler
 
         // 받은 메시지가 편지일 경우.
         private void receivedLetter(String sender, JSONObject object)
-        {
+        {   
+            Integer howMany =  Integer.parseInt(String.valueOf(object.get("howMany")));
             
-            int howMany = (int)object.get("howMany");
-            String title = (String)object.get("title");
-            String content = (String)object.get("content");
-            String movie = (String)object.get("movie");
-
+            String title = String.valueOf(object.get("title"));
+            String content = String.valueOf(object.get("content"));
+            String movie = String.valueOf(object.get("movie"));
+            
             RoomDto room = new RoomDto();
             roomNoCnt++;
             room.setRoomNo(roomNoCnt);
@@ -171,19 +215,21 @@ public class LetterHandler extends TextWebSocketHandler
             room.setContent(content);
             room.setMovie(movie);
             
+  
             // 일단 익명 유저에게는 전송하지 않는 것으로 하겠다.
 
             // 유저명을 리스트로 받아온다.
-            List<String> userNames = Arrays.asList((String[])storageByUserName.keySet().stream().filter(s -> !s.equals(sender)).toArray());
+            List<String> userNames = Arrays.asList(storageByUserName.keySet().stream().filter(s -> !s.equals(sender)).toArray(String[]::new));
             if(nowCnt() < userNames.size()) howMany = userNames.size(); // 보낼 사람의 수보다 현 접속자 수가 더 적다면, 현 접속자 수로 바꿔준다.
 
             Collections.shuffle(userNames); // 받아온 리스트를 랜덤 정렬해준다.
-
-            // 선정된 사람들의 이름이 담긴 배열.
-            List<String> selectedUsers = userNames.subList(0, howMany); // 보낼 사람만큼 끊어준다.
             
+            // 선정된 사람들의 이름이 담긴 배열.
+            List<String> selectedUsers = userNames.subList(0, howMany-1); // 보낼 사람만큼 끊어준다.
+
             // 방 리스트에 넣어준다.
             roomList.add(room);
+
             // 방 판 사람의 방 목록에 넣어준다.
             roomMap.get(sender).add(room);
 

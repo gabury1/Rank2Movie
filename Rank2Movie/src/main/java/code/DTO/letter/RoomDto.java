@@ -36,6 +36,12 @@ public class RoomDto
     {
         JSONObject object = new JSONObject();
 
+        object.put("roomNo", getRoomNo());
+        object.put("master", getMaster());
+        object.put("title", getTitle());
+        object.put("content", getContent());
+        object.put("movie", getMovie());
+
         return object;
     }
 
