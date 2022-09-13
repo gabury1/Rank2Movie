@@ -104,13 +104,13 @@ public class LetterHandler extends TextWebSocketHandler
                 JSONParser jsonParser = new JSONParser();
                 JSONObject object = (JSONObject)jsonParser.parse(message);
                 
-                if(object.get("purpose").equals("letter"))
+                if(object.get("purpose").equals("createLetter"))
                 {
                     // 수신된 메시지가 편지라면?
                     receivedLetter(nowUser, object);
                     
                 }
-                else if(object.get("purpose").equals("requestLetter"))
+                else if(object.get("purpose").equals("deleteLetter"))
                 {
 
 
@@ -203,10 +203,12 @@ public class LetterHandler extends TextWebSocketHandler
         {   
             Integer howMany =  Integer.parseInt(String.valueOf(object.get("howMany")));
             
+            // JSON에서 값 받아오기
             String title = String.valueOf(object.get("title"));
             String content = String.valueOf(object.get("content"));
             String movie = String.valueOf(object.get("movie"));
             
+            // 방 Dto를 만들자
             RoomDto room = new RoomDto();
             roomNoCnt++;
             room.setRoomNo(roomNoCnt);
@@ -215,17 +217,14 @@ public class LetterHandler extends TextWebSocketHandler
             room.setContent(content);
             room.setMovie(movie);
             
-  
-            // 일단 익명 유저에게는 전송하지 않는 것으로 하겠다.
-
             // 유저명을 리스트로 받아온다.
             List<String> userNames = Arrays.asList(storageByUserName.keySet().stream().filter(s -> !s.equals(sender)).toArray(String[]::new));
-            if(nowCnt() < userNames.size()) howMany = userNames.size(); // 보낼 사람의 수보다 현 접속자 수가 더 적다면, 현 접속자 수로 바꿔준다.
-
+            if(userNames.size() < howMany) howMany = userNames.size(); // 보낼 사람의 수보다 현 접속자 수가 더 적다면, 현 접속자 수로 바꿔준다.
+            
             Collections.shuffle(userNames); // 받아온 리스트를 랜덤 정렬해준다.
             
             // 선정된 사람들의 이름이 담긴 배열.
-            List<String> selectedUsers = userNames.subList(0, howMany-1); // 보낼 사람만큼 끊어준다.
+            List<String> selectedUsers = userNames.subList(0, howMany); // 보낼 사람만큼 끊어준다.
 
             // 방 리스트에 넣어준다.
             roomList.add(room);
@@ -234,11 +233,8 @@ public class LetterHandler extends TextWebSocketHandler
             roomMap.get(sender).add(room);
 
             // 선정된 사람 각각의 편지함에 넣어준다.
-            for(String s : selectedUsers)
-            {
-                letterMap.get(s).add(room);
-            }
-            
+            selectedUsers.forEach(s -> letterMap.get(s).add(room));
+
         }
 
 

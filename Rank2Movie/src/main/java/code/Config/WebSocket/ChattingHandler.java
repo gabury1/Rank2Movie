@@ -28,6 +28,7 @@ public class ChattingHandler extends TextWebSocketHandler
     public void afterConnectionEstablished(WebSocketSession session) throws Exception
     {
         String userName = getNowUser(session);
+
         sessionList.add(session);
         if(storageByUserName.containsKey(userName))
         {

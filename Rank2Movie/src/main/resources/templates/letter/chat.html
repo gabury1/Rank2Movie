@@ -8,7 +8,7 @@
             }
         </style>
 
-        <div style="display: flex; ">
+        <div style="display: flex;">
             <div
                 id="chatBox"
                 style="width: 400px; height: 500px; border-style: solid; border-width: 1px;">
@@ -33,11 +33,21 @@
                 <label for="sendContent">내용</label><br>
                 <textarea id="sendContent">
 
-                    
-
                 </textarea><br>
                 <label for="sendHowMany">몇명에게?</label><br> <input id="sendHowMany" type="text">
                 <button onclick="letterSend()">보내기</button>
+            </div>
+
+            <div id="roomBox">
+                당신의 편지 <button>모든 편지 삭제</button>
+                <div id="letterList" style="width: 200px; min-height: 100px; ">
+
+                </div>
+                당신의 방
+                <div id="roomList">
+
+
+                </div>
             </div>
 
         </div>

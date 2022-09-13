@@ -133,7 +133,7 @@ public class UserService implements UserDetailsService {
         return "success";
     }
 
-    // 현재 로그인된 유저의 정보를 UserDto로 반환, 로그인 상태가 아니라면 null 반환.
+    // 현재 로그인된 유저의 정보를 Optional<UserDto>로 반환, 로그인 상태가 아니라면 null 반환.
     public Optional<UserDto> nowUser() {
         // 1. 인증 객체 호출
         Authentication authentication =
