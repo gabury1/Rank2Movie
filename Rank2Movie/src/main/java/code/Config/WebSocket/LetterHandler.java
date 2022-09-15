@@ -46,9 +46,6 @@ public class LetterHandler extends TextWebSocketHandler
         // 유저가 받은 새로운 편지 (key : 유저명, value : 유저가 받은 편지리스트)
         private final Map<String, List<RoomDto>> letterMap = new ConcurrentHashMap<>();
 
-        // 방 번호. 음... 문자열 ID로 하고 싶지만 임시로 해본다.
-        private static Long roomNoCnt = 0L; 
-
         //JSON parser
         private final JSONParser parser = new JSONParser();
 
@@ -210,8 +207,6 @@ public class LetterHandler extends TextWebSocketHandler
             
             // 방 Dto를 만들자
             RoomDto room = new RoomDto();
-            roomNoCnt++;
-            room.setRoomNo(roomNoCnt);
             room.setMaster(sender);
             room.setTitle(title);
             room.setContent(content);

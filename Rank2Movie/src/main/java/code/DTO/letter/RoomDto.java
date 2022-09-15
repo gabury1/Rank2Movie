@@ -2,6 +2,7 @@ package code.DTO.letter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.JSONObject;
 
@@ -15,14 +16,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter 
-@RequiredArgsConstructor
 @AllArgsConstructor
 @ToString @EqualsAndHashCode
 @Builder
 
 public class RoomDto 
 {
-    Long roomNo; // 방 번호
+
+    String roomId; // 방 번호(UUID로 만들거임.)
     String master; // 방을 만든 사람
 
     String movie; // 방의 주제가 되는 영화
@@ -32,11 +33,17 @@ public class RoomDto
 
     List<String> users = new ArrayList<>();
 
+    public RoomDto()
+    {
+        // roomId
+        roomId = UUID.randomUUID().toString();
+    }
+
     public JSONObject toJSON()
     {
         JSONObject object = new JSONObject();
 
-        object.put("roomNo", getRoomNo());
+        object.put("roomId", roomId);
         object.put("master", getMaster());
         object.put("title", getTitle());
         object.put("content", getContent());

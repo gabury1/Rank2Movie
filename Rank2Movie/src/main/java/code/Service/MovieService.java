@@ -25,7 +25,6 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieRatingRepository movieRatingRepository;
 
-
     private Sort sortByRating() {
         return Sort.by(Sort.Direction.DESC, "rating");
     }

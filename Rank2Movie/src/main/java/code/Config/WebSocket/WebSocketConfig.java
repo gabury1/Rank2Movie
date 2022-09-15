@@ -8,6 +8,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import code.Config.WebSocket.ChattingHandler;
+import code.Config.WebSocket.LetterHandler;
+
 @EnableWebSocket
 @Configuration
 public class WebSocketConfig implements WebSocketConfigurer

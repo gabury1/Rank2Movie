@@ -19,7 +19,7 @@ function receivedMessage(message)
             '<div style="border-style: solid; width: inherit;">'+
             '    <lable>제목 :' + data.letters[i].title + ' </lable> <label>영화 :' + data.letters[i].movie + ' </label><br>'+
             '    <label>내용 : ' + data.letters[i].content + '</label><br>'+
-            '    <a href="/chat/' + data.letters[i].roomNo + '">참여하기</a><button>삭제하기</button>'+
+            '    <a href="/room/' + data.letters[i].roomId + '">참여하기</a><button>삭제하기</button>'+
             '</div>';
         }
         $("#letterList").html(letterHtml);
@@ -30,7 +30,7 @@ function receivedMessage(message)
             '<div style="border-style: solid; width: inherit;">'+
             '    <lable>제목 :' + data.rooms[i].title + ' </lable> <label>영화 :' + data.rooms[i].movie + ' </label><br>'+
             '    <label>내용 : ' + data.rooms[i].content + '</label><br>'+
-            '    <a href="/chat/' + data.rooms[i].roomNo + '">참여하기</a><button>삭제하기</button>'+
+            '    <a href="/room/' + data.rooms[i].roomId + '">참여하기</a><button>삭제하기</button>'+
             '</div>';
         }
         $("#roomList").html(roomHtml);

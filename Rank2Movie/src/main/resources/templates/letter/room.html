@@ -1,0 +1,87 @@
+
+<html layout:decorate="~{layout}">
+    <div layout:fragment="content">
+            <style>
+                .removeSB::-webkit-scrollbar {
+                    display: none;
+                    width: 0 !important;
+                }
+            </style>
+    
+            <div style="display: flex;">
+                <div
+                    id="chatBox"
+                    style="width: 400px; height: 500px; border-style: solid; border-width: 1px;">
+                    전체 채팅
+                    <div
+                        id="chat"
+                        class="removeSB"
+                        style="height: 95%; overflow: scroll; background-color: aliceblue; scrollbar-width: 0;"></div>
+                    <input
+                        id="txt_send"
+                        onkeydown="keyDownEvent(event)"
+                        type="text"
+                        style="width: 80%;">
+                    <button sec:authorize="isAuthenticated()" onclick="sendMessage()">보내기</button>
+                </div>
+    
+    
+            </div>
+    
+            <!-- SockJS -->
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+                integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"></script>
+
+            <!-- StompJS -->
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+                integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"></script>    
+
+            <script>
+                let socket = new SockJS("/ws");
+                let stomp = Stomp.over(socket);
+
+                stomp.connect({}, (msg) => {
+                    console.log(msg);
+                    // 이 방의 ID를 구독
+                    stomp.subscribe("/sub/room" + getId(), (msg) => {
+                        $("#chat").append(msg.body + "<br>");
+                        document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+                        
+                    });
+                    
+                });
+
+                function keyDownEvent(e) {
+                    if (e.keyCode === 13) {
+                        sendMessage();
+                    }
+                }
+    
+                function sendMessage() {
+                    var str = $("#txt_send").val();
+                    if (str == "") 
+                        return;
+
+                    var data = {
+                        roomId : getId(),
+                        content : str
+                    };
+                    
+                    stomp.send("/pub/room", {}, JSON.stringify(data));
+                    $("#txt_send").val("");
+                }
+
+                function getId()
+                {
+                    return  document.location.href.split("/")[4];
+                }
+
+            </script>
+    </div>
+    </html>

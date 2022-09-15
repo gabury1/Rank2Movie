@@ -43,7 +43,15 @@ public class MainController
     public String chat()
     {
 
-        return "/letter/chat";
+        return "/letter/letter";
+    }
+
+    @RequestMapping("/room/{path}")
+    public String room()
+    {
+
+
+        return "/letter/room";
     }
 
 }
