@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -22,6 +24,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import code.DTO.letter.RoomDto;
+import code.DTO.user.UserDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -59,7 +62,7 @@ public class LetterHandler extends TextWebSocketHandler
         @Override
         public void afterConnectionEstablished(WebSocketSession session) throws Exception
         {
-            String userName = getNowUser(session);
+            String userName = getNowUser(session).map(u -> u.getName()).orElse("anonymous");
             // 세션 리스트에 추가
             sessionList.add(session);
 
@@ -95,7 +98,7 @@ public class LetterHandler extends TextWebSocketHandler
         protected void handleTextMessage(WebSocketSession session, TextMessage textMessage)
         {
             String message = textMessage.getPayload();
-            String nowUser = getNowUser(session);
+            String nowUser = getNowUser(session).map(u -> u.getName()).orElse("anonymous");
 
             try{
                 JSONParser jsonParser = new JSONParser();
@@ -129,7 +132,7 @@ public class LetterHandler extends TextWebSocketHandler
         {
             sessionList.remove(session); // 세션 리스트에서 먼저 제거
     
-            String name = getNowUser(session); // 현 유저의 이름을 받아온다. 
+            String name = getNowUser(session).map(u -> u.getName()).orElse("anonymous"); // 현 유저의 이름을 받아온다. 
             List<WebSocketSession> list = storageByUserName.get(name); // 유저 이름으로 맵에서 리스트를 받아오고
             list.remove(session);   // 거기서 세션을 지워준다.
             if(list.isEmpty()) storageByUserName.remove(name); // 만약, 받아온 리스트가 비었다면 아예 그 이름(key)도 삭제해준다.
@@ -239,15 +242,20 @@ public class LetterHandler extends TextWebSocketHandler
         // 다양한 기능들
         //////////////////////
 
-        // 유저명을 반환, 익명 유저라면 anonymous라는 문자열을 반환.
-        private String getNowUser(WebSocketSession session)
+        // 유저를 반환
+        private Optional<UserDto> getNowUser(WebSocketSession session)
         {
-            try{
-                return session.getPrincipal().getName();
-            } catch(NullPointerException e)
-            {   
-                return "anonymous";
+
+            Object object = (UsernamePasswordAuthenticationToken)session.getPrincipal();
+
+            if(object.equals("anonymousUser")) return Optional.ofNullable(null);
+            else 
+            {
+                UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) object;
+                return Optional.of((UserDto)token.getPrincipal());
             }
+            
+
         }
 
         // 현재 접속 중인 인원 수를 JSON으로 반환

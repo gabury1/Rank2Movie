@@ -73,7 +73,7 @@
                         content : str
                     };
                     
-                    stomp.send("/pub/room", {}, JSON.stringify(data));
+                    stomp.send("/pub/room/" + getId(), {}, JSON.stringify(data));
                     $("#txt_send").val("");
                 }
 

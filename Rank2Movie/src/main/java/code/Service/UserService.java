@@ -140,6 +140,7 @@ public class UserService implements UserDetailsService {
                 SecurityContextHolder.getContext().getAuthentication();
         // 2. 인정 정보 객체 호출
         Object principal = authentication.getPrincipal();
+        
         if (principal.equals("anonymousUser")) return Optional.ofNullable(null);
         else return Optional.of((UserDto) principal);
     }
@@ -164,7 +165,7 @@ public class UserService implements UserDetailsService {
                     });
 
             // 만약 현재 평가와 수신 받은 평가가 같다면, 그 평가를 0으로 초기화해라.( 취소 )
-            // 만약 현재 평가와 수신 받은 평가가 같다면, 그 평가로 바꿔줘라. (변경 )
+            // 만약 현재 평가와 수신 받은 평가가 다르다면, 그 평가로 바꿔줘라. (변경 )
             // 새로 생성된 평가는 무조건 0이기 때문에 항상 받은 평가가 된다.
             if (entity.getReputation() == reputation) entity.setReputation(0);
             else entity.setReputation(reputation);
