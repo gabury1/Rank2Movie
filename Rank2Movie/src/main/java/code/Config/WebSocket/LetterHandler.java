@@ -36,7 +36,7 @@ import lombok.Setter;
 public class LetterHandler extends TextWebSocketHandler
 {
 
-        // 세션 아이디 기반으로 세션들을 저장함.
+        // 세션 리스트
         private final List<WebSocketSession> sessionList = new LinkedList<>();
         // 유저명 기반으로 세션들을 저장함. (key : 유저명, value : 유저명이 같은 세션들)
         private final Map<String, List<WebSocketSession>> storageByUserName = new ConcurrentHashMap<>();

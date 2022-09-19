@@ -49,10 +49,15 @@
                 stomp.connect({}, (msg) => {
                     console.log(msg);
                     // 이 방의 ID를 구독
-                    stomp.subscribe("/sub/room" + getId(), (msg) => {
+                    stomp.subscribe("/sub/room/" + getId(), (msg) => {
                         $("#chat").append(msg.body + "<br>");
                         document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
                         
+                    });
+
+                    stomp.subscribe("/sub/test", (msg) => {
+                        
+                        console.log(msg);
                     });
                     
                 });

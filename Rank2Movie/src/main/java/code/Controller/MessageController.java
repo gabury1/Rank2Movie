@@ -13,6 +13,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 
@@ -24,16 +26,17 @@ import code.Service.UserService;
 public class MessageController 
 {
     @Autowired
-    private SimpMessageSendingOperations simpMessageSendingOperations;
+    private SimpMessageSendingOperations simpMessageSendingOperations;  
 
     @MessageMapping("/room/{roomId}")
+    @SendTo("/sub/room/{roomId}")
     public String message(@Payload MessageDto message, @DestinationVariable("roomId") String roomId, SimpMessageHeaderAccessor  headerAccessor, UsernamePasswordAuthenticationToken token)
     {
         UserDto user = (UserDto)token.getPrincipal();
 
-        simpMessageSendingOperations.convertAndSend("/sub/room" + roomId, user.getName() +  " : " + message.getContent());
-
-        return user.getName() +  " : " + message.getContent();
+        return  user.getName() +  " : " + message.getContent();
     }
+
+
 
 }
