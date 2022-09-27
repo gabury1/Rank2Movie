@@ -19,7 +19,7 @@ public class MovieRankEntity {
         this.movieCd = "정보 없음";
     }
 
-//    영화 순위 ID
+    //    영화 순위 ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movieRankId;
