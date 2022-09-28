@@ -10,9 +10,9 @@ namespace MovieManager.database
 {
     public class MovieDbContext : DbContext
     {
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<WeeklyBoxOffice> WeeklyBoxOffice { get; set; }
-        public DbSet<DailyBoxOffice> DailyBoxOffice { get; set; }
+        public DbSet<Movie> movies { get; set; }
+        public DbSet<WeeklyBoxOffice> weeklyBoxOffice { get; set; }
+        public DbSet<DailyBoxOffice> dailyBoxOffice { get; set; }
 
 
 

@@ -53,9 +53,16 @@ namespace MovieManager.database.models
         public string? nation { get; set; }
 
 
+
         // 이미지 URL
         [Column("image_url")]
         public string? imageUrl { get; set; }
+
+
+
+        // 조회수
+        [Column("views")]
+        public int views { get; set; }
 
 
     }
