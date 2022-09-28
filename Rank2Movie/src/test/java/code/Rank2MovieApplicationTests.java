@@ -1,8 +1,6 @@
 package code;
 
-import code.Domain.Movie.MovieEntity;
-import code.KobisAPI;
-import code.Service.MovieService;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
