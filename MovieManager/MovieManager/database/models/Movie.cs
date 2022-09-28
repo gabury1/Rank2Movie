@@ -59,10 +59,16 @@ namespace MovieManager.database.models
         public string? imageUrl { get; set; }
 
 
+        
 
+        // 얘네 둘은 여기 관할이 아니다.
         // 조회수
         [Column("views")]
         public int views { get; set; }
+
+        // 영화 평점
+        [Column("movie_rating")]
+        public double ? movieRating { get; set; }
 
 
     }

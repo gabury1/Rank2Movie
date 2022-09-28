@@ -59,7 +59,7 @@ namespace MovieManager
 
                 Console.WriteLine(DateTime.Now + "   :::::: " + " 데이터베이스에 저장 시작...");
                 Thread.Sleep(100);
-                movies.RemoveAll(s => s == null);
+                movies.RemoveAll(s => s == null); // null 제거 ( 오류가 뜨더라도 저장은 해야하니...)
                 db.movies.AddRange(movies);
                 db.SaveChanges();
                 Thread.Sleep(100);
