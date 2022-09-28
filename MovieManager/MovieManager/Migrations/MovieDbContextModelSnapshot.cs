@@ -62,9 +62,9 @@ namespace MovieManager.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("movie_code");
 
-                    b.Property<string>("actors")
+                    b.Property<string>("actor")
                         .HasColumnType("longtext")
-                        .HasColumnName("actors");
+                        .HasColumnName("actor");
 
                     b.Property<string>("companyName")
                         .HasColumnType("longtext")

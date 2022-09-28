@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieManager.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,27 +20,29 @@ namespace MovieManager.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     title_kor = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    title_en = table.Column<string>(type: "longtext", nullable: false)
+                    title_en = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    genre = table.Column<string>(type: "longtext", nullable: false)
+                    genre = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    actors = table.Column<string>(type: "longtext", nullable: false)
+                    actor = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     show_time = table.Column<int>(type: "int", nullable: false),
-                    watch_grade = table.Column<string>(type: "longtext", nullable: false)
+                    watch_grade = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    company = table.Column<string>(type: "longtext", nullable: false)
+                    company = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    director = table.Column<string>(type: "longtext", nullable: false)
+                    director = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    product_status = table.Column<string>(type: "longtext", nullable: false)
+                    product_status = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    product_year = table.Column<string>(type: "longtext", nullable: false)
+                    product_year = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    nation = table.Column<string>(type: "longtext", nullable: false)
+                    nation = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    image_url = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    image_url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    views = table.Column<int>(type: "int", nullable: false),
+                    movie_rating = table.Column<double>(type: "double", nullable: true)
                 },
                 constraints: table =>
                 {

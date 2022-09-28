@@ -153,7 +153,7 @@ namespace MovieManager.working
 
                     director = directorStr,
                     genre = genreStr,
-                    actors = actorStr,
+                    actor = actorStr,
                     watchGrade = watchGradeStr,
                     companyName = companyStr,
                     nation = nationStr,

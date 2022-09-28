@@ -28,8 +28,8 @@ public class MovieEntity
 
     @Column(name = "genre")
     String genre;
-    @Column(name = "actors")
-    String actors;
+    @Column(name = "actor")
+    String actor;
     @Column(name = "show_time")
     String showTime;
     @Column(name = "watch_grade")
