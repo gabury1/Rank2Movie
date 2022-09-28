@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieManager.database;
 using MovieManager.database.models;
+using MovieManager.forms;
 using MovieManager.working;
 
 namespace MovieManager
@@ -9,7 +10,11 @@ namespace MovieManager
     {
         DataCollector collector = new DataCollector();
 
-        System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer mainTimer = new System.Windows.Forms.Timer();
+
+        // 정보 로드하는 폼
+        LoadForm loadForm;
+
 
         public MainForm()
         {
@@ -17,57 +22,33 @@ namespace MovieManager
 
             Console.WriteLine("프로그램 시작!");
 
+            loadForm = new LoadForm(this);
+            
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            btnLoad.Click += (object sender, EventArgs e) =>
-            {
-                if (txtYear.Text == "") return;
-                infoLoad(txtYear.Text);
+            // 타이머 설정
+            mainTimer.Interval = 1000;
+            mainTimer.Start();
 
-            };
-
-            t.Interval = 1000;
-            t.Start();
-            
-            t.Tick += (object? sender, EventArgs e) =>
+            mainTimer.Tick += (object? sender, EventArgs e) =>
             {
                 btnTime.Text = DateTime.Now.ToString();
 
             };
 
-        }
-
-        void infoLoad(String year)
-        {
-            Console.WriteLine(DateTime.Now + "   :::::: 개봉년도 " + year + "년부터의 영화리스트 불러오기 시작...");
-            var list = collector.getMovieList(Convert.ToInt32(year));
-            Console.WriteLine("Total count : " + list.Count);
-            Console.WriteLine(DateTime.Now + "   :::::: 개봉년도 " + year + "년부터의 영화리스트 불러오기 완료\n");
-
-            using (var db = new MovieDbContext())
+            // 정보 로드 폼 띄우기
+            btnLoad.Click += (object? sender, EventArgs e) =>
             {
-                // 20227370
-                // 20124079
-                List<Movie> movies = new List<Movie>();
-                Console.WriteLine(DateTime.Now + "   :::::: " + " 영화 상세정보 불러오기 시작...");
-                Thread.Sleep(100);
-                list.ForEach(s => movies.Add(collector.getMovieDetail(s)));
-                Thread.Sleep(100);
-                Console.WriteLine(DateTime.Now + "   :::::: " + " 영화 상세정보 불러오기 완료\n");
+                loadForm.Show();
+            };
 
-                Console.WriteLine(DateTime.Now + "   :::::: " + " 데이터베이스에 저장 시작...");
-                Thread.Sleep(100);
-                movies.RemoveAll(s => s == null); // null 제거 ( 오류가 뜨더라도 저장은 해야하니...)
-                db.movies.AddRange(movies);
-                db.SaveChanges();
-                Thread.Sleep(100);
-                Console.WriteLine(DateTime.Now + "   :::::: " + " 데이터베이스에 저장 완료\n");
-
-            }
 
         }
+
+
 
 
     }
