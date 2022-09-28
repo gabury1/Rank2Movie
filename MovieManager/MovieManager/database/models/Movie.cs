@@ -30,8 +30,8 @@ namespace MovieManager.database.models
         [Column("genre")] // 영화 장르
         public string? genre { get; set; }
         
-        [Column("actors")] // 영화 배우 목록 (쉼표로 구분된다)
-        public string? actors { get; set; }
+        [Column("actor")] // 영화 배우 목록 (쉼표로 구분된다)
+        public string? actor { get; set; }
 
         [Column("show_time")] // 영화 상영 시간
         public int showTime { get; set; }
