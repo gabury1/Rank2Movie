@@ -67,8 +67,8 @@ namespace MovieManager.database.models
         public int views { get; set; }
 
         // 영화 평점
-        [Column("movie_rating")]
-        public double ? movieRating { get; set; }
+        [Column("avr_rating")]
+        public double ? avr_rating { get; set; }
 
 
     }

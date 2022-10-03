@@ -23,14 +23,13 @@ namespace MovieManager
             Console.WriteLine("프로그램 시작!");
 
             loadForm = new LoadForm(this);
-            
 
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             // 타이머 설정
-            mainTimer.Interval = 1000;
+            mainTimer.Interval = 100;
             mainTimer.Start();
 
             mainTimer.Tick += (object? sender, EventArgs e) =>

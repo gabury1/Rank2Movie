@@ -22,5 +22,44 @@ namespace MovieManager.database
             //String connectionString = @"Server=localhost;Database=rank2movie;Uid=root;Pwd=1234;";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
+
+        // 영화 코드리스트에서 중복인걸 다 삭제해준다.
+        public List<String> removeExist(List<String> codeList)
+        {
+            List<Movie> dbMovie = movies.ToList();
+            for (int i = 0; i < codeList.Count; i++)
+            {
+                if (dbMovie.Exists(m => m.movieCode == codeList[i]))
+                {
+                    codeList[i] = null;
+                }
+            }
+
+            codeList.RemoveAll(s => s == null);
+            return codeList;
+        }
+
+        // 영화들을 저장해준다.
+        public int saveMovie(List<String> codeList)
+        {
+
+
+            return 0;
+        }
+
+
+        // 모든 주간 랭킹을 삭제해준다.
+        public void resetWeeklyRanking()
+        {
+            weeklyBoxOffice.RemoveRange(weeklyBoxOffice);
+            SaveChanges();
+        }
+
+        public void resetDailyRanking()
+        {
+            dailyBoxOffice.RemoveRange(dailyBoxOffice);
+            SaveChanges();
+        }
+
     }
 }
