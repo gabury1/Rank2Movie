@@ -1,21 +1,27 @@
 
 .main{
-    width: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#rankingTitle{
+    margin: 5rem 0px;
 }
 
 .rankingBox{
     display: grid;
-    width: min-content;
+    width: 120rem;
     margin: 0 auto;
-    grid-template-columns: repeat(5, 200px);
-    grid-template-rows: repeat(4, 400px);
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
+    grid-template-columns: repeat(5, 20rem);
+    grid-template-rows: repeat(4, 40rem);
+    grid-column-gap: 5rem;
+    grid-row-gap: 5rem;
 }
 
 .item{
-    width: 200px;
-    height: 380px;
+    width: 20rem;
+    height: 40rem;
 }
 
 .link_txt{
@@ -50,8 +56,8 @@
 }
 
 .poster{
-    height:300px;
-    width:200px;
+    height:30rem;
+    width:20rem;
     border-radius: 10px;
     margin-bottom: 10px;
 }

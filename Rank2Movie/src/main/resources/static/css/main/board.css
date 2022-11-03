@@ -13,21 +13,21 @@
 	flex-direction: row;
 	width: 700px;
 	justify-content: space-between;
-	margin-bottom: 10px;
-	height: 30px;
+	align-content: center;
+	margin: 5rem 0px;
 }
 
 .BoxTitle {
+	font-size: 4rem;
 	font-weight: 600;
-	font-size: 20px;
 }
 
 .sortBox {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	justify-content: space-between;
-	margin-top: 7px;
-	font-size: 7px;
+	font-size: 10px;
 	width: 100px;
 }
 
