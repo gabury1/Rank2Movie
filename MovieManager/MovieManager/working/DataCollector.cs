@@ -27,7 +27,7 @@ namespace MovieManager.working
         // 영화 랭킹을 받아오는 API 주소
         const String dailyRankingApi = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?";
         const String weeklyRankingApi = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?";
-
+        
         #endregion
 
         // 영화 코드를 입력하면 영화를 모델로 바꾸어 반환한다.
@@ -35,12 +35,15 @@ namespace MovieManager.working
         {
             // API URL
             String url = movieDetailApi + "key=" + kobisKey + "&movieCd=" + movieCode;
+            Console.WriteLine(url);
             String json = String.Empty;
 
             // JSON을 리퀘스트로 받아온다.
             WebRequest request = WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "application/json";
+
+            Console.WriteLine($"{movieCode} 시작");
 
             using (WebResponse response = request.GetResponse())
             using (Stream dataStream = response.GetResponseStream())
@@ -125,7 +128,6 @@ namespace MovieManager.working
                 cnt = 0;
                 watchGradeStr = String.Empty;
 
-                // 이거 foreach로 바꿨다고 엄청 느려졌는데..
                 foreach (var t in info["audits"])
                 {
                     if (0 < cnt) break;
@@ -163,10 +165,12 @@ namespace MovieManager.working
                     companyName = companyStr,
                     nation = nationStr,
 
-                    imageUrl = "크롤링을 통해 보급",
+                    imageUrl = "default",
                     views = 0
                     
                 };
+
+                Console.WriteLine($"{movieCode} 끝");
 
                 return m;
             }
@@ -243,7 +247,8 @@ namespace MovieManager.working
                 db.removeExist(codeList);
             }
 
-            if (codeList.Count < cnt) cnt = codeList.Count - 1;
+            if (codeList.Count < cnt) cnt = codeList.Count;
+            
             codeList = codeList.GetRange(0, cnt);
 
             codeList.ForEach( s => movies.Add( getMovieDetail(s)));
@@ -263,6 +268,8 @@ namespace MovieManager.working
             List<WeeklyBoxOffice> list = new List<WeeklyBoxOffice>();
 
             String url = weeklyRankingApi + "key=" + kobisKey + "&weekGb=0" + "&targetDt=" + getLastSunday();
+            Console.WriteLine($"weekly_url : {url}");
+
             String json = String.Empty;
             WebRequest request = WebRequest.Create(url);
             request.Method = "GET";
@@ -337,8 +344,9 @@ namespace MovieManager.working
         public async Task<List<DailyBoxOffice>> GetDailyBoxOffices()
         {
             List<DailyBoxOffice> list = new List<DailyBoxOffice>();
-
+            
             String url = dailyRankingApi + "key=" + kobisKey + "&targetDt=" + DateTime.Now.AddDays(-1).ToShortDateString().ToString().Replace("-", "");
+            Console.WriteLine($"daily_url : {url}");
             String json = String.Empty;
             WebRequest request = WebRequest.Create(url);
             request.Method = "GET";
@@ -396,7 +404,7 @@ namespace MovieManager.working
                         movieCode = codeStr
 
                     };
-
+                    
                     list.Add(ranking);
                 }
 

@@ -4,6 +4,8 @@ package code.Domain.Movie.DailyBoxOffice;
 import lombok.*;
 import javax.persistence.*;
 
+import org.json.JSONObject;
+
 import code.Domain.Movie.movie.MovieEntity;
 
 import java.util.List;
@@ -32,5 +34,18 @@ public class DailyRankingEntity
     @JoinColumn(name = "movie_code")
     @OneToOne
     MovieEntity movie;
+    
+    public JSONObject toJSON()
+    {
+        JSONObject object = new JSONObject();
 
+        object.put("rankNo", rankNo);
+        object.put("newOrOld", newOrOld);
+        object.put("rankInten", rankInten);
+        object.put("audiCnt", audiCnt);
+        object.put("openDate", openDate);
+        object.put("movie", movie.toJSON());
+        
+        return object;
+    }
 }

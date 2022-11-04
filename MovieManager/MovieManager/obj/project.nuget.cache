@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/KMhhwmyjOfkoAE8Uqlzi3OEHPKx/7QN4WREhLnDONK0+Wjp99WAKO3x3k73yz3etGX4eA12gLM5QmnDc4KbOw==",
+  "dgSpecHash": "vUfREnF1Zn2rq4u8prUJpYNIP2P67DQOxNNTacXNdXlJf+sJyZbz2i70ZgBfQW3hiIVqP0tcd6nADinmd5pAHA==",
   "success": true,
   "projectFilePath": "C:\\Users\\gabur\\Desktop\\L Y S T\\00. NOW\\Rank2Movie\\MovieManager\\MovieManager\\MovieManager.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,8 @@
     "C:\\Users\\gabur\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\gabur\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\gabur\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
+    "C:\\Users\\gabur\\.nuget\\packages\\selenium.webdriver\\4.5.0\\selenium.webdriver.4.5.0.nupkg.sha512",
+    "C:\\Users\\gabur\\.nuget\\packages\\selenium.webdriver.chromedriver\\106.0.5249.6100\\selenium.webdriver.chromedriver.106.0.5249.6100.nupkg.sha512",
     "C:\\Users\\gabur\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\gabur\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "C:\\Users\\gabur\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"

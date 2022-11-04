@@ -59,7 +59,7 @@ namespace MovieManager.forms
                 return;
             }
 
-            b.Enabled = false;
+            boxMovie.Enabled = false;
 
             if(txtHowMany.Text == String.Empty)
             { 
@@ -77,7 +77,7 @@ namespace MovieManager.forms
                 await infoLoad(txtYear.Text, Convert.ToInt32 (txtHowMany.Text));
             }
 
-            b.Enabled = true;
+            boxMovie.Enabled = true;
 
         }
 
@@ -92,6 +92,63 @@ namespace MovieManager.forms
 
             using (var db = new MovieDbContext())
             {
+
+                LogView("모든 영화가 DB에 저장되었는지 확인합니다.");
+
+                // 저장되지 않은 영화의 코드를 리스트에 담아준다.
+                var codeList = new List<string>();
+                foreach (var item in list)
+                {
+                    if (db.movies.FirstOrDefault(l => l.movieCode.Equals(item.movieCode)) == null)
+                    {
+                        LogView(item.movieCode + "가 저장되지 않았습니다.");
+                        codeList.Add(item.movieCode);
+                    }
+                }
+
+                // 영화가 저장되어있지 않다면, 저장한다.
+                if (codeList.Count > 0)
+                {
+                    LogView("저장되지 않은 영화를 불러옵니다.");
+                    var movieList = await collector.getMovies(codeList, 1000);
+                    if (chkImage.Checked)
+                    {
+
+                        ImageLoader loader;
+                        if (mainForm.loginable) loader = new ImageLoader(chkImageVisible.Checked, mainForm.id, mainForm.pw);
+                        else loader = new ImageLoader(chkImageVisible.Checked);
+
+                        LogView("영화 포스터 불러오기 시작");
+                        string defaultUrl = mainForm.getDefaultUrl();
+                        foreach (Movie movie in movieList)
+                        {
+
+                            var naverTask = Task.Run(() => loader.getNaverUrl(movie.titleKor, movie.productYear));
+                            string? naver = await naverTask;
+                            if (naver is null)
+                            {
+                                movie.imageUrl = defaultUrl;
+                            }
+                            else
+                            {
+                                var imageTask = Task.Run(() => loader.getImageUrl(naver));
+                                String imageUrl = await imageTask;
+                                if (imageUrl is null) movie.imageUrl = defaultUrl;
+                                else movie.imageUrl = imageUrl;
+                            }
+
+                        }
+
+                        loader.close();
+                        LogView("영화 포스터 불러오기 완료");
+                    }
+
+                    LogView("저장되지 않은 영화를 저장합니다.");
+
+                    db.movies.AddRange(movieList);
+                    db.SaveChanges();
+                }
+
                 try
                 {
                     LogView("주간 박스오피스를 DB에 저장합니다...");
@@ -129,8 +186,65 @@ namespace MovieManager.forms
             var list = await collector.GetDailyBoxOffices();
             LogView("일간 박스오피스 로드 성공.");
 
-            using (var db = new MovieDbContext())
+            using(var db = new MovieDbContext())
             {
+
+                LogView("모든 영화가 DB에 저장되었는지 확인합니다.");
+
+                // 저장되지 않은 영화의 코드를 리스트에 담아준다.
+                var codeList = new List<string>();
+                foreach (var item in list)
+                {
+                    if(db.movies.FirstOrDefault(l => l.movieCode.Equals(item.movieCode)) == null)
+                    {
+                        LogView(item.movieCode + "가 저장되지 않았습니다.");
+                        codeList.Add(item.movieCode);
+                    }
+                }
+
+                // 영화가 저장되어있지 않다면, 저장한다.
+                if (codeList.Count > 0)
+                {
+                    LogView("저장되지 않은 영화를 불러옵니다.");
+                    var movieList = await collector.getMovies(codeList, 1000);
+                    if (chkImage.Checked)
+                    {
+
+                        ImageLoader loader;
+                        if (mainForm.loginable) loader = new ImageLoader(chkImageVisible.Checked, mainForm.id, mainForm.pw);
+                        else loader = new ImageLoader(chkImageVisible.Checked);
+
+                        LogView("영화 포스터 불러오기 시작");
+                        string defaultUrl = mainForm.getDefaultUrl();
+                        foreach (Movie movie in movieList)
+                        {
+
+                            var naverTask = Task.Run(() => loader.getNaverUrl(movie.titleKor, movie.productYear));
+                            string? naver = await naverTask;
+                            if (naver is null)
+                            {
+                                movie.imageUrl = defaultUrl;
+                            }
+                            else
+                            {
+                                var imageTask = Task.Run(() => loader.getImageUrl(naver));
+                                String imageUrl = await imageTask;
+                                if (imageUrl is null) movie.imageUrl = defaultUrl;
+                                else movie.imageUrl = imageUrl;
+                            }
+
+                        }
+
+                        loader.close();
+                        LogView("영화 포스터 불러오기 완료");
+                    }
+
+                    LogView("저장되지 않은 영화를 저장합니다.");
+                    
+                    db.movies.AddRange(movieList);
+                    db.SaveChanges();
+                }
+
                 try
                 {
                     LogView("일간 박스오피스를 DB에 저장합니다...");
@@ -171,13 +285,52 @@ namespace MovieManager.forms
             LogView(" Total count : " + list.Count);
             LogView("개봉년도 " + year + "년부터의 영화리스트 불러오기 완료\n");
 
-            if (cnt < list.Count) cnt = list.Count;
+            if (list.Count < cnt) cnt = list.Count;
             LogView("영화 상세정보 불러오기 시작... Count : " + cnt);
 
             var loadDetailTask = Task.Run(() => collector.getMovies(list, cnt));
             List<Movie> movies = await loadDetailTask;
 
-            LogView( "영화 상세정보 불러오기 완료\n");
+            LogView("영화 상세정보 불러오기 완료\n");
+
+            string defaultUrl = mainForm.getDefaultUrl();
+            if (chkImage.Checked == true)
+            {
+                ImageLoader loader;
+                if (mainForm.loginable) loader = new ImageLoader(chkImageVisible.Checked, mainForm.id, mainForm.pw);
+                else loader = new ImageLoader(chkImageVisible.Checked);
+
+                LogView("영화 포스터 불러오기 시작");
+
+                foreach (Movie movie in movies)
+                {
+
+                    var naverTask = Task.Run(() => loader.getNaverUrl(movie.titleKor, movie.productYear));
+                    string? naver = await naverTask;
+                    if(naver is null)
+                    {
+                        movie.imageUrl = defaultUrl;
+                    }
+                    else
+                    {
+                        var imageTask = Task.Run(() => loader.getImageUrl(naver));
+                        String imageUrl = await imageTask;
+                        if (imageUrl is null) movie.imageUrl = defaultUrl;
+                        else movie.imageUrl = imageUrl; 
+                    }
+
+                }
+
+                loader.close();
+                LogView("영화 포스터 불러오기 완료");
+
+            }
+            else
+            {
+                
+                foreach (Movie movie in movies) movie.imageUrl = defaultUrl;
+            }
+            
 
             using (var db = new MovieDbContext())
             {
@@ -190,7 +343,6 @@ namespace MovieManager.forms
 
             }
         }
-
 
 
         public void LogView(string str)

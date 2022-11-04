@@ -16,10 +16,11 @@ namespace MovieManager.database
 
 
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            String connectionString = @"Server=localhost;Database=test;Uid=root;Pwd=1234;";
-            //String connectionString = @"Server=localhost;Database=rank2movie;Uid=root;Pwd=1234;";
+            //String connectionString = @"Server=localhost;Database=test;Uid=root;Pwd=1234;";
+            String connectionString = @"Server=localhost;Database=rank2movie;Uid=root;Pwd=1234;";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 
@@ -37,14 +38,6 @@ namespace MovieManager.database
 
             codeList.RemoveAll(s => s == null);
             return codeList;
-        }
-
-        // 영화들을 저장해준다.
-        public int saveMovie(List<String> codeList)
-        {
-
-
-            return 0;
         }
 
 

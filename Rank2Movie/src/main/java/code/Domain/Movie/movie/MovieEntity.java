@@ -4,6 +4,7 @@ package code.Domain.Movie.movie;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -31,7 +32,7 @@ public class MovieEntity
     @Column(name = "actor")
     String actor;
     @Column(name = "show_time")
-    String showTime;
+    int showTime;
     @Column(name = "watch_grade")
     String watchGrade;
 
@@ -41,6 +42,8 @@ public class MovieEntity
     String director;
     @Column(name = "product_status")
     String productStatus;
+    @Column(name = "product_year")
+    String productYear;
     @Column(name = "nation")
     String nation;
 
@@ -51,6 +54,31 @@ public class MovieEntity
     @Column(name = "avr_rating")
     Double avrRating;
 
+    public JSONObject toJSON()
+    {
+        JSONObject object = new JSONObject();
+
+        object.put("movieCode", movieCode);
+        object.put("titleKor", titleKor);
+        object.put("titleEn", titleEn);
+        object.put("genre", genre);
+        object.put("actor", actor);
+        object.put("showTime", showTime);
+        object.put("watchGrade", watchGrade);
+
+        object.put("company", companyName);
+        object.put("director", director);
+        object.put("productStatus", productStatus);
+        object.put("productYear", productYear);
+        object.put("nation", nation);
+
+        object.put("imageUrl", imageUrl);
+        object.put("views", views);
+        if(avrRating == null) object.put("avrRating", "no repute");
+        else object.put("avrRating", avrRating);  
+        return object;
+
+    }
 
 
 }
