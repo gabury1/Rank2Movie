@@ -16,6 +16,22 @@ public class MovieController
     @Autowired
     MovieService movieService;
 
+    @GetMapping("/movie_list")
+    public void movieList(HttpServletResponse response)
+    {
+        try{
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().print(movieService.getDailyRanking());
+        }
+        catch(Exception e)
+        {
+
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @GetMapping("/daily_ranking")
     public void dailyRanking(HttpServletResponse response)
     {

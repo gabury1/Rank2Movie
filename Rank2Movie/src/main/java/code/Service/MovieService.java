@@ -24,6 +24,14 @@ public class MovieService
     @Autowired
     DailyRankingRepository dailyRepository;
 
+    public JSONArray movieList()
+    {
+
+
+        return null;
+    }
+
+
     public JSONArray getWeeklyRanking()
     {
         JSONArray array = new JSONArray();
