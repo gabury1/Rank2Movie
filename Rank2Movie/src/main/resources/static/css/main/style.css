@@ -11,7 +11,7 @@ body{
 }
 
 .logoWrapper{
-    width: 1000px;
+    width: 120rem;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -44,7 +44,7 @@ body{
 
 .menuBtnBox{
     margin: auto;
-    width: 400px;
+    width: 70rem;
     display: flex;
     align-items: center;
     height: 70px;
@@ -61,7 +61,7 @@ body{
 
 
 footer{
-    height: 200px;
+    height: 150px;
     width: 100vw;
-    background-color: darkslategrey;
+    background-color: orange;
 }

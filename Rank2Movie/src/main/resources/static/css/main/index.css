@@ -9,30 +9,15 @@ body {
 .orangeBox {
 	width: 100vw;
 	background-color: orange;
-	height: 300px;
-	padding-top: 30px;
-}
-
-.menuBox {
-	margin: auto;
-	display: flex;
-	flex-direction: row;
-	width: 300px;
-	justify-content: space-between;
-}
-
-.btnText {
-	text-decoration: none;
-	color: white;
-	font-weight: 600;
-	font-size: 20px;
+	height: 35rem;
+	padding-top: 3rem;
 }
 
 .posterBoxWrapper {
 	position: relative;
 	transform: translate(-50%, -50%);
 	left: 50%;
-	width: 700px;
+	width: 120rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -50,19 +35,20 @@ body {
 }
 
 .posterImage {
-	background-color: aqua;
-	width: 100px;
-	height: 150px;
+	width: 20rem;
+	height: 25rem;
 }
 
 .posterText {
-	font-size: 5px;
+	font-size: 1.5rem;
 	font-weight: 400;
 }
 
 .searchbarWrapper {
 	margin: auto;
-	width: 300px;
+	margin-bottom: 12.5rem;
+	width: 60rem;
+	height: 5rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -72,54 +58,56 @@ body {
 .searchbar {
 	border: none;
 	outline: none;
-	font-size: 10px;
-	width: 250px;
+	font-size: calc(1.0rem - 1.0vw);
+	width: 50rem;
 }
 
 .searchBtn {
 	border: none;
 	background-color: white;
+	font-size: 2rem;
 	padding: 0px;
-	padding-left: 10px;
-	padding-top: 5px;
-	padding-bottom: 3px;
+	padding-left: 1rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.3rem;
 }
 
-#bottomBox {
-	position: relative;
-	transform: translate(0%, 0%);
-	left: 0%;
-	margin: auto;
-	margin-top: 5%;
-}
+/*#bottomBox {*/
+/*	position: relative;*/
+/*	transform: translate(0%, 0%);*/
+/*	left: 0%;*/
+/*	margin: auto;*/
+/*	margin-top: 5%;*/
+/*}*/
 
 .boxWrapperWrapper {
 	position: relative;
 	top: 5%;
-	margin-top: 30px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 700px;
+	width: 100rem;
 	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 12.5rem;
 }
 
 .BoxWrapper {
-	width: 340px;
+	width: 40rem;
 }
 
 .titleBox {
 	display: flex;
 	flex-direction: row;
-	width: 340px;
+	width: 40rem;
 	justify-content: space-between;
 	margin-bottom: 10px;
-	height: 30px;
+	height: 5rem;
 }
 
 .BoxTitle {
 	font-weight: 600;
-	font-size: 20px;
+	font-size: 3rem;
 }
 
 .moreBtn {
@@ -132,36 +120,42 @@ body {
 	padding: 3px 10px;
 }
 
-.chattingBox {
-	width: 340px;
-	display: flex;
-	flex-direction: row;
-	margin: 5px 0px;
-}
-
-.chattingTitle {
-	width: 300px;
-}
-
-.chattingImage {
-	background-color: aquamarine;
-	width: 60px;
-	height: 40px;
-}
-
 .boardBox {
-	width: 340px;
+	width: 40rem;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	margin: 5px 0px;
 }
 
 .boardTitle {
-	width: 300px;
+	width: 30rem;
 }
 
 .boardImage {
 	background-color: aquamarine;
-	width: 60px;
-	height: 40px;
+	width: 6rem;
+	height: 4rem;
 }
+
+.chattingBox {
+	width: 40rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 5px 0px;
+}
+
+.chattingTitle {
+	width: 30rem;
+	margin-left: 3rem;
+}
+
+.chattingImage {
+	background-color: aquamarine;
+	width: 5rem;
+	height: 5rem;
+	border-radius: 1000px;
+}
+
+
