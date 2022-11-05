@@ -44,7 +44,7 @@ public class LetterHandler extends TextWebSocketHandler
         // 채팅방을 리스트로 저장.
         private final List<RoomDto> roomList = new LinkedList<>();
         // 유저가 소유한 방 (key : 유저명, value : 유저가 속한 방)
-        private final Map<String, RoomDto> roomMap = new ConcurrentHashMap<>();
+        private final Map<String, List<RoomDto>> roomMap = new ConcurrentHashMap<>();
 
         // 유저가 받은 새로운 편지 (key : 유저명, value : 유저가 받은 편지리스트)
         private final Map<String, List<RoomDto>> letterMap = new ConcurrentHashMap<>();
@@ -79,6 +79,12 @@ public class LetterHandler extends TextWebSocketHandler
                 
                 storageByUserName.put(userName, list);
             }
+    
+            // 방을 저장하는 맵
+            if(!roomMap.containsKey(userName))
+            {
+                roomMap.put(userName, new LinkedList<>());
+            }
 
             // 쌓은 편지 수를 저장하는 맵
             if(!letterMap.containsKey(userName))
@@ -104,10 +110,10 @@ public class LetterHandler extends TextWebSocketHandler
                     receivedLetter(nowUser, object);
                     
                 }
-                else if(object.get("purpose").equals("delete"))
+                else if(object.get("purpose").equals("deleteLetter"))
                 {
-                    // 메시지 삭제
-                    delete(nowUser, object);
+
+
 
                 }
 
@@ -147,7 +153,7 @@ public class LetterHandler extends TextWebSocketHandler
             // 유저가 속한 방들, 유저가 받은 편지들, 편지의 수
             for(String s : storageByUserName.keySet())
             {
-                RoomDto room = roomMap.get(s);
+                List<RoomDto> rooms = roomMap.get(s);
                 List<RoomDto> letters = letterMap.get(s);
                 List<WebSocketSession> connections = storageByUserName.get(s);
 
@@ -158,15 +164,22 @@ public class LetterHandler extends TextWebSocketHandler
                     letterArray.put(l.toJSON());
                 }
 
+                // 여기서부터 방을 JSONArray에 담아줄거임.
+                JSONArray roomArray = new JSONArray();
+                for(RoomDto r : rooms)
+                {
+                    roomArray.put(r.toJSON());
+                }
+
                 // JSON에 정보들 담아주기
                 JSONObject object = new JSONObject();
                 object.put("purpose", "status");
                 object.put("userCnt", userCnt);
                 object.put("letterCnt", letterArray.length());
+                object.put("roomCnt", rooms.size());
 
                 object.put("letters", letterArray);
-               if(room != null) object.put("room", room.toJSON());
-               else object.put("room", null);
+                object.put("rooms", roomArray);
 
                 // 해당 유저의 연결들에 JSON을 송신
                 connections.forEach(c ->{
@@ -215,42 +228,15 @@ public class LetterHandler extends TextWebSocketHandler
             roomList.add(room);
 
             // 방 판 사람의 방 목록에 넣어준다.
-            roomMap.put(sender, room);
+            roomMap.get(sender).add(room);
 
             // 선정된 사람 각각의 편지함에 넣어준다.
             selectedUsers.forEach(s -> letterMap.get(s).add(room));
 
         }
 
-        // 편지/방 삭제하는 기능
-        private void delete(String name, JSONObject object)
-        {
-            
-            System.out.println(object);
-            if(object.get("mine").equals(true))
-            {
-                
-                roomMap.remove(name);
-            }
-            else
-            {
-                
-                try 
-                {
-                    List<RoomDto> list = letterMap.get(name);
-                    RoomDto letter = list.stream().filter(r -> r.getRoomId().equals((String)object.get("target")))
-                                                  .findFirst().orElseThrow(() -> new Exception("없는 편지"));
-    
-                    list.remove(letter);
-                } catch (Exception e) {
-                    
-                    e.printStackTrace();
-                }
-            }
 
 
-
-        }       
 
         //////////////////////
         // 다양한 기능들

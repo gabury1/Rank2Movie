@@ -24,20 +24,15 @@ function receivedMessage(message)
         }
         $("#letterList").html(letterHtml);
 
-
-        var roomHtml = "";
-        if(data.room != null){
-          var event = 'onclick="letterDelete(\'' + data.room.roomId + '\', true)"';
-          roomHtml =
-          '<div style="border-style: solid; width: inherit;">'+
-          '    <lable>제목 :' + data.room.title + ' </lable> <label>영화 :' + data.room.movie + ' </label><br>'+
-          '    <label>내용 : ' + data.room.content + '</label><br>'+
-          '    <a href="/room/' + data.room.roomId + '">참여하기</a><button '+ event +'>삭제하기</button>'+
-          '</div>';
-
+        for(var i = 0; i < data.roomCnt; i++)
+        {
+            var roomHtml =  
+            '<div style="border-style: solid; width: inherit;">'+
+            '    <lable>제목 :' + data.rooms[i].title + ' </lable> <label>영화 :' + data.rooms[i].movie + ' </label><br>'+
+            '    <label>내용 : ' + data.rooms[i].content + '</label><br>'+
+            '    <a href="/room/' + data.rooms[i].roomId + '">참여하기</a><button>삭제하기</button>'+
+            '</div>';
         }
-
-
         $("#roomList").html(roomHtml);
 
 
@@ -62,15 +57,16 @@ function letterSend()
 }
 
 
-function letterDelete(target, mine)
+function letterDelete(target)
 {
-    var json = {
-        purpose : "delete",
-        mine : mine,
-        target : target
-    };
+    if(target == null)
 
-    sock.send(JSON.stringify(json));
+    var json = {
+        "purpose" : "deleteLetter",
+        "target" : target,
+        
+    }
+
 }
 
 
