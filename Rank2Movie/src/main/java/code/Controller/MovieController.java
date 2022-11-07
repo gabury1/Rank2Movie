@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import code.DTO.search.SearchDto;
 import code.Service.*;
 import groovyjarjarpicocli.CommandLine.ExecutionException;
 
@@ -16,13 +18,22 @@ public class MovieController
     @Autowired
     MovieService movieService;
 
-    @GetMapping("/movie_list")
-    public void movieList(HttpServletResponse response)
+    @GetMapping("/movies")
+    public String movies()
     {
+
+        return "/movie/list";
+    }
+
+    @GetMapping("/movie_list")
+    public void movieList(SearchDto searchDto, HttpServletResponse response)
+    {
+
+        System.out.println(searchDto.toQuery());
         try{
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().print(movieService.getDailyRanking());
+            response.getWriter().print(movieService.getMovieList(searchDto));
         }
         catch(Exception e)
         {

@@ -1,5 +1,51 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">  <!--템플릿 상속-->
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
-    <span>테스트 페이지</span>
+    
+    <select>
+        <option>제목</option>
+        <option>감독</option>
+        <option>배우</option>
+        <option>장르</option>
+    </select>
+    <input id="str"> <button>검색</button>
+    <input id="views" type="radio" name="sortBy"><label for="views">조회 순</label>
+    <input id="rating" type="radio" name="sortBy"><label for="rating">평점 순</label>
+
+    <input id="opened" type="checkbox"><label for="opened">개봉만</label>
+
+    <table>
+
+        
+
+
+    </table>
+
+    <script>
+        var key = "0";
+        var sortBy = "0";
+        var pageNum = "0";
+        var opened = false;
+
+        var str = "";
+
+        search();
+
+        function search()
+        {
+            $.ajax({
+                url : "/movie/movie_list",
+                data : {key : key, sortBy : sortBy, pageNum : pageNum, opened : opened, str : str},
+                method : "GET",
+                success : (data) => {
+
+                    console.log(data);
+                },
+                error : (e) => alert(e.responseText)
+
+            });
+        }
+
+    </script>
+
 </div>
 </html>
