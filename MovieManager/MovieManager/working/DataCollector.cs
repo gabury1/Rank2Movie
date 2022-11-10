@@ -207,6 +207,7 @@ namespace MovieManager.working
             }
             
             JObject jObject = JObject.Parse(json);
+            Console.WriteLine(jObject);
             var info = jObject["movieListResult"]["movieList"];
             foreach(var t in info)
             {

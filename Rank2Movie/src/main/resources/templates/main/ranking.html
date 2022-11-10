@@ -34,6 +34,8 @@
             data : {},
             method : "GET",
             success : (data) =>{
+                console.log(data);
+
                 var html = "";
                 for(var i = 0; i < 10; i++)
                 {
@@ -41,7 +43,7 @@
 '                       <div class="item">'+
 '                           <label class="ranking_num">' + data[i].rankNo + '</label>'+
 '                           <img src="' + data[i].movie.imageUrl + '" class="poster"></img>'+
-'                           <a href="#" class="link_txt">' + data[i].movie.titleKor + '</a><br>'+
+'                           <a href="/movie/detail?code=' + data[i].movie.movieCode + '" class="link_txt">' + data[i].movie.titleKor + '</a><br>'+
 '                           <div class="info_txt">'+
 '                               평점 <span class="txt_grade">8.8</span>  <span class="txt_num">관객 ' + data[i].audiCnt + ' </span>'+
 '                           </div>'+
@@ -70,7 +72,7 @@
 '                       <div class="item">'+
 '                           <label class="ranking_num">' + data[i].rankNo + '</label>'+
 '                           <img src="' + data[i].movie.imageUrl + '" class="poster"></img>'+
-'                           <a href="#" class="link_txt">' + data[i].movie.titleKor + '</a><br>'+
+'                           <a href="/movie/detail?code=' + data[i].movie.movieCode + '" class="link_txt">' + data[i].movie.titleKor + '</a><br>'+
 '                           <div class="info_txt">'+
 '                               평점 <span class="txt_grade">8.8</span>  <span class="txt_num">관객 ' + data[i].audiCnt + ' </span>'+
 '                           </div>'+

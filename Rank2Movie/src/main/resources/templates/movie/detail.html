@@ -1,13 +1,36 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">  <!--템플릿 상속-->
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
-<!--    <button>1점</button>-->
-<!--    <button>2점</button>-->
-<!--    <button>3점</button>-->
-<!--    <button>4점</button>-->
-<!--    <button>5점</button>-->
-    <form action="memberRegi.do" method="post">
-        평점 : <input type="text" name="userName">
-        <input type="submit" value="전송버튼">
-    </form>
+    
+
+    <h1>어줍잖게 건드리면 보기 더 어려울거 같아서 그냥 생JSON만 해놨음.</h1>
+    <h2>네 디자인에 데이터만 입히면 될 듯??</h2>
+    <h3>하는 김에 영화리스트 디자인도 해줘~~</h3>
+    <div id="box">
+
+    </div>
+
+    <script>
+        const urlParams = new URL(location.href).searchParams;
+        const code = urlParams.get('code');
+
+        $.ajax({
+            url : "/movie/",
+            data : {code : code},
+            method : "GET",
+            success : successFunc,
+            error : e => alert(e.responseText)
+        });
+
+
+        // 이 함수만 보면 됨.
+        function successFunc(data)
+        {
+            console.log(data);
+            $("#box").html(JSON.stringify(data));
+        }
+        
+
+    </script>
+
 </div>
 </html>

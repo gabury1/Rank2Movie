@@ -26,10 +26,9 @@ public class SearchDto
 
     static final int pageAmount = 30;
 
-    public String toQuery()
+    public String getKey()
     {
         String keyStr;
-        String openedStr;
         if(key == 0) keyStr="title_kor";
         switch (key){
             case 0 : keyStr = "title_kor";
@@ -41,12 +40,8 @@ public class SearchDto
             default : keyStr = "genre";
                      break;
         }
-
-
-        String query = "SELECT * FROM movie WHERE " + keyStr + " LIKE %" + str + "%";
-        if(opened) query += "AND product_status = '개봉'";
-
-        return query;
+        
+        return keyStr;
     }
 
     public Pageable toPageable()

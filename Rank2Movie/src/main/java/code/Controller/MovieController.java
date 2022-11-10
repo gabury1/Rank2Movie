@@ -1,6 +1,7 @@
 package code.Controller;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,32 @@ public class MovieController
         return "/movie/list";
     }
 
+    @GetMapping("/detail")
+    public String detail()
+    {
+
+        return "/movie/detail";
+    }
+
+    @GetMapping("/")
+    public void getDetail(String code, HttpServletResponse response)
+    {
+        try{
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().print(movieService.getMovie(code));
+
+        }catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @GetMapping("/movie_list")
     public void movieList(SearchDto searchDto, HttpServletResponse response)
     {
 
-        System.out.println(searchDto.toQuery());
         try{
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");

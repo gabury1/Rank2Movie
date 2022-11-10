@@ -31,18 +31,65 @@ public class MovieService
     DailyRankingRepository dailyRepository;
 
 
-    public JSONArray getMovieList(SearchDto dto)
+    public JSONObject getMovieList(SearchDto dto)
     {
+        JSONObject object = new JSONObject();
+        String opened = "";
 
-        Page<MovieEntity> page = movieRepository.pageOf("블랙", dto.toPageable());
-        
+        Page<MovieEntity> page = null;
+        if(dto.getOpened())
+        {
+            if(dto.getKey() == "title_kor") page = movieRepository.pageOfTitleOpened(dto.getStr(), dto.toPageable());
+            else if(dto.getKey() == "director") page = movieRepository.pageOfDirectorOpened(dto.getStr(), dto.toPageable());
+            else if (dto.getKey() == "actor") page = movieRepository.pageOfActorOpened(dto.getStr(),  dto.toPageable());
+            else if(dto.getKey() == "genre") page = movieRepository.pageOfGenreOpened(dto.getStr(), dto.toPageable());
+            else page = movieRepository.pageOfTitleOpened("%", dto.toPageable());
+        }
+        else
+        {
+            if(dto.getKey() == "title_kor") page = movieRepository.pageOfTitle(dto.getStr(), dto.toPageable());
+            else if(dto.getKey() == "director") page = movieRepository.pageOfDirector(dto.getStr(), dto.toPageable());
+            else if (dto.getKey() == "actor") page = movieRepository.pageOfActor(dto.getStr(),  dto.toPageable());
+            else if(dto.getKey() == "genre") page = movieRepository.pageOfGenre(dto.getStr(), dto.toPageable());
+            else page = movieRepository.pageOfTitle("%", dto.toPageable());
+        }
+
         JSONArray array = new JSONArray();
         for(MovieEntity movie : page)
         {
             array.put(movie.toJSON());
         }
 
-        return array;
+        // 페이지 번호를 정해준다.
+        int pageStart = page.getNumber()-2;
+        if(pageStart < 0) pageStart = 0;
+        int pageLast = page.getNumber()+2;
+        if(page.getTotalPages() <= pageLast) pageLast = page.getTotalPages()-1;
+
+        object.put("length", array.length());
+        object.put("nowPage", page.getNumber());
+        object.put("pageStart", pageStart);
+        object.put("pageLast", pageLast);
+        object.put("movies", array);
+
+        return object;
+    }
+
+    public JSONObject getMovie(String code)
+    {
+        JSONObject object = new JSONObject();
+        try{
+            MovieEntity m = movieRepository.findByMovieCode(code).orElseThrow(() -> new Exception());
+            object.put("movie", m.toJSON());
+            object.put("post", "게시물은 아직");
+
+            return object;
+
+        }catch(Exception e)
+        {
+            return null;
+        }
+
     }
 
     public JSONArray getWeeklyRanking()

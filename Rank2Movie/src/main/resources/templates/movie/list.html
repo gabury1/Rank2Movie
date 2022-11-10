@@ -1,26 +1,33 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">  <!--템플릿 상속-->
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
-    
-    <select>
-        <option>제목</option>
-        <option>감독</option>
-        <option>배우</option>
-        <option>장르</option>
+    <link rel="stylesheet" type="text/css" href="/css/movie/movieList.css">
+
+    <select id="key">
+        <option value="0">제목</option>
+        <option value="1">감독</option>
+        <option value="2">배우</option>
+        <option value="3">장르</option>
     </select>
-    <input id="str"> <button>검색</button>
-    <input id="views" type="radio" name="sortBy"><label for="views">조회 순</label>
-    <input id="rating" type="radio" name="sortBy"><label for="rating">평점 순</label>
+    <input id="str"> <button onclick="strChange()">검색</button>
+    <input id="views" onclick="sortByChange(0)" type="radio" name="sortBy" checked><label for="views">조회 순</label>
+    <input id="rating" onclick="sortByChange(1)" type="radio" name="sortBy"><label for="rating">평점 순</label>
 
-    <input id="opened" type="checkbox"><label for="opened">개봉만</label>
+    <input id="opened" onclick="openedChange()" type="checkbox"><label for="opened">개봉만</label>
 
-    <table>
+    <!-- 한번에 30개씩 불러오고 있긴 한데, 바꾸고 싶으면 말해 바꿔줄 수 있음. -->
+    <!-- 19금 영화가 하도 많아서 19금 필터도 넣을까 싶음 -->
+    <div id="movieBox">
 
-        
+    
+    
+    </div>
+    <div id="pageBox" style="margin: auto;">
 
 
-    </table>
+    </div>
 
     <script>
+
         var key = "0";
         var sortBy = "0";
         var pageNum = "0";
@@ -36,13 +43,74 @@
                 url : "/movie/movie_list",
                 data : {key : key, sortBy : sortBy, pageNum : pageNum, opened : opened, str : str},
                 method : "GET",
-                success : (data) => {
-
-                    console.log(data);
-                },
+                success : design,
                 error : (e) => alert(e.responseText)
 
             });
+        }
+
+        // ajax가 성공하면 호출되는 함수
+        function design(data)
+        {
+            console.log(data);
+
+            // 영화를 화면에 뿌려주는 과정
+            var movieHtml = "";
+            var movies = data.movies;
+            for(var i=0; i < data.length; i++)
+            {
+                movieHtml += 
+'               <div class="item">'+
+'                   <img src="' + movies[i].imageUrl + '" class="poster"></img>'+
+'                   <a href="/movie/detail?code=' + movies[i].movieCode + '" class="link_txt">' + movies[i].titleKor + '</a><br>'+
+'               </div>';
+
+            }
+            
+            $("#movieBox").html(movieHtml);  
+
+            // 페이지 버튼을 뿌려주는 과정
+            var pageHtml = "";
+            for(var i=data.pageStart; i <= data.pageLast; i++)
+            {
+                if(data.nowPage == i) pageHtml += "<button style='text-decoration: underline;' onclick='pageChange(" + i + ")'>" + i + "</button>";
+                else pageHtml += "<button onclick='pageChange(" + i + ")'>" + i + "</button>";
+
+            }
+            $("#pageBox").html(pageHtml);
+
+        }
+
+        function strChange()
+        {
+            key = $("#key option:selected").val();
+            str = $("#str").val();
+            pageNum = 0;
+
+            search();
+
+        }
+
+        function sortByChange(num)
+        {
+            pageNum = 0;
+            sortBy = num;
+
+            search();
+        }
+
+        function openedChange()
+        {
+            pageNum = 0;
+            opened = !opened;
+
+            search();
+        }
+
+        function pageChange(num)
+        {
+            pageNum = num;
+            search();
         }
 
     </script>
