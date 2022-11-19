@@ -31,14 +31,14 @@ public class MovieService
     DailyRankingRepository dailyRepository;
 
 
+    // 영화 리스트를 반환해준다.
     public JSONObject getMovieList(SearchDto dto)
     {
         JSONObject object = new JSONObject();
-        String opened = "";
-
         Page<MovieEntity> page = null;
+
         if(dto.getOpened())
-        {
+        {   // 개봉한 영화만을 검색합니다.
             if(dto.getKey() == "title_kor") page = movieRepository.pageOfTitleOpened(dto.getStr(), dto.toPageable());
             else if(dto.getKey() == "director") page = movieRepository.pageOfDirectorOpened(dto.getStr(), dto.toPageable());
             else if (dto.getKey() == "actor") page = movieRepository.pageOfActorOpened(dto.getStr(),  dto.toPageable());
@@ -46,7 +46,7 @@ public class MovieService
             else page = movieRepository.pageOfTitleOpened("%", dto.toPageable());
         }
         else
-        {
+        {   // 미개봉 영화까지도 검색합니다.
             if(dto.getKey() == "title_kor") page = movieRepository.pageOfTitle(dto.getStr(), dto.toPageable());
             else if(dto.getKey() == "director") page = movieRepository.pageOfDirector(dto.getStr(), dto.toPageable());
             else if (dto.getKey() == "actor") page = movieRepository.pageOfActor(dto.getStr(),  dto.toPageable());
@@ -57,6 +57,7 @@ public class MovieService
         JSONArray array = new JSONArray();
         for(MovieEntity movie : page)
         {
+            // 각 영화를 JSON으로 바꾸어 배열에 넣습니다.
             array.put(movie.toJSON());
         }
 
@@ -66,6 +67,7 @@ public class MovieService
         int pageLast = page.getNumber()+2;
         if(page.getTotalPages() <= pageLast) pageLast = page.getTotalPages()-1;
 
+        // 모든 정보를 JSON에 담아 반환합니다.
         object.put("length", array.length());
         object.put("nowPage", page.getNumber());
         object.put("pageStart", pageStart);
@@ -75,6 +77,7 @@ public class MovieService
         return object;
     }
 
+    // 영화의 상세를 전달해준다.
     public JSONObject getMovie(String code)
     {
         JSONObject object = new JSONObject();
@@ -92,6 +95,33 @@ public class MovieService
 
     }
 
+    // 영화 셀렉터에 들어갈 값을 전달한다.
+    public JSONObject getMovieSelector(String str, Integer pageNum)
+    {
+        Pageable page = PageRequest.of(pageNum, 5);
+        Page<MovieEntity> movies = movieRepository.pageOfSelector(str, page);
+
+        JSONObject object = new JSONObject();
+        JSONArray array = new JSONArray();
+
+        // 각 영화 정보를 담아준다.
+        for (MovieEntity movieEntity : movies) 
+        {
+            array.put(movieEntity.toJSON());
+        }
+
+        // 페이지 정보
+        Integer pageNow = movies.getNumber();
+        Integer pageTotal = movies.getTotalPages();
+        
+        object.put("movies", array);
+        object.put("pageNow", pageNow);
+        object.put("pageTotal", pageTotal);
+
+        return object;
+    }
+
+    // 이번주의 박스오피스를 반환한다.
     public JSONArray getWeeklyRanking()
     {
         JSONArray array = new JSONArray();
@@ -105,6 +135,7 @@ public class MovieService
         return array;
     }
 
+    // 오늘의 박스오피스를 반환한다.
     public JSONArray getDailyRanking()
     {
         JSONArray array = new JSONArray();

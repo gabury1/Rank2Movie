@@ -2,14 +2,37 @@
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
     
 
-    <h1>어줍잖게 건드리면 보기 더 어려울거 같아서 그냥 생JSON만 해놨음.</h1>
+    <h1>어줍잖게 건드리면 읽기 더 어려울거 같아서 그냥 생JSON만 해놨음.</h1>
     <h2>네 디자인에 데이터만 입히면 될 듯??</h2>
     <h3>하는 김에 영화리스트 디자인도 해줘~~</h3>
     <div id="box">
 
     </div>
 
+    <button id="posting" onclick="">이 영화 글쓰기</button>
+ 
     <script>
+        /*
+        ** 영화 JSON 포맷(data.movie) **
+        movieCode : 영화 코드
+        titleKor : 한국 제목
+        titleEn : 영어 제목
+        genre : 장르('/'로 구분된 여러 장르들)
+        actor : 배우 ('/'로 구분된 여러 장르들)
+
+        showTime : 상영시간
+        company : 배급사 등등의 이름
+        director : 감독들
+        productStatus : 제작상태(개봉/개봉예정)
+        productYear : 제작년도
+        nation : 국적
+
+        imageUrl : 이미지 URL
+        views : 조회수
+        avrRation : 평가(평가가 없으면 null 처리 되도록 했다.)
+
+        */
+
         const urlParams = new URL(location.href).searchParams;
         const code = urlParams.get('code');
 
@@ -27,7 +50,11 @@
         {
             console.log(data);
             $("#box").html(JSON.stringify(data));
+
+            // 글쓰기로 이동하는 이벤트
+            $("#posting").click( () => location.href = "/board/posting?code=" + data.movie.movieCode);
         }
+        
         
 
     </script>

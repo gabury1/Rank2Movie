@@ -65,6 +65,20 @@ public class MovieController
 
     }
 
+    @GetMapping("/movie_selector")
+    public void movieSelector(String str, Integer page, HttpServletResponse response)
+    {
+        try{
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().println(movieService.getMovieSelector(str, page));
+        }catch(Exception e){
+
+            System.out.println(e.getMessage());
+        }
+        
+    }
+
     @GetMapping("/daily_ranking")
     public void dailyRanking(HttpServletResponse response)
     {

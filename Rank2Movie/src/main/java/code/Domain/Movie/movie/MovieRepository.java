@@ -43,4 +43,8 @@ public interface MovieRepository extends JpaRepository<MovieEntity, String> {
     @Query(value="SELECT * FROM movie WHERE genre LIKE %:str% AND product_status='개봉'", nativeQuery = true)
     public Page<MovieEntity> pageOfGenreOpened(@Param("str")String str, Pageable page);
 
+    @Query(value="SELECT * FROM movie WHERE movie_code LIKE %:str% OR title_kor LIKE %:str%", nativeQuery = true)
+    public Page<MovieEntity> pageOfSelector(@Param("str") String str, Pageable page);
+
+
 }
