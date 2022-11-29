@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import code.Domain.Movie.movie.MovieEntity;
@@ -20,18 +21,20 @@ import code.Domain.User.UserEntity;
 import groovy.transform.builder.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Table(name="board")
 @Data @Entity
 @Getter@Setter@Component
+@NoArgsConstructor
 public class BoardEntity 
 {
     // 번호
     @Id @Column(name="board_no")
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int boardNo;
+    private Long boardNo;
     // 작성일
     @Column(name="date_time")
     private String dateTime;
@@ -54,12 +57,58 @@ public class BoardEntity
 
     // 영화 (외래키)
     @JoinColumn(name="movie_code")
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     private MovieEntity movie;
 
     // 유저 (외래키)
     @JoinColumn(name="writer_no")
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     private UserEntity writer;
+
+    public BoardEntity(Long no)
+    {
+        boardNo = no;
+    }
+
+    public JSONObject toJsonForList()
+    {
+        JSONObject object = new JSONObject();
+
+        object.put("boardNo", boardNo);
+        object.put("moviePoster", movie.getImageUrl());
+        object.put("title", title);
+        object.put("views", views);
+        object.put("content", content);
+        object.put("writer", writer.getUserName());
+        object.put("comment", 5); // 댓글 추가 후 수정
+        object.put("date", dateTime);
+        
+        return object;
+    }
+
+    public JSONObject toJsonForDetail()
+    {
+        JSONObject object = new JSONObject();
+
+        JSONObject movieObject = new JSONObject();
+        movieObject.put("title", movie.getTitleKor());
+        movieObject.put("imageUrl", movie.getImageUrl());
+        movieObject.put("code", movie.getMovieCode());
+
+        object.put("title", title);
+        object.put("views", views);
+        object.put("content", content);
+        object.put("date", dateTime);
+        object.put("rating", rating);
+
+        // 영화 
+        object.put("movie", movieObject);
+        // 작성자
+        object.put("writer", writer.getUserName());
+
+        return object;
+
+    }
+
 
 }

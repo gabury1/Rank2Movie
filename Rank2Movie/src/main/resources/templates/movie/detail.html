@@ -29,10 +29,16 @@
 
         imageUrl : 이미지 URL
         views : 조회수
-        avrRation : 평가(평가가 없으면 null 처리 되도록 했다.)
+        avrRating : 평가(평가가 없으면 null 처리 되도록 했다.)
 
         */
 
+        /*
+        게시물은 아예 다른 AJAX로 빼버렸다.(생각해보니 게시물 리스트도 페이징 해줘야함..)
+
+
+        */
+        var page = 0; // 현재 보고 있는 게시물의 페이지
         const urlParams = new URL(location.href).searchParams;
         const code = urlParams.get('code');
 
@@ -44,17 +50,39 @@
             error : e => alert(e.responseText)
         });
 
+        pageChange(0);
 
-        // 이 함수만 보면 됨.
+        function pageChange(num)
+        {
+            page = num;
+            $.ajax({
+                url : "/board/movie_list",
+                data : {code : code, page : page},
+                method : "GET",
+                success : successBoard,
+                error : e => alert(e.responseText)
+            });
+
+        }
+
+        // 영화 AJAX가 성공했을때 실행되는 함수
         function successFunc(data)
         {
             console.log(data);
-            $("#box").html(JSON.stringify(data));
+            $("#box").append(JSON.stringify(data));
 
             // 글쓰기로 이동하는 이벤트
             $("#posting").click( () => location.href = "/board/posting?code=" + data.movie.movieCode);
         }
         
+        function successBoard(data)
+        {
+            // 만약 게시물이 없다면, pageLast는 -1이 된다.
+            console.log(data);
+            
+            $("#box").append(JSON.stringify(data));
+        }
+
         
 
     </script>

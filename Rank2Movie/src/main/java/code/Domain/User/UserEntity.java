@@ -42,6 +42,11 @@ public class UserEntity
     @OneToMany(fetch=FetchType.LAZY)
     List<BoardEntity> boards;
 
+    public UserEntity(Long no)
+    {
+        userNo = no;
+    }
+
     public String getRoleKey()
     {
         return role.getKey();

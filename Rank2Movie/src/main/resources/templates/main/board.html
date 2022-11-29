@@ -5,230 +5,102 @@
 			<div class="titleBox">
 				<div class="BoxTitle">게시판</div>
 				<div class="sortBox">
-					<span>최신</span>
-					<span>많이본</span>
+					<span onclick="sortBy(0)">최신</span>
+					<span onclick="sortBy(1)">많이본</span>
 				</div>
 			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
+			<div id="resultBox">
+				<div class="communityBox">
+					<img src="" alt="" class="communityImage" />
+					<div class="communityTitleTextBox">
+						<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+						<div class="communityText">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
+							eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
+							labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
+							voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
-			</div>
-			<div class="communityBox">
-				<img src="" alt="" class="communityImage" />
-				<div class="communityTitleTextBox">
-					<div class="communityTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-					<div class="communityText">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium nihil, eaque, id praesentium magnam, blanditiis ad assumenda aperiam repellendus voluptatum
-						eligendi facilis esse cum sunt soluta doloremque est maxime! Magni assumenda tenetur tempore incidunt error odit officia, vitae voluptatem quidem recusandae sint natus rem
-						labore sapiente a atque consectetur nam voluptatum neque veritatis aspernatur similique autem expedita. Quo, suscipit. Animi tenetur doloribus, dignissimos, quo nostrum
-						voluptatum labore nobis temporibus ullam porro velit consequuntur obcaecati? Nisi beatae, quam atque ullam eum mollitia, suscipit perspiciatis ipsam magni quo blanditiis
-						quaerat perferendis. Delectus, officiis neque omnis, vero, totam sit repellat dolorum a libero recusandae hic ex in doloribus. Odio inventore nulla repellat nemo sequi
-						dignissimos fuga magni! Eius aut qui labore maiores! Distinctio suscipit debitis enim non, itaque sequi ratione? Expedita officiis aperiam, quod adipisci repellat, officia
-						libero esse, est impedit a accusantium cumque reprehenderit obcaecati deleniti sunt eius quas voluptas delectus. Repellat maiores, error mollitia, unde debitis, illo maxime
-						dolor tempora nam ratione quasi pariatur eos hic nihil deleniti vel blanditiis consequatur sequi. Aut corporis, numquam quibusdam vitae nihil est tempora. Aut odio ratione ab
-						velit necessitatibus magnam placeat quaerat incidunt eligendi nihil commodi, numquam vero, repellat eveniet autem doloremque tenetur quas voluptatum? Expedita reprehenderit
-						ducimus delectus, perspiciatis quidem et facilis. Fuga iusto unde esse quaerat aliquam, laboriosam assumenda quibusdam sed velit praesentium dolorum atque dolorem culpa
-						perferendis libero corporis debitis dignissimos! Doloribus dolore officiis, quisquam culpa at repudiandae blanditiis delectus. Nobis aperiam inventore numquam voluptatum?
-						Reprehenderit dolorem rerum quam error eos recusandae eaque dicta autem aliquid, cum minima sit iste aperiam enim ex accusamus in totam! Cumque repellat tempora tenetur! Sequi
-						ad illum consectetur doloremque rerum culpa neque maiores velit fugit adipisci vero earum error atque, praesentium similique deleniti itaque magni dolor inventore harum
-						recusandae optio tempore non! Consequuntur, numquam.
-					</div>
-				</div>
+			<div id="pageBox">
+
 			</div>
 		</div>
+
+		<script>
+
+			var sort = 0;
+			var page = 0;
+
+			sortBy(0);
+
+			function getList()
+			{
+				$.ajax({
+					url : "/board/main_list",
+					data : {pageNum : page, sortBy : sort},
+					method : "GET",
+					success : (data) => {
+						console.log(data);
+						var resultHTML = "";
+						for(var i=0; i<data.boards.length; i++)
+						{
+							resultHTML += `
+							<div class="communityBox">
+								<img src="${data.boards[i].moviePoster}" onclick="goToDetail(${data.boards[i].boardNo})" alt="" class="communityImage" />
+								<div class="communityTitleTextBox">
+									<div class="communityTitle" onclick="goToDetail(${data.boards[i].boardNo})">${data.boards[i].title}</div>
+									<div class="communityText">
+										${data.boards[i].content}
+									</div>
+								</div>
+							</div>
+							`;
+						}
+
+						var pageHTML = "";
+						for(var i = data.pageStart; i < data.pageLast; i++)
+						{
+							pageHTML += `
+							<button onclick="pageChange(${i})"> ${i} </button>
+							`;
+						}
+
+						$("#resultBox").html(resultHTML);
+						$("#pageBox").html(pageHTML);
+
+					},
+					error : (e) => console.log(e.responseText)
+				});
+
+			}
+
+			function sortBy(num)
+			{
+				sort = num;
+				page = 0;
+
+				// 클릭된 녀석을 볼드체로 만들어준다.
+				$(`.sortBox span`).removeClass("clickedSort");
+				$(`.sortBox span:nth-child(${num+1})`).addClass("clickedSort");
+
+				getList();
+			}
+
+			function pageChange(num)
+			{
+				page = num;
+				getList();
+			}
+
+			function goToDetail(num)
+			{
+				location.href = "/board/" + num;
+			}
+
+		</script>
+
+
 	</div>
 </html>

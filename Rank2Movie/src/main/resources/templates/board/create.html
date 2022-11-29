@@ -65,6 +65,7 @@
                     success : (data) => {
 
                         console.log(data);
+                        location.href = "/movie/detail?code=" + selected;
                     },
                     error : e => alert(e.responseText)
                 })

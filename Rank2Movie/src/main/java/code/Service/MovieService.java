@@ -30,6 +30,9 @@ public class MovieService
     @Autowired
     DailyRankingRepository dailyRepository;
 
+    @Autowired
+    BoardService boardService;
+
 
     // 영화 리스트를 반환해준다.
     public JSONObject getMovieList(SearchDto dto)

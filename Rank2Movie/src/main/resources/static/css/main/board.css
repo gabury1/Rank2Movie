@@ -56,3 +56,11 @@
 	color: gray;
 	overflow: hidden;
 }
+
+.clickedSort{
+	font-weight: bolder;
+}
+
+.communityTitle:hover{
+	cursor: pointer;
+}
