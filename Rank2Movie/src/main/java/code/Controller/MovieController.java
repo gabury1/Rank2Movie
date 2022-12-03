@@ -97,4 +97,9 @@ public class MovieController
 
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "/main/board";
+    }
+
 }

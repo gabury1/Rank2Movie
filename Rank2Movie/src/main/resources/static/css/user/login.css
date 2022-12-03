@@ -1,4 +1,3 @@
-
 body{
     background-color: #ececee;
 }
@@ -9,6 +8,11 @@ body{
     border-style: none;
     margin: auto;
     background-color: #FFFFFF;
+}
+
+.logo{
+    font-size: 3rem;
+    font-weight: 900;
 }
 
 .item{

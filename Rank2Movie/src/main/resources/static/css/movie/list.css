@@ -1,0 +1,87 @@
+.searchBox{
+    margin-left: 5%;
+    display: inline;
+    width: 20rem;
+    height: 3rem;
+    border: orange 2px solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#str{
+    margin-left: 5%;
+    border: none;
+    outline: none;
+    width: 75%;
+    height: 90%;
+}
+#searchBtn{
+    border:none;
+    background-color: white;
+    width: 20%;
+    height: 90%;
+}
+#key{
+    margin-left: 5%;
+}
+#views{
+
+}
+#rating{
+
+}
+#opened{
+
+}
+
+.poster {
+    width: 100%;
+}
+
+#movieBox {
+    margin: 0pc auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.movieElement {
+    margin: 1rem 0px;
+    width: 17rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoBox {
+    width: 100%;
+}
+
+.movieTitle {
+    display: block;
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.movieSubinfo {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movieGenre {
+    font-size: 0.9rem;
+}
+
+.movieRating {
+    color: orange;
+    font-weight: 600;
+    font-size: 1rem;
+}

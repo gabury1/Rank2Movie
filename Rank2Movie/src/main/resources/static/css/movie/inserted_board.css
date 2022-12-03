@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100;300;500;700;900&display=swap");
+
+body {
+    margin: 0;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.boardElement {
+    background-color: rgba(231, 230, 230, 0.186);
+    border-radius: 15px;
+    width: 80%;
+    height: 30rem;
+    min-width: 500px;
+    max-height: 150px;
+    margin: 30px auto;
+    padding: 10px 20px;
+    display: flex;
+}
+
+.poster {
+    /* width: 10rem; */
+}
+
+.boardTextBox {
+    margin: 0px 20px;
+}
+
+.boardTitleBox {
+    display: flex;
+    align-items: center;
+}
+
+.boardTitle {
+    margin: 0px;
+    font-size: 1.2rem;
+}
+
+.comment {
+    margin-left: 10px;
+    color: orange;
+}
+
+.boardSummary {
+    font-size: 0.6rem;
+    color: gray;
+}
+
+.boardWriter {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: orange;
+}
+
+.boardDate {
+    font-size: 0.6rem;
+}

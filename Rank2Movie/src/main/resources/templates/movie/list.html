@@ -1,6 +1,10 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">  <!--템플릿 상속-->
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
-    <link rel="stylesheet" type="text/css" href="/css/movie/movieList.css">
+    <link rel="stylesheet" type="text/css" href="/css/movie/list.css">
+
+    <div class="searchBox">
+        <input id="str" placeholder="검색어를 입력해주세요."> <button onclick="strChange()" id="searchBtn">검색</button>
+    </div>
 
     <select id="key">
         <option value="0">제목</option>
@@ -8,11 +12,13 @@
         <option value="2">배우</option>
         <option value="3">장르</option>
     </select>
-    <input id="str"> <button onclick="strChange()">검색</button>
+
+
     <input id="views" onclick="sortByChange(0)" type="radio" name="sortBy" checked><label for="views">조회 순</label>
     <input id="rating" onclick="sortByChange(1)" type="radio" name="sortBy"><label for="rating">평점 순</label>
 
     <input id="opened" onclick="openedChange()" type="checkbox"><label for="opened">개봉만</label>
+    <br>
 
     <!-- 한번에 30개씩 불러오고 있긴 한데, 바꾸고 싶으면 말해 바꿔줄 수 있음. -->
     <!-- 19금 영화가 하도 많아서 19금 필터도 넣을까 싶음 -->
@@ -55,19 +61,25 @@
             console.log(data);
 
             // 영화를 화면에 뿌려주는 과정
-            var movieHtml = "";
+            var movieElementsWrapper = "";
             var movies = data.movies;
             for(var i=0; i < data.length; i++)
             {
-                movieHtml += 
-'               <div class="item">'+
+                movieElementsWrapper +=
+'               <div class="movieElement">'+
 '                   <img src="' + movies[i].imageUrl + '" class="poster"></img>'+
-'                   <a href="/movie/detail?code=' + movies[i].movieCode + '" class="link_txt">' + movies[i].titleKor + '</a><br>'+
+                   ' <div class="infoBox">'+
+'                   <a href="/movie/detail?code="' + movies[i].movieCode + '" class="movieTitle">' + movies[i].titleKor + '</a>'+
+                        '<div class="movieSubinfo">'+
+                            '<span class="movieGenre">' + movies[i].genre + '</span>' +
+                            '<span class="movieRating">' + movies[i].avrRating + '</span>'+
+                        '</div>'+
+                    '</div>'+
 '               </div>';
 
             }
             
-            $("#movieBox").html(movieHtml);  
+            $("#movieBox").html(movieElementsWrapper);
 
             // 페이지 버튼을 뿌려주는 과정
             var pageHtml = "";
