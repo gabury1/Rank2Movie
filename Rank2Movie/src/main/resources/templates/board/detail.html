@@ -32,6 +32,9 @@
 
         <div id="commentBox">
 
+
+
+
         </div>
         <!-- 댓글 쓰기 컴포넌트 -->
         <div id="myCmt" class="commentBox" sec:authorize="isAuthenticated()">
@@ -89,7 +92,7 @@
                 error : (e) => alert(e.responseText)
             })
             
-
+            getPage(0);
 
 
             function create()
@@ -110,7 +113,7 @@
                 
             }
 
-            function getComment(num)
+            function getPage(num)
             {
                 $.ajax({
                     url : "/board/comment",

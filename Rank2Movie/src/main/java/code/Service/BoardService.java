@@ -179,6 +179,7 @@ public class BoardService
     /////////////////////
     ////// Comment //////
     /////////////////////
+    // Create
     public String createComment(Long boardNo, String content) throws Exception
     {
         Long userNo = userService.nowUser().map(u -> u.getNo()).orElseThrow(() -> new Exception("로그인 상태가 아닙니다."));
@@ -191,6 +192,17 @@ public class BoardService
         commentRepository.save(e);
 
         return "success";
+    }
+
+    // Read
+    public JSONObject readComment(Long boardNo, Integer pageNo)
+    {
+        JSONObject object = new JSONObject();
+        Pageable page = PageRequest.of(pageNo, 10);
+        
+        
+
+        return object;
     }
 
 }

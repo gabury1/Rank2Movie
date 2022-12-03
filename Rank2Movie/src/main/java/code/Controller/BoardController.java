@@ -122,7 +122,7 @@ public class BoardController
     @GetMapping("/comment")
     public void getComment()
     {
-
+        
         
     }
 
