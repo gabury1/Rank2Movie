@@ -1,0 +1,139 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+        <link rel="stylesheet" type="text/css" href="/css/board/starpicker.css">
+        <link rel="stylesheet" type="text/css" href="/css/board/detail.css">
+
+        <label>제목 : </label> <input id="title"><br>
+        <label id="views" style="border-right: 1px solid #999;"></label> 
+        <label id="date" style="border-right: 1px solid #999;"></label> 
+        <label id="writer"></label>
+        <div>
+            <img id="poster" src=""><br>
+            <a id="movieTitle"></a>
+        </div>
+
+        <!--어디서 떼온 스타피커.-->    
+        <span class="star">
+            ★★★★★
+            <span>★★★★★</span> 
+        </span>
+        <br>
+        <label>내용 : </label><br> 
+        <textarea id="content"></textarea><br>
+
+        <div id="movieSelector" >
+
+        </div>
+
+        <div id="buttonBox">
+            <button id="upadteButton">수정</button>
+            <button id="deleteButton">삭제</button>
+        </div>
+
+        <div id="commentBox">
+
+
+
+
+        </div>
+        <!-- 댓글 쓰기 컴포넌트 -->
+        <div id="myCmt" class="commentBox" sec:authorize="isAuthenticated()">
+			<div class="commentTitle">
+				<label id="myId" sec:authentication="name">userId</label>
+			</div>
+			<div>
+				<textarea id="myContent" class="commentContent" cols="50" rows="5"></textarea><br>
+				<button id="mySubmit" onclick="create()">확인</button>
+			</div>
+		</div>
+
+        <script>
+
+            /*
+                ** 영화 상세 조회 JSON **
+                title : 글 제목
+                content: 글 내용
+                views : 조회수
+                date : 날짜
+                rating : 몇점 줬는지
+
+                movie: 
+                    code : 영화 코드
+                    title : 영화제목
+                    imageUrl : 이미지 URL
+                
+                writer : 작성자명
+                sameUser : 현재 로그인 인물과 작성자가 동일한지(동일하다면 수정/삭제 활성화)
+            */
+           
+            // 게시물을 불러오는 부분
+            $.ajax({
+                url : "/board/detail",
+                data : {no : getNo()},
+                method : "GET",
+                success : (data) => {
+                    $("#title").val(data.title);
+                    $("#content").val(data.content);
+                    $("#views").text("조회수 : " + data.views);
+                    $("#date").text(data.date);
+                    $("#writer").text(data.writer);
+
+                    $("#poster").attr("src", data.movie.imageUrl);
+                    $("#movieTitle").attr("href", "/movie/detail?code="+data.movie.code);
+                    $("#movieTitle").text(data.movie.title);
+
+                    // 별점 표시
+                    $(".star span").css("width", data.rating*20+'%');
+                    
+                    document.querySelector("#buttonBox").hidden = !data.sameUser;
+
+                    console.log(data);
+                },
+                error : (e) => alert(e.responseText)
+            })
+            
+            getPage(0);
+
+
+            function create()
+            {
+                $.ajax({
+                    url : "/board/comment",
+                    data : {boardNo : getNo(), content : $("#myContent").val()},
+                    method : "POST",
+                    success : (data) => {
+                        if(data == "success")
+                        {
+                            $("#myContent").val("");
+                        }
+                    },
+                    error : (e) => console.log(e.responseText)
+
+                });
+                
+            }
+
+            function getPage(num)
+            {
+                $.ajax({
+                    url : "/board/comment",
+                    data : {boardNo : getNo(), page : num},
+                    method : "GET",
+                    success : (data) => {
+                        console.log(data);
+                    },
+                    error : (e) => console.log(e.responseText)
+
+                });
+            }
+
+
+            function getNo()
+            {
+                return window.location.href.split("/")[4];
+            }
+
+            
+        </script>
+</div>
+</html>

@@ -1,0 +1,36 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+        <link rel="stylesheet" type="text/css" href="/css/board/starpicker.css">
+        <script src="/js/movie/movie_selector.js"></script>
+        <label>제목 : </label> <input id="title"><br>
+        <label>내용 : </label><br> 
+        <textarea id="content"></textarea><br>
+
+        <div id="movieSelector" >
+
+        </div>
+        
+        <!--어디서 떼온 스타피커.-->    
+        <span class="star">
+            ★★★★★
+            <span>★★★★★</span>
+            <input id="rating" type="range" oninput="drawStar(this)" value="0" step="1" min="0" max="5">
+        </span>
+
+        <button onclick="post()">작성 완료</button> <input id="spoiler" type="checkbox"><label for="spoiler">스포일러 有</label> 
+
+
+        <script>
+
+            // 스타 피커에 이벤트를 너어죠요
+            const drawStar = (target) => {
+            document.querySelector(`.star span`).style.width = `${target.value * 20}%`;
+            };
+
+            const urlParams = new URL(location.href).searchParams;
+            const code = urlParams.get('code');
+
+            
+        </script>
+</div>
+</html>

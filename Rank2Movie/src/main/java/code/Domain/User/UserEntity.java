@@ -2,6 +2,9 @@ package code.Domain.User;
 
 import lombok.*;
 import javax.persistence.*;
+
+import code.Domain.Board.BoardEntity;
+
 import java.util.List;
 
 @Entity @Builder
@@ -34,6 +37,15 @@ public class UserEntity
     @JoinColumn(name="sender_no")
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     List<UserReputationEntity> sended;
+
+    @JoinColumn(name="writer_no")
+    @OneToMany(fetch=FetchType.LAZY)
+    List<BoardEntity> boards;
+
+    public UserEntity(Long no)
+    {
+        userNo = no;
+    }
 
     public String getRoleKey()
     {

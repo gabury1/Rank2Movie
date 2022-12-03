@@ -1,6 +1,13 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">  <!--템플릿 상속-->
 <div layout:fragment="content" class="container">   <!-- layout의 content fragment에 삽입 -->
 
+<<<<<<< HEAD
+=======
+    <h1>어줍잖게 건드리면 읽기 더 어려울거 같아서 그냥 생JSON만 해놨음.</h1>
+    <h2>네 디자인에 데이터만 입히면 될 듯??</h2>
+    <h3>하는 김에 영화리스트 디자인도 해줘~~</h3>
+    <div id="box">
+>>>>>>> euns
 
         <link rel="stylesheet" href="/css/movie/detail.css" />
     <div class="container">
@@ -27,7 +34,12 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis ratione mollitia
         </div>
     </div>
 
+<<<<<<< HEAD
 
+=======
+    <button id="posting" onclick="">이 영화 글쓰기</button>
+ 
+>>>>>>> euns
     <script>
         /*
         ** 영화 JSON 포맷(data.movie) **
@@ -46,10 +58,23 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis ratione mollitia
 
         imageUrl : 이미지 URL
         views : 조회수
+<<<<<<< HEAD
         avrRation : 평가(평가가 없으면 null 처리 되도록 했다.)
 
         */
 
+=======
+        avrRating : 평가(평가가 없으면 null 처리 되도록 했다.)
+
+        */
+
+        /*
+        게시물은 아예 다른 AJAX로 빼버렸다.(생각해보니 게시물 리스트도 페이징 해줘야함..)
+
+
+        */
+        var page = 0; // 현재 보고 있는 게시물의 페이지
+>>>>>>> euns
         const urlParams = new URL(location.href).searchParams;
         const code = urlParams.get('code');
         // test용
@@ -63,17 +88,47 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis ratione mollitia
             error : e => alert(e.responseText)
         });
 
+        pageChange(0);
 
-        // 이 함수만 보면 됨.
+        function pageChange(num)
+        {
+            page = num;
+            $.ajax({
+                url : "/board/movie_list",
+                data : {code : code, page : page},
+                method : "GET",
+                success : successBoard,
+                error : e => alert(e.responseText)
+            });
+
+        }
+
+        // 영화 AJAX가 성공했을때 실행되는 함수
         function successFunc(data)
         {
             console.log(data);
+<<<<<<< HEAD
             $(".movieInfoBox > h1").html(JSON.stringify(data.movie.titleKor));
             $(".genre").html(JSON.stringify(data.movie.genre));
             $(".company").html(JSON.stringify(data.movie.company));
             $(".director").html(JSON.stringify(data.movie.director));
             $(".productYear").src = JSON.stringify(data.movie.imageUrl);
+=======
+            $("#box").append(JSON.stringify(data));
+
+            // 글쓰기로 이동하는 이벤트
+            $("#posting").click( () => location.href = "/board/posting?code=" + data.movie.movieCode);
+>>>>>>> euns
         }
+        
+        function successBoard(data)
+        {
+            // 만약 게시물이 없다면, pageLast는 -1이 된다.
+            console.log(data);
+            
+            $("#box").append(JSON.stringify(data));
+        }
+
         
 
     </script>

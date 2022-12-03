@@ -2,6 +2,8 @@ package code.Domain.Movie.movie;
 
 
 import com.sun.istack.NotNull;
+
+import code.Domain.Board.BoardEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.json.JSONObject;
@@ -53,6 +55,10 @@ public class MovieEntity
     int views;
     @Column(name = "avr_rating")
     Double avrRating;
+
+    @JoinColumn(name="movie_code    ")
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    List<BoardEntity> boards;
 
     public JSONObject toJSON()
     {
