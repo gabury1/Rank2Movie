@@ -1,9 +1,9 @@
 
-.main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*.main{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
 #rankingTitle{
     margin: 5rem 0px;
@@ -11,19 +11,19 @@
 
 .rankingBox{
     display: grid;
-    width: 120rem;
+    width: 90vw;
     margin: 0 auto;
 
-    grid-template-columns: repeat(5, 20rem);
-    grid-template-rows: repeat(2, 40rem);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 5rem;
     grid-row-gap: 5rem;
 
 }
 
 .item{
-    width: 20rem;
-    height: 40rem;
+    min-width: 10rem;
+    min-height: 20rem;
 }
 
 .link_txt{
@@ -58,8 +58,8 @@
 }
 
 .poster{
-    height:30rem;
-    width:20rem;
+    height:80%;
+    width:100%;
     border-radius: 10px;
     margin-bottom: 10px;
 }
