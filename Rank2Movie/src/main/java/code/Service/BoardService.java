@@ -198,9 +198,11 @@ public class BoardService
     public JSONObject readComment(Long boardNo, Integer pageNo)
     {
         JSONObject object = new JSONObject();
-        Pageable page = PageRequest.of(pageNo, 10);
+        Pageable pageable = PageRequest.of(pageNo, 10);
+
+        Page<CommentEntity> page = commentRepository.findByBoardNo(boardNo, pageable);
         
-        
+
 
         return object;
     }
