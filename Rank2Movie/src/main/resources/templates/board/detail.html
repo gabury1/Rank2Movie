@@ -3,32 +3,36 @@
         <link rel="stylesheet" type="text/css" href="/css/board/starpicker.css">
         <link rel="stylesheet" type="text/css" href="/css/board/detail.css">
 
-        <label>제목 : </label> <input id="title"><br>
-        <label id="views" style="border-right: 1px solid #999;"></label> 
-        <label id="date" style="border-right: 1px solid #999;"></label> 
-        <label id="writer"></label>
-        <div>
-            <img id="poster" src=""><br>
-            <a id="movieTitle"></a>
-        </div>
+    <div class="container">
+        <div class="contentBox">
+            <label>제목 : </label> <input id="title"><br>
+            <label id="views" style="border-right: 1px solid #999;"></label>
+            <label id="date" style="border-right: 1px solid #999;"></label>
+            <label id="writer"></label>
+            <div>
+                <img id="poster" src=""><br>
+                <a id="movieTitle"></a>
+            </div>
 
-        <!--어디서 떼온 스타피커.-->    
-        <span class="star">
+            <!--어디서 떼온 스타피커.-->
+            <span class="star">
             ★★★★★
-            <span>★★★★★</span> 
+            <span>★★★★★</span>
         </span>
-        <br>
-        <label>내용 : </label><br> 
-        <textarea id="content"></textarea><br>
+            <br><br>
+            <label>내용 : </label><br>
+            <textarea id="content"></textarea><br>
 
-        <div id="movieSelector" >
+            <div id="movieSelector" >
 
+            </div>
+
+            <div class="buttons">
+                <button id="upadteButton">수정</button>
+                <button id="deleteButton">삭제</button>
+            </div>
         </div>
 
-        <div id="buttonBox">
-            <button id="upadteButton">수정</button>
-            <button id="deleteButton">삭제</button>
-        </div>
 
         <div id="commentBox">
 
@@ -38,14 +42,16 @@
         </div>
         <!-- 댓글 쓰기 컴포넌트 -->
         <div id="myCmt" class="commentBox" sec:authorize="isAuthenticated()">
-			<div class="commentTitle">
-				<label id="myId" sec:authentication="name">userId</label>
-			</div>
-			<div>
-				<textarea id="myContent" class="commentContent" cols="50" rows="5"></textarea><br>
-				<button id="mySubmit" onclick="create()">확인</button>
-			</div>
-		</div>
+            <div class="commentTitle">
+                <label id="myId" sec:authentication="name">userId</label>
+            </div>
+            <div>
+                <textarea id="myContent" class="commentContent" cols="50" rows="5"></textarea><br>
+                <button id="mySubmit" onclick="create()">확인</button>
+            </div>
+        </div>
+    </div>
+
 
         <script>
 
