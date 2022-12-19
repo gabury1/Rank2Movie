@@ -74,6 +74,11 @@ body {
 	padding-bottom: 0.3rem;
 }
 
+.searchBtn:hover {
+	cursor: pointer;
+}
+
+
 /*#bottomBox {*/
 /*	position: relative;*/
 /*	transform: translate(0%, 0%);*/

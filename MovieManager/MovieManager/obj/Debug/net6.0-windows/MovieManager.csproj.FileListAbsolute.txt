@@ -36,3 +36,6 @@ C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\bin\
 C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\obj\Debug\net6.0-windows\MovieManager.forms.LoadForm.resources
 C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\obj\Debug\net6.0-windows\MovieManager.forms.UpdateForm.resources
 C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\bin\Debug\net6.0-windows\WebDriver.dll
+C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\bin\Debug\net6.0-windows\selenium-manager\linux\selenium-manager
+C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\bin\Debug\net6.0-windows\selenium-manager\macos\selenium-manager
+C:\Users\gabur\Desktop\L Y S T\00. NOW\Rank2Movie\MovieManager\MovieManager\bin\Debug\net6.0-windows\selenium-manager\windows\selenium-manager.exe

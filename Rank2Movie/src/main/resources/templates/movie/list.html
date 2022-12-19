@@ -41,7 +41,18 @@
 
         var str = "";
 
-        search();
+        const urlParams = new URL(location.href).searchParams;
+        const searchStr = urlParams.get('search');
+
+        if(searchStr == null)
+        {
+            search();
+        }
+        else
+        {
+            $("#str").val(searchStr);
+            strChange();
+        }
 
         function search()
         {

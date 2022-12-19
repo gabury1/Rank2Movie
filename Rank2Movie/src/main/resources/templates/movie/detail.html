@@ -3,28 +3,29 @@
 
 
 
-        <link rel="stylesheet" href="/css/movie/detail.css" />
+    <link rel="stylesheet" href="/css/movie/detail.css" />
     <div class="container">
         <div class="movieWrapper">
-            <img src="/image/3351384.png" alt="" class="posterImage" />
+            <img id="poster" src="/image/3351384.png" alt="" class="posterImage" />
             <div class="movieInfoBox">
-                <h1>아무튼 개쩌는 영화</h1>
+                <h1 id="title">아무튼 개쩌는 영화</h1>
                 <ul>
-                    <li>스티브 존 애덤스</li>
-                    <li>2022.22.22</li>
-                    <li>코카콜라</li>
-                    <li>청소년시청불가</li>
+                    <li id="date">2022.22.22</li>
+                    <li id="actor">스티브 존 애덤스</li> 
+                    <li id="genre">코카콜라</li>
+                    <li id="director">청소년시청불가</li>
                 </ul>
             </div>
             <div class="movieSynopsysBox">
-					<textarea readonly>
+					<textarea  >
                     </textarea>
+                    <button id="posting" onclick="">이 영화 글쓰기</button>
             </div>
-            <button id="posting" onclick="">이 영화 글쓰기</button>
+            
         </div>
 
         <div class="boardWrapper">
-            <iframe src="../movie/inserted_board.html" frameborder="0" width="100%" height="100%">크롬 브라우저를 이용해주세요.</iframe>
+            <iframe src="/board/inserted_board" frameborder="0" width="100%" height="100%">크롬 브라우저를 이용해주세요.</iframe>
         </div>
     </div>
 
@@ -73,44 +74,24 @@
             error : e => alert(e.responseText)
         });
 
-        pageChange(0);
-
-        function pageChange(num)
-        {
-            page = num;
-            $.ajax({
-                url : "/board/movie_list",
-                data : {code : code, page : page},
-                method : "GET",
-                success : successBoard,
-                error : e => alert(e.responseText)
-            });
-
-        }
-
         // 영화 AJAX가 성공했을때 실행되는 함수
         function successFunc(data)
         {
             console.log(data);
 
             $(".movieInfoBox > h1").html(JSON.stringify(data.movie.titleKor));
-            $(".genre").html(JSON.stringify(data.movie.genre));
-            $(".company").html(JSON.stringify(data.movie.company));
-            $(".director").html(JSON.stringify(data.movie.director));
-            $(".productYear").src = JSON.stringify(data.movie.imageUrl);
+            $("#date").text("개봉일 : " + data.movie.openDate);
+            $("#genre").text("장르 : " + data.movie.genre);
+            $("#actor").text("배우 :    " + data.movie.actor);
+            $("#director").text("감독 : " + data.movie.director);
+            $("#poster").attr("src", data.movie.imageUrl);
 
 
             // 글쓰기로 이동하는 이벤트
             $("#posting").click( () => location.href = "/board/posting?code=" + data.movie.movieCode);
 
         }
-        
-        function successBoard(data)
-        {
-            // 만약 게시물이 없다면, pageLast는 -1이 된다.
-            console.log(data);
 
-        }
 
         
 

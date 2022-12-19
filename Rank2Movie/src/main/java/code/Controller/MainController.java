@@ -24,20 +24,20 @@ public class MainController
     public String home()
     {
 
-        return "/main/index";
+        return "main/index";
     }
 
     @RequestMapping("/ranking")
     public String ranking()
     {
-        return "/main/ranking";
+        return "main/ranking";
     }
 
     @GetMapping("/board")
     public String board()
     {
 
-        return "/main/board";
+        return "main/board";
     }
 
 
@@ -45,15 +45,15 @@ public class MainController
     public String chat()
     {
 
-        return "/letter/letter";
+        return "letter/letter";
     }
 
-    @RequestMapping("/room/{path}")
+    @RequestMapping("room/{path}")
     public String room()
     {
 
 
-        return "/letter/room";
+        return "letter/room";
     }
 
 }

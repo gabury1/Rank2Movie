@@ -49,6 +49,8 @@ namespace MovieManager.database.models
         public string? productStatus { get; set; }
         [Column("product_year")] // 제작 년도
         public string? productYear { get; set; }
+        [Column("open_date")] // 개봉일
+        public string? openDate { get; set; }
         [Column("nation")] // 제작 국가
         public string? nation { get; set; }
 

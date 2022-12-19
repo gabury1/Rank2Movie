@@ -5,113 +5,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="inserted_board.css" />
 </head>
 <body>
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
+    <div id="boardBox"></div>
+    <div id="pageBox"></div>
 
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
+    <script>
 
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
+        const parent = window.parent.document;
+        const urlParams = new URL(parent.location.href).searchParams;
+        const code = urlParams.get('code');
 
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
-<div class="boardElement">
-    <img src="3351384.png" alt="" class="poster" />
-    <div class="boardTextBox">
-        <div class="boardTitleBox">
-            <h2 class="boardTitle">이것은 게시물 제목입니다</h2>
-            <span class="comment">3</span>
-        </div>
-        <p class="boardSummary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ratione recusandae quam nostrum rem earum, non libero doloremque, commodi cumque ullam minus necessitatibus, quibusdam
-            soluta ab perferendis veniam aspernatur architecto?
-        </p>
-    </div>
-    <div class="boardInfo">
-        <span class="boardWriter">익명1</span>
-        <span class="boardDate">2022.12.10</span>
-    </div>
-</div>
+        pageChange(0);
+
+        function pageChange(num)
+        {
+            $.ajax({
+            url : "/board/movie_list",
+            data : {code : code, page : num},
+            method : "GET",
+            success : (data) => {
+                console.log(data);
+                var boardHtml = "";
+                for(var i=0; i < data.boards.length; i++)
+                {
+                    boardHtml += `    
+                         <div class="boardElement">
+                         <img src="3351384.png" alt="" class="poster" />
+                         <div class="boardTextBox">
+                             <div class="boardTitleBox">
+                                 <h1 style="display: inline-block;" onclick="detail(${data.boards[i].boardNo})" class="boardTitle">${data.boards[i].title}</h1>
+                                 <span class="comment">${data.boards[i].comments}</span>
+                             </div>
+                             <p class="boardSummary">
+                                
+                             </p>
+                         </div>
+                         <div class="boardInfo">
+                             <span class="boardWriter">${data.boards[i].writer}</span>
+                             <span class="boardDate">${data.boards[i].date}</span>
+                         </div>
+                        </div>
+                   `;
+                }
+
+                $("#boardBox").html(boardHtml);
+
+                
+            },
+            error : (e) => console.log(e.responseText)
+
+            });
+        }
+        
+        function detail(no)
+        {
+            parent.location.href = "/board/" + no;
+
+        }
+        
+
+
+
+
+    </script>
+
 </body>
 </html>

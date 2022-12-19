@@ -202,8 +202,24 @@ public class BoardService
 
         Page<CommentEntity> page = commentRepository.findByBoardNo(boardNo, pageable);
         
+        JSONArray array = new JSONArray();
+        for(CommentEntity c : page)
+        {
+            array.put(c.toJSON());
+        }
 
+        // 페이지 번호를 정해준다.
+        int pageStart = page.getNumber()-1;
+        if(pageStart < 0) pageStart = 0;
+        int pageLast = page.getNumber()+1;
+        if(page.getTotalPages() <= pageLast) pageLast = page.getTotalPages()-1;
 
+        object.put("comments", array);
+
+        object.put("pageStart", pageStart);
+        object.put("pageLast", pageLast);
+        object.put("pageNow",pageNo);
+        
         return object;
     }
 

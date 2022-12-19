@@ -1,5 +1,7 @@
 package code.Domain.Board;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,6 +67,11 @@ public class BoardEntity
     @ManyToOne(fetch=FetchType.EAGER)
     private UserEntity writer;
 
+    // 댓글 (이 게시물의 댓글)
+    @JoinColumn(name="board_no")
+    @OneToMany(fetch=FetchType.EAGER)
+    private List<CommentEntity> comments;
+
     public BoardEntity(Long no)
     {
         boardNo = no;
@@ -79,8 +86,8 @@ public class BoardEntity
         object.put("title", title);
         object.put("views", views);
         object.put("content", content);
+        object.put("comments", comments.size());
         object.put("writer", writer.getUserName());
-        object.put("comment", 5); // 댓글 추가 후 수정
         object.put("date", dateTime);
         
         return object;
@@ -100,6 +107,7 @@ public class BoardEntity
         object.put("content", content);
         object.put("date", dateTime);
         object.put("rating", rating);
+        object.put("comments", comments.size());
 
         // 영화 
         object.put("movie", movieObject);

@@ -92,11 +92,16 @@
                 error : (e) => alert(e.responseText)
             })
             
-            getPage(0);
-
+            getPage(0); 
 
             function create()
             {
+                var content = $("#myContent").val();
+                if(content == ""){
+                    alert("내용을 입력해주세요!");
+                    return;
+                }
+
                 $.ajax({
                     url : "/board/comment",
                     data : {boardNo : getNo(), content : $("#myContent").val()},
@@ -105,6 +110,7 @@
                         if(data == "success")
                         {
                             $("#myContent").val("");
+                            getPage(0);
                         }
                     },
                     error : (e) => console.log(e.responseText)
@@ -121,6 +127,23 @@
                     method : "GET",
                     success : (data) => {
                         console.log(data);
+                        var commentHtml = "";
+                        for(var i=0; i<data.comments.length; i++)
+                        {
+                            commentHtml += `
+                            <div id="myCmt" class="commentBox">
+		                        	<div class="commentTitle">
+		                        		<label id="myId">${data.comments[i].writer}</label>
+                                        <label>${data.comments[i].date}</label>
+		                        	</div>
+		                        	<div>
+		                        		<textarea class="commentContent" cols="50" rows="5" readonly>${data.comments[i].content}</textarea><br>
+
+		                        	</div>
+		                    </div>
+                            `
+                        }
+                        $("#commentBox").html(commentHtml);
                     },
                     error : (e) => console.log(e.responseText)
 

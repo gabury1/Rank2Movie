@@ -46,6 +46,9 @@ public class MovieEntity
     String productStatus;
     @Column(name = "product_year")
     String productYear;
+    @Column(name = "open_date")
+    String openDate;
+
     @Column(name = "nation")
     String nation;
 
@@ -56,7 +59,7 @@ public class MovieEntity
     @Column(name = "avr_rating")
     Double avrRating;
 
-    @JoinColumn(name="movie_code    ")
+    @JoinColumn(name="movie_code")
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     List<BoardEntity> boards;
 
@@ -76,6 +79,7 @@ public class MovieEntity
         object.put("director", director);
         object.put("productStatus", productStatus);
         object.put("productYear", productYear);
+        object.put("openDate", openDate);
         object.put("nation", nation);
 
         object.put("imageUrl", imageUrl);

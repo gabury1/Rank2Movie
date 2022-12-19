@@ -28,14 +28,21 @@ public class BoardController
     @GetMapping("/posting")
     public String create()
     {
-        return "/board/create";
+        return "board/create";
     }
 
     // 상세조회 페이지
     @GetMapping("/{no}")
     public String detail()
     {
-        return "/board/detail";
+        return "board/detail";
+    }
+
+    // 영화 상세에 들어갈 iframe
+    @GetMapping("/inserted_board")
+    public String iframe()
+    {
+        return "movie/inserted_board";
     }
 
     // Create
@@ -120,10 +127,21 @@ public class BoardController
 
     // Read
     @GetMapping("/comment")
-    public void getComment()
+    @ResponseBody
+    public void getComment(Long boardNo, int page, HttpServletResponse response)
     {
-        
-        
+        try{
+            JSONObject object = boardService.readComment(boardNo, page);
+
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().println(object);
+
+        }catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     //

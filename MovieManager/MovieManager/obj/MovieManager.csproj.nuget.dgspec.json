@@ -56,7 +56,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
@@ -64,11 +64,11 @@
             },
             "Selenium.WebDriver": {
               "target": "Package",
-              "version": "[4.5.0, )"
+              "version": "[4.7.0, )"
             },
             "Selenium.WebDriver.ChromeDriver": {
               "target": "Package",
-              "version": "[106.0.5249.6100, )"
+              "version": "[108.0.5359.7100, )"
             }
           },
           "imports": [

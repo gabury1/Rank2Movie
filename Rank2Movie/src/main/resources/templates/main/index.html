@@ -17,36 +17,13 @@
 			</div>
 			<div class="posterText">Lorem, ipsum.</div>
 		</div>
-		<div class="posterBox">
-			<div class="poster">
-				<img src="" alt="" class="posterImage" />
-			</div>
-			<div class="posterText">Lorem, ipsum.</div>
-		</div>
-		<div class="posterBox">
-			<div class="poster">
-				<img src="" alt="" class="posterImage" />
-			</div>
-			<div class="posterText">Lorem, ipsum.</div>
-		</div>
-		<div class="posterBox">
-			<div class="poster">
-				<img src="" alt="" class="posterImage" />
-			</div>
-			<div class="posterText">Lorem, ipsum.</div>
-		</div>
-		<div class="posterBox">
-			<div class="poster">
-				<img src="" alt="" class="posterImage" />
-			</div>
-			<div class="posterText">Lorem, ipsum.</div>
-		</div>
+
 	</div>
 
 	<!-- 검색바 -->
 	<div class="searchbarWrapper">
-		<input type="text" class="searchbar" placeholder="영화, 인물 검색" />
-		<button class="searchBtn">검색</button>
+		<input type="text" id="searchBar" class="searchbar" onkeydown="keyDownEvent(event)" placeholder="영화, 인물 검색" />
+		<button onClick="search()" class="searchBtn">검색</button>
 	</div>
 
 	<!-- 탑랭킹 영화들 bottomBox-->
@@ -150,6 +127,54 @@
 		</div>
 
 	</div>
+
+	<script>
+
+		// 탑랭킹 영화 파트
+		$.ajax({
+			url : "/movie/daily_ranking",
+			data : {},
+			method : "GET",
+			success : (data) => {
+				console.log(data);
+				
+				var html = "";
+				for(var i = 0; i < 5; i++)
+				{
+					html += `
+					<div class="posterBox">
+						<div class="poster">
+							<img src="${data[i].movie.imageUrl}" alt="" class="posterImage" />
+						</div>
+						<div class="posterText">${data[i].movie.titleKor}</div>
+					</div>
+					`;
+				}
+
+				$("#topBox").html(html);
+
+			},
+			error : e => alert(e.responseText)
+		});
+
+
+		function search()
+		{
+			var url = "/movie/movies?search=" + $("#searchBar").val();
+			window.location.href = url;
+		}
+
+		function keyDownEvent(e)
+        {
+            if(e.keyCode === 13)
+            {
+                search();
+            }
+        }
+
+
+	</script>
+
 
 </div>
 </html>

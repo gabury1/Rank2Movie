@@ -14,16 +14,21 @@
     grid-row: 1/1;
     padding: 0px 10%;
     padding-top: 3rem;
-    width: 80%;
+    padding-left: 150px;
+    width: 70%;
     min-width: 730px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .posterImage {
-    width: 20rem;
-    height: 22rem;
+    /*width: 20rem;
+    height: 22rem;*/
+    height:400px;
+    width:270px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .movieInfoBox {
@@ -76,6 +81,11 @@
     align-items: center;
     flex-direction: column;
     border-left: 1px solid rgba(0, 0, 0, 0.327);
+}
+
+#title{
+    width: 300px;
+
 }
 
 /* .boardBox > iframe {

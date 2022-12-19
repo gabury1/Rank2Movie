@@ -20,7 +20,8 @@ namespace MovieManager.database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //String connectionString = @"Server=localhost;Database=test;Uid=root;Pwd=1234;";
-            String connectionString = @"Server=localhost;Database=rank2movie;Uid=root;Pwd=1234;";
+            //String connectionString = @"Server=localhost;Database=rank2movie;Uid=root;Pwd=1234;";
+            String connectionString = @"Server=3.34.17.63;Database=rank2movie;Uid=root;Pwd=1234;";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 

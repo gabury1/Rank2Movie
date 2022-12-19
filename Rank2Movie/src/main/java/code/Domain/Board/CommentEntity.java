@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.json.JSONObject;
+
 import code.Domain.User.UserEntity;
 import lombok.Data;
 
@@ -38,7 +40,19 @@ public class CommentEntity
 
     public void setDate()
     {
-         date = LocalDateTime.now().toLocalDate().toString() + " " + LocalDateTime.now().toLocalTime().toString();
+         date = LocalDateTime.now().toLocalDate().toString();
     }
+
+    public JSONObject toJSON()  
+    {
+        JSONObject object = new JSONObject();
+
+        object.put("writer", user.getUserName());
+        object.put("content", content);
+        object.put("date", date);
+
+        return object;
+    }
+
 
 }

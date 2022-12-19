@@ -69,6 +69,7 @@ namespace MovieManager.working
                 String actorStr;
                 String watchGradeStr;
                 String companyStr;
+                String openDate;
 
                 // 장르 문자열 생성
                 genreStr = String.Empty;
@@ -156,6 +157,7 @@ namespace MovieManager.working
                     productStatus = info["prdtStatNm"].ToString(),
                     productYear = info["prdtYear"].ToString(),
                     showTime = Convert.ToInt32(info["showTm"]),
+                    openDate = info["openDt"].ToString(),
 
 
                     director = directorStr,

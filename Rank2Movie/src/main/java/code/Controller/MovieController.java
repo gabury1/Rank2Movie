@@ -23,14 +23,14 @@ public class MovieController
     public String movies()
     {
 
-        return "/movie/list";
+        return "movie/list";
     }
 
     @GetMapping("/detail")
     public String detail()
     {
 
-        return "/movie/detail";
+        return "movie/detail";
     }
 
     @GetMapping("/")
@@ -113,7 +113,7 @@ public class MovieController
 
     @GetMapping("/test")
     public String test(){
-        return "/main/board";
+        return "main/board";
     }
 
 }

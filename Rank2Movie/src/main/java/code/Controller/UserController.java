@@ -27,17 +27,17 @@ public class UserController {
     ////////////////////
     @RequestMapping("/signup")
     public String signup() {
-        return "/user/signup";
+        return "user/signup";
     }
 
     @RequestMapping("/login")
     public String login() {
-        return "/user/login";
+        return "user/login";
     }
 
     @RequestMapping("/{userNo}")
     public String detail() {
-        return "/user/detail";
+        return "user/detail";
     }
 
     //////////////////

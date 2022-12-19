@@ -26,6 +26,9 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .headers()
+                .frameOptions().sameOrigin()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/user/login").anonymous()         // 이미 로그인 되어있는 사람은 중복 로그인 X
                 .antMatchers("/user/signup").anonymous()        // 이미 로그인 된 사람이 회원가입 X
