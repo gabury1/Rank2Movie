@@ -1,6 +1,7 @@
 
 <html layout:decorate="~{layout}">
     <div layout:fragment="content">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/letter/room.css}">
             <style>
                 .removeSB::-webkit-scrollbar {
                     display: none;
@@ -8,26 +9,20 @@
                 }
             </style>
     
-            <div style="display: flex;">
-                <div
-                    id="chatBox"
-                    style="width: 400px; height: 500px; border-style: solid; border-width: 1px;">
-                    전체 채팅
-                    <div
-                        id="chat"
-                        class="removeSB"
-                        style="height: 95%; overflow: scroll; background-color: aliceblue; scrollbar-width: 0;"></div>
-                    <input
-                        id="txt_send"
-                        onkeydown="keyDownEvent(event)"
-                        type="text"
-                        style="width: 80%;">
-                    <button sec:authorize="isAuthenticated()" onclick="sendMessage()">보내기</button>
+            <div class="box">
+                <div style="display: flex;">
+                    <div id="chatBox">
+
+                        <div id="chat" class="removeSB chat" ></div>
+                        <input id="txt_send" onkeydown="keyDownEvent(event)" type="text" style="width: 80%;">
+                        <button sec:authorize="isAuthenticated()" onclick="sendMessage()">보내기</button>
+                    </div>
                 </div>
-    
-    
+
+                <div id="sidebar">
+                    <h1>채팅 중...</h1>
+                </div>
             </div>
-    
             <!-- SockJS -->
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
@@ -50,7 +45,11 @@
                     console.log(msg);
                     // 이 방의 ID를 구독
                     stomp.subscribe("/sub/room/" + getId(), (msg) => {
-                        $("#chat").append(msg.body + "<br>");
+
+                        var html = `
+                            <div class="item"><div> ${msg.body} </div> </div>
+                        `;
+                        $("#chat").append(html + "<br>");
                         document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
                         
                     });

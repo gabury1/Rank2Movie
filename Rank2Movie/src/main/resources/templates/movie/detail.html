@@ -86,7 +86,6 @@
             $("#director").text("감독 : " + data.movie.director);
             $("#poster").attr("src", data.movie.imageUrl);
 
-
             // 글쓰기로 이동하는 이벤트
             $("#posting").click( () => location.href = "/board/posting?code=" + data.movie.movieCode);
 

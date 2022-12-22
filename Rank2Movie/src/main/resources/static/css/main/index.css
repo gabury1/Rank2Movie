@@ -74,10 +74,14 @@ body {
 	padding-bottom: 0.3rem;
 }
 
-.searchBtn:hover {
+.posterImage:hover, .searchBtn:hover {
 	cursor: pointer;
 }
 
+a{
+	text-decoration: none;
+	color: black;
+}
 
 /*#bottomBox {*/
 /*	position: relative;*/
@@ -124,6 +128,10 @@ body {
 	margin-top: 7px;
 	height: 20px;
 	padding: 3px 10px;
+}
+
+.moreBtn:hover{
+	cursor: pointer;
 }
 
 .boardBox {

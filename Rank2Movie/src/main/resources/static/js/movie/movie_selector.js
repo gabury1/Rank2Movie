@@ -1,6 +1,7 @@
 var page = 0;
 var str = "";
 var selected = "";
+var selectedTitle = "";
 
 var movies = "";
 
@@ -108,7 +109,8 @@ function changePage(num)
 
 function selectElement(index)
 {
-    selected = movies[index].movieCode; 
+    selected = movies[index].movieCode;
+    selectedTitle = movies[index].titleKor;
     $("#poster").attr("src", movies[index].imageUrl);
     $("#name").text(movies[index].titleKor);
 

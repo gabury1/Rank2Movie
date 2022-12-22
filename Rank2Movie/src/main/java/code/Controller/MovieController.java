@@ -113,11 +113,7 @@ public class MovieController
 
     @GetMapping("/test")
     public String test(){
-<<<<<<< HEAD
         return "main/board";
-=======
-        return "/board/detail";
->>>>>>> 2e8db86a1fe025606133226be7d979c33ad9e942
     }
 
 }

@@ -10,8 +10,18 @@
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="inserted_board.css" />
+    <Style>
+        .boardElement:hover{
+            cursor: pointer;
+        }
+        .boardElement{
+            border: 1px solid;
+            padding: 5px;
+        }
+    </Style>
+
 </head>
-<body>
+<body style="margin: 0px;">
     <div id="boardBox"></div>
     <div id="pageBox"></div>
 
@@ -48,10 +58,11 @@
                          </div>
                          <div class="boardInfo">
                              <span class="boardWriter">${data.boards[i].writer}</span>
+                            |
                              <span class="boardDate">${data.boards[i].date}</span>
                          </div>
                         </div>
-                   `;
+                    `;
                 }
 
                 $("#boardBox").html(boardHtml);
@@ -69,8 +80,6 @@
 
         }
         
-
-
 
 
     </script>

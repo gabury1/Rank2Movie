@@ -40,14 +40,13 @@ function receivedMessage(message)
 
 };
 
-
 // 편지 보내기
 function letterSend()
 {
     var letter = {
         "purpose" : "createLetter",
         "title" : $("#sendTitle").val(),
-        "movie" : $("#sendMovie").val(),
+        "movie" : selectedTitle,
         "content" : $("#sendContent").val(),
         "howMany" : $("#sendHowMany").val(),
     };

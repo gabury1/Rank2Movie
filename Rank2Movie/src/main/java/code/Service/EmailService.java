@@ -6,6 +6,7 @@ import code.Domain.Auth.AuthTokenRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,7 +23,8 @@ public class EmailService
     @Autowired
     private AuthTokenRepository authTokenRepository;
     private static final String FROM_ADDRESS = "senderacc@naver.com"; // 새로 만든 깡통 계정
-    private static final String domainName = "http://localhost:8080";
+    @Value("${spring.domain}")
+    private String domainName;
 
     // 인증 요청이 오면, 토큰을 생성한다음에 보내준다.
     public String authRequest(String email)
@@ -38,7 +40,7 @@ public class EmailService
 
         MailDto mail = MailDto.builder()
                 .title("환영합니다! " + email + "님!")
-                .message("반갑습니다 " + email + "! \n" + domainName + "/auth/email-auth?token=" + entity.getId())
+                .message("반갑습니다 " + email + "! \n" + domainName.replace("\"", "") + "/auth/email-auth?token=" + entity.getId())
                 .address(email).build();
 
         try{

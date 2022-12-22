@@ -7,6 +7,7 @@
                 width: 0 !important;
             }
         </style>
+        <script src="/js/movie/movie_selector.js"></script>
 
         <div style="display: flex;">
             <div
@@ -29,7 +30,9 @@
                 <label id="lblUserCnt">현재 연결된 유저 : </label><br>
                 <label for="sendTitle">편지 제목</label><input id="sendTitle" type="text"><br>
                 <!-- 일단은 이런식으로 처리하나, 후에 영화 리스트를 ajax로 받아와서 처리할 것. -->
-                <label for="sendMovie">보낼 영화</label><input id="sendMovie" type="text"><br>
+                <div id="movieSelector" >
+                    <!--어디서 떼온 스타피커.-->
+                </div>
                 <label for="sendContent">내용</label><br>
                 <textarea id="sendContent">
 
@@ -90,6 +93,13 @@
                 socket.send(str);
                 $("#txt_send").val("");
             }
+
+            movieSelector({
+                element : document.getElementById("movieSelector"),
+                width : "500px",
+                height : "300px"
+            }); search();
+
         </script>
 </div>
 </html>

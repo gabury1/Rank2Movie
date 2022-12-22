@@ -66,31 +66,33 @@
 		<div class="BoxWrapper">
 			<div class="titleBox">
 				<div class="BoxTitle">게시물</div>
-				<button class="moreBtn">더보기</button>
+				<button class="moreBtn" onclick="location.href='/board'">더보기</button>
 			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
-			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
-			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
-			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
-			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
-			</div>
-			<div class="boardBox">
-				<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
-				<img src="" alt="" class="boardImage" />
+			<div id="boardBox">
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
+				<div class="boardBox">
+					<div class="boardTitle">"밥 때문에 왔다" 브래드 피트, 8년만에 사라진 화제성...</div>
+					<img src="" alt="" class="boardImage" />
+				</div>
 			</div>
 		</div>
 
@@ -142,12 +144,12 @@
 				for(var i = 0; i < 5; i++)
 				{
 					html += `
-					<div class="posterBox">
+					<a href="/movie/detail?code=${data[i].movie.movieCode}" class="posterBox">
 						<div class="poster">
 							<img src="${data[i].movie.imageUrl}" alt="" class="posterImage" />
 						</div>
 						<div class="posterText">${data[i].movie.titleKor}</div>
-					</div>
+					</a>
 					`;
 				}
 
@@ -156,6 +158,34 @@
 			},
 			error : e => alert(e.responseText)
 		});
+
+		$.ajax({
+			url : "/board/main_list",
+			data : {pageNum : 0, sortBy : 0},
+			method : "GET",
+			success : (data) => {
+				var result = "";
+				var cnt = 6;
+				if(data.boards.length < cnt) cnt = data.boards.length;
+
+				for(var i = 0; i < cnt; i++)
+				{
+					result += `		
+					<a href="/board/${data.boards[i].boardNo}">	
+						<div class="boardBox">
+							<div class="boardTitle">${data.boards[i].title}</div>
+							<img src="${data.boards[i].moviePoster}" alt="" class="boardImage" />
+						</div>
+					</a>
+					`;
+
+				}
+
+				$("#boardBox").html(result);
+
+			}
+			
+		})
 
 
 		function search()
